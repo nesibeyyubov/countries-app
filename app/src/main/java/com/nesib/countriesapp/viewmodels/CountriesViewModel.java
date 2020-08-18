@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.viewmodels;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -17,6 +18,7 @@ public class CountriesViewModel extends ViewModel {
     private LiveData<Boolean> isLoading;
     private LiveData<List<Country>> countryList;
     private LiveData<List<Country>> countryListName;
+    private LiveData<List<Country>> countriesInDatabase;
     private String regionName;
     public CountriesViewModel(){
         repository = CountriesRepository.getInstance();

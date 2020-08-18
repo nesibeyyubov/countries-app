@@ -1,14 +1,17 @@
 package com.nesib.countriesapp.ui.favorites;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +23,7 @@ import com.nesib.countriesapp.adapters.FavoritesParentAdapter;
 import com.nesib.countriesapp.database.DatabaseHelper;
 import com.nesib.countriesapp.models.Country;
 import com.nesib.countriesapp.models.FavoriteCountry;
+import com.nesib.countriesapp.viewmodels.CountriesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,8 @@ public class FavoritesFragment extends Fragment {
     private List<Country> countryCodes;
     private RecyclerView recyclerView;
     private NavController navController;
+    private CountriesViewModel countriesViewModel;
+    private ProgressBar favoritesProgressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class FavoritesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.parentRecyclerView);
+        favoritesProgressBar = view.findViewById(R.id.favoritesProgressBar);
         db = DatabaseHelper.getInstance(getActivity());
         navController = Navigation.findNavController(view);
     }
@@ -50,7 +57,15 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        countryCodes = db.getCountryCodes();
+        if(countryCodes == null){
+            new DatabaseReaderAsyncTask(getActivity()).execute();
+        }
+        else{
+            setupRecyclerView();
+        }
+    }
+
+    public void setupRecyclerView(){
         favoriteCountries = new ArrayList<>();
         List<Country> europe,asia,africa,america,oceania;
         europe = new ArrayList<>();
@@ -98,12 +113,42 @@ public class FavoritesFragment extends Fragment {
             FavoriteCountry favoriteCountryOceania = new FavoriteCountry("oceania",oceania);
             favoriteCountries.add(favoriteCountryOceania);
         }
-
-
+        favoritesProgressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         favoritesParentAdapter = new FavoritesParentAdapter(favoriteCountries,navController);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(favoritesParentAdapter);
-
     }
+
+    class DatabaseReaderAsyncTask extends AsyncTask<Void ,Void, List<Country>> {
+        private DatabaseHelper db;
+        private Context context;
+        private MutableLiveData<List<Country>> countriesInDatabase;
+
+        public DatabaseReaderAsyncTask(Context context){
+            this.context = context;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            favoritesProgressBar.setVisibility(View.VISIBLE);
+            db = DatabaseHelper.getInstance(context);
+        }
+
+        @Override
+        protected List<Country> doInBackground(Void... contexts) {
+            List<Country> countries = db.getCountryCodes();
+            return countries;
+        }
+
+        @Override
+        protected void onPostExecute(List<Country> countries) {
+            super.onPostExecute(countries);
+            countryCodes = countries;
+            setupRecyclerView();
+        }
+    }
+
+
 }

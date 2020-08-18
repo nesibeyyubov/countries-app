@@ -23,4 +23,11 @@ public class Constants {
     public static final String COL_LANGUAGES = "languages";
     public static final String COL_ALPHA3_CODE = "alpha3Code";
     public static final String COL_FULL_NAME = "altSpellings";
+
+
+    // Quiz
+    public static final String QUIZ_TYPE_REGION="region";
+    public static final String QUIZ_TYPE_FLAGS="flags";
+    public static final String QUIZ_TYPE_CAPITALS="capitals";
+
 }

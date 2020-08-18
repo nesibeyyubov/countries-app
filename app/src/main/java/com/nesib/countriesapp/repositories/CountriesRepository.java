@@ -15,7 +15,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CountriesRepository {
     private static final String TAG = "mytag";
@@ -89,4 +88,6 @@ public class CountriesRepository {
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
+
+
 }

@@ -7,4 +7,7 @@
     <color name="colorItemOdd">#F1F1F1</color>
     <color name="colorItemEven">#EAEAEA</color>
     <color name="colorShimmer">#dddddd</color>
+    <color name="colorOrangeDark">#FF662D</color>
+    <color name="colorYellow">#FFC107</color>
+    <color name="colorBlue">#005D9F</color>
 </resources>

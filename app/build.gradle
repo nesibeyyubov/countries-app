@@ -47,6 +47,8 @@ dependencies {
     implementation 'com.github.corouteam:GlideToVectorYou:v2.0.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    implementation "com.airbnb.android:lottie:3.4.1"
+
 
 
 }
