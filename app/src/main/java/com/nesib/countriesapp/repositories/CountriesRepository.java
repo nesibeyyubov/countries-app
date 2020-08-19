@@ -22,10 +22,12 @@ public class CountriesRepository {
     private MutableLiveData<Boolean> isLoading;
     private MutableLiveData<List<Country>> countryList;
     private MutableLiveData<List<Country>> countryListName;
+    private MutableLiveData<List<Country>> allCountries;
 
     public CountriesRepository(){
         countryListName = new MutableLiveData<>();
         isLoading = new MutableLiveData<>();
+        allCountries = new MutableLiveData<>();
     }
 
     public static CountriesRepository getInstance() {
@@ -90,4 +92,25 @@ public class CountriesRepository {
     }
 
 
+    public LiveData<List<Country>> getAllCountries() {
+        isLoading.postValue(true);
+        Call<List<Country>> call = ApiService.getInstance().create(CountriesApi.class).getAllCountries();
+        call.enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                if(response.body() != null){
+                    allCountries.postValue(response.body());
+                }
+                isLoading.postValue(false);
+            }
+
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                isLoading.postValue(false);
+                Log.d(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+
+        return allCountries;
+    }
 }

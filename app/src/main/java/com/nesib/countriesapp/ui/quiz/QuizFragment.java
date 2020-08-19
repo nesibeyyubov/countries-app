@@ -92,6 +92,7 @@ public class QuizFragment extends Fragment {
             public void onClick(int position) {
                 QuizFragmentDirections.ActionNavigationQuizToQuestionFragment action =
                         QuizFragmentDirections.actionNavigationQuizToQuestionFragment();
+                action.setQuizType("flags");
                 navController.navigate(action);
 
             }

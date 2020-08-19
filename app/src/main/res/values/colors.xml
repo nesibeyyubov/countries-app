@@ -10,4 +10,5 @@
     <color name="colorOrangeDark">#FF662D</color>
     <color name="colorYellow">#FFC107</color>
     <color name="colorBlue">#005D9F</color>
+    <color name="colorTextPrimary">#737373</color>
 </resources>

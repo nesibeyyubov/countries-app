@@ -18,7 +18,7 @@ public class CountriesViewModel extends ViewModel {
     private LiveData<Boolean> isLoading;
     private LiveData<List<Country>> countryList;
     private LiveData<List<Country>> countryListName;
-    private LiveData<List<Country>> countriesInDatabase;
+    private LiveData<List<Country>> allCountries;
     private String regionName;
     public CountriesViewModel(){
         repository = CountriesRepository.getInstance();
@@ -42,6 +42,9 @@ public class CountriesViewModel extends ViewModel {
     }
 
     public LiveData<Boolean> getIsLoading() {
+        if(isLoading == null){
+            isLoading = repository.getIsLoading();
+        }
         return isLoading;
     }
 
@@ -54,5 +57,12 @@ public class CountriesViewModel extends ViewModel {
 
     public void fetchCountriesByName(String name){
         repository.getCountriesByName(name);
+    }
+
+    public LiveData<List<Country>> getAllCountries(){
+        if(allCountries == null){
+            allCountries = repository.getAllCountries();
+        }
+        return allCountries;
     }
 }

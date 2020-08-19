@@ -14,4 +14,7 @@ public interface CountriesApi {
 
     @GET("name/{name}")
     Call<List<Country>> getCountriesByName(@Path("name") String name);
+
+    @GET("all")
+    Call<List<Country>> getAllCountries();
 }
