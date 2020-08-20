@@ -23,11 +23,13 @@ public class CountriesRepository {
     private MutableLiveData<List<Country>> countryList;
     private MutableLiveData<List<Country>> countryListName;
     private MutableLiveData<List<Country>> allCountries;
+    private MutableLiveData<Boolean> hasFailure;
 
     public CountriesRepository(){
         countryListName = new MutableLiveData<>();
         isLoading = new MutableLiveData<>();
         allCountries = new MutableLiveData<>();
+        hasFailure = new MutableLiveData<>();
     }
 
     public static CountriesRepository getInstance() {
@@ -41,6 +43,8 @@ public class CountriesRepository {
     public LiveData<List<Country>> getCountriesByRegion(String regionName) {
         countryList = new MutableLiveData<>();
         isLoading = new MutableLiveData<>();
+        hasFailure = new MutableLiveData<>();
+        hasFailure.postValue(false);
         isLoading.postValue(true);
         Retrofit apiService = ApiService.getInstance();
         Call<List<Country>> call = apiService.create(CountriesApi.class).getCountriesByRegion(regionName);
@@ -50,12 +54,20 @@ public class CountriesRepository {
                 List<Country> countries = response.body();
                 countryList.postValue(countries);
                 isLoading.postValue(false);
+                if(!response.isSuccessful()){
+                    hasFailure.postValue(true);
+                }
+                else{
+                    hasFailure.postValue(false);
+                }
             }
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
-                Log.d("mytag", "onFailure: " + t.getMessage());
                 isLoading.postValue(false);
+                hasFailure.postValue(true);
+                Log.d(TAG, "onFailure: "+t.getMessage());
+
             }
         });
 
@@ -73,33 +85,46 @@ public class CountriesRepository {
                 @Override
                 public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                     isLoading.postValue(false);
-                    Log.d(TAG, "onResponse: ");
                     countryListName.postValue(response.body());
+                    if(!response.isSuccessful()){
+                        hasFailure.postValue(true);
+                    }
+                    else{
+                        hasFailure.postValue(false);
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<List<Country>> call, Throwable t) {
                     isLoading.postValue(false);
+                    hasFailure.postValue(true);
                 }
             });
         }
         return countryListName;
     }
 
-
     public MutableLiveData<Boolean> getIsLoading() {
         return isLoading;
     }
 
+    public MutableLiveData<Boolean> getHasFailure() {
+        return hasFailure;
+    }
 
     public LiveData<List<Country>> getAllCountries() {
         isLoading.postValue(true);
+        hasFailure.postValue(false);
         Call<List<Country>> call = ApiService.getInstance().create(CountriesApi.class).getAllCountries();
         call.enqueue(new Callback<List<Country>>() {
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-                if(response.body() != null){
+                if(!response.isSuccessful()){
+                    hasFailure.postValue(true);
+                }
+                else{
                     allCountries.postValue(response.body());
+                    hasFailure.postValue(false);
                 }
                 isLoading.postValue(false);
             }
@@ -107,7 +132,7 @@ public class CountriesRepository {
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
                 isLoading.postValue(false);
-                Log.d(TAG, "onFailure: "+t.getMessage());
+                hasFailure.postValue(true);
             }
         });
 

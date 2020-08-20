@@ -44,7 +44,7 @@ import java.util.List;
 
 
 public class ResultsFragment extends Fragment implements View.OnClickListener {
-    private TextView regionTextView;
+    private TextView regionTextView,hasFailureText;
     private LinearLayout regionNameContainer;
     private CountriesViewModel countriesViewModel;
     private List<Country> countryList;
@@ -53,15 +53,18 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     private SearchResultAdapter searchResultAdapter;
     private NavController navController;
     private RelativeLayout shimmerLayout;
+    private LinearLayout filterContainer;
     private ShimmerFrameLayout shimmerView;
     private DatabaseHelper db;
     private List<Country> countryCodes;
     private EditText searchInput;
     private Button sortPopulationButton, sortAreaButton;
     private List<Country> sortedCountryList;
+    private List<Country> filteredCountryList;
 
     private boolean sortedByPopulation = false;
     private boolean sortedByArea = false;
+    private boolean filteredByName = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +85,8 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
         searchInput = view.findViewById(R.id.searchInput);
         sortPopulationButton = view.findViewById(R.id.sort_population);
         sortAreaButton = view.findViewById(R.id.sort_area);
+        hasFailureText = view.findViewById(R.id.hasFailureText);
+        filterContainer = view.findViewById(R.id.filterContainer);
 
         navController = Navigation.findNavController(view);
     }
@@ -114,6 +119,16 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+        countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean hasFailure) {
+                Log.d("mytag", "onChanged->hasFailure: "+hasFailure);
+                if(hasFailure){
+                    hasFailureText.setVisibility(View.VISIBLE);
+                    filterContainer.setVisibility(View.GONE);
+                }
+            }
+        });
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -123,11 +138,18 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 0) {
+                    filteredByName = false;
+                    if(sortedByPopulation){
+                        sortByPopulation();
+                    }
+                    else if(sortedByArea){
+                        sortByArea();
+                    }
                     return;
                 }
-                List<Country> filteredCountryList = new ArrayList<>();
+                filteredCountryList = new ArrayList<>();
                 List<Country> listToFilter = countryList;
-                if(sortedByArea || sortedByPopulation){
+                if (sortedByArea || sortedByPopulation) {
                     listToFilter = sortedCountryList;
                 }
                 for (Country country : listToFilter) {
@@ -135,6 +157,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
                         filteredCountryList.add(country);
                     }
                 }
+                filteredByName = true;
                 searchResultAdapter.setCountryList(filteredCountryList);
             }
 
@@ -172,9 +195,12 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
                 Country currentCountry;
                 if (sortedByArea || sortedByPopulation) {
                     currentCountry = sortedCountryList.get(position);
+                } else if (filteredByName) {
+                    currentCountry = filteredCountryList.get(position);
                 } else {
                     currentCountry = countryList.get(position);
                 }
+                Log.d("mytag", "onClick: sortedByPopulation:" + sortedByPopulation + ",sortedByArea:" + sortedByArea);
                 ResultsFragmentDirections.ActionResultsFragmentToNavigationDetails action =
                         ResultsFragmentDirections.actionResultsFragmentToNavigationDetails();
                 action.setCountry(currentCountry);
@@ -186,6 +212,8 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
                 Country currentCountry;
                 if (sortedByArea || sortedByPopulation) {
                     currentCountry = sortedCountryList.get(position);
+                } else if (filteredByName) {
+                    currentCountry = filteredCountryList.get(position);
                 } else {
                     currentCountry = countryList.get(position);
                 }
@@ -204,7 +232,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setupUi() {
-        Log.d("mytag", "setupUI: ");
         ResultsFragmentArgs args = ResultsFragmentArgs.fromBundle(getArguments());
         regionName = args.getRegionName();
         regionTextView.setText(regionName);
@@ -275,8 +302,11 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void sortByPopulation() {
-        Log.d("mytag", "sortByPopulation: ");
-        sortedCountryList = new ArrayList<>(countryList);
+        if (filteredByName) {
+            sortedCountryList = new ArrayList<>(filteredCountryList);
+        } else {
+            sortedCountryList = new ArrayList<>(countryList);
+        }
         Collections.sort(sortedCountryList, new Comparator<Country>() {
             @Override
             public int compare(Country country1, Country country2) {
@@ -292,7 +322,11 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void sortByArea() {
-        sortedCountryList = new ArrayList<>(countryList);
+        if (filteredByName) {
+            sortedCountryList = new ArrayList<>(filteredCountryList);
+        } else {
+            sortedCountryList = new ArrayList<>(countryList);
+        }
         Collections.sort(sortedCountryList, new Comparator<Country>() {
             @Override
             public int compare(Country country1, Country country2) {

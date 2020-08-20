@@ -4,7 +4,7 @@ public class Quiz {
     private String title;
     private String subTitle;
     private String duration;
-    private String bestScore;
+    private int bestScore;
     private int questionCount;
     private String quizType;
 
@@ -16,7 +16,7 @@ public class Quiz {
         this.quizType = quizType;
     }
 
-    public Quiz(String title, String subTitle, String duration, String bestScore, int questionCount, String quizType) {
+    public Quiz(String title, String subTitle, String duration, int bestScore, int questionCount, String quizType) {
         this.title = title;
         this.subTitle = subTitle;
         this.duration = duration;
@@ -52,11 +52,11 @@ public class Quiz {
         this.duration = duration;
     }
 
-    public String getBestScore() {
+    public int getBestScore() {
         return bestScore;
     }
 
-    public void setBestScore(String bestScore) {
+    public void setBestScore(int bestScore) {
         this.bestScore = bestScore;
     }
 

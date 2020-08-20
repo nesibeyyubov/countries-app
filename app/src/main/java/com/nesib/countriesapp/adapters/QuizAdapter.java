@@ -40,7 +40,6 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         holder.quizTitle.setText(quiz.getTitle());
         holder.quizSubTitle.setText(quiz.getSubTitle());
         holder.bestScore.setText(quiz.getBestScore()+"");
-        holder.questionCount.setText(quiz.getQuestionCount()+"");
         if(quiz.getQuizType().equals(Constants.QUIZ_TYPE_FLAGS)){
             holder.overlay.setBackgroundResource(R.color.colorOrangeDark);
         }

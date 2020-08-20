@@ -149,6 +149,10 @@
             android:name="correctCount"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="quizType"
+            app:argType="string"
+            android:defaultValue="null" />
         <action
             android:id="@+id/action_scoreFragment_to_navigation_quiz"
             app:destination="@id/navigation_quiz" />

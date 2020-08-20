@@ -99,6 +99,17 @@
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/hasFailureText"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Something went wrong\nplease check your internet connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:id="@+id/shimmerLayout"

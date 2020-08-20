@@ -111,6 +111,19 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
             fetchData();
         }
 
+        countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean hasFailure) {
+                if(hasFailure){
+                    countryNotFound.setVisibility(View.VISIBLE);
+                    countryNotFound.setTextColor(getResources().getColor(R.color.colorRed));
+                    countryNotFound.setText("Something went wrong\nplease check your internet connection");
+                    filterContainer.setVisibility(View.GONE);
+                    shimmerLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
 
         searchResultAdapter.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {

@@ -19,6 +19,13 @@ public class CountriesViewModel extends ViewModel {
     private LiveData<List<Country>> countryList;
     private LiveData<List<Country>> countryListName;
     private LiveData<List<Country>> allCountries;
+    private LiveData<Boolean> hasFailure;
+
+    public LiveData<Boolean> getHasFailure() {
+        hasFailure = repository.getHasFailure();
+        return hasFailure;
+    }
+
     private String regionName;
     public CountriesViewModel(){
         repository = CountriesRepository.getInstance();

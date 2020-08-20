@@ -13,7 +13,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="5dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +93,7 @@
                         android:id="@+id/questionCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="85"
+                        android:text="240+"
                         android:textColor="@android:color/black"
                         android:textSize="32sp" />
 
@@ -143,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="10 seconds per question"
+                    android:text="60 seconds"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
 
@@ -160,7 +159,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/play_btn_bg"
                 android:text="Play"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"

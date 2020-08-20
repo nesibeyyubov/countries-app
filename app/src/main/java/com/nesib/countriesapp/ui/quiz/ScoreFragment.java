@@ -17,13 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.nesib.countriesapp.Constants;
 import com.nesib.countriesapp.R;
 
 public class ScoreFragment extends Fragment {
-    private TextView scorePercentage,bestScore,quizResult,exitButton;
+    private TextView scorePercentage, bestScore, quizResult, exitButton;
     private NavController navController;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private int bestScoreValue;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,28 +50,50 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        int bestScoreValue = preferences.getInt("bestScore",0);
-
-        int correctCount = ScoreFragmentArgs.fromBundle(getArguments()).getCorrectCount();
-        int questionCount = ScoreFragmentArgs.fromBundle(getArguments()).getQuestionCount();
-
-        scorePercentage.setText((correctCount*100)/questionCount + "% Score");
-        Spanned quizResultText = Html.fromHtml("You attempted <b>"+questionCount+" questions</b> <br/> from that <b>"+correctCount+" answer</b> is right");
-        quizResult.setText(quizResultText);
-        bestScore.setText("Your best score is: "+bestScoreValue);
-
-        editor = preferences.edit();
-        if(bestScoreValue < correctCount){
-            editor.putInt("bestScore",correctCount);
-            editor.apply();
-            bestScore.setText("Your best score is: "+correctCount);
+        switch (ScoreFragmentArgs.fromBundle(getArguments()).getQuizType()) {
+            case Constants
+                    .QUIZ_TYPE_FLAGS:
+                bestScoreValue = preferences.getInt(Constants.SCORE_KEY_FLAGS, 0);
+                setupScoreUi(Constants.SCORE_KEY_FLAGS);
+                break;
+            case Constants
+                    .QUIZ_TYPE_CAPITALS:
+                bestScoreValue = preferences.getInt("bestScoreCapitals", 0);
+                setupScoreUi(Constants.SCORE_KEY_CAPITALS);
+                break;
+            case Constants
+                    .QUIZ_TYPE_REGION:
+                bestScoreValue = preferences.getInt("bestScoreRegions", 0);
+                setupScoreUi(Constants.SCORE_KEY_REGIONS);
+                break;
         }
+
+
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_scoreFragment_to_navigation_quiz);
+                navController.popBackStack(R.id.navigation_quiz,false);
             }
         });
+    }
+
+    public void setupScoreUi(String preferencesKey) {
+        int correctCount = ScoreFragmentArgs.fromBundle(getArguments()).getCorrectCount();
+        int questionCount = ScoreFragmentArgs.fromBundle(getArguments()).getQuestionCount();
+
+        scorePercentage.setText((correctCount * 100) / questionCount + "% Score");
+        Spanned quizResultText = Html.fromHtml("You attempted <b>" + questionCount + " questions</b> <br/> from that <b>" + correctCount + " answer</b> is right");
+        quizResult.setText(quizResultText);
+        bestScore.setText("Your best score is: " + bestScoreValue);
+
+        editor = preferences.edit();
+        if (bestScoreValue < correctCount) {
+            editor.putInt(preferencesKey, correctCount);
+            editor.apply();
+            bestScore.setText("Your best score is: " + correctCount);
+        }
+
+
     }
 }

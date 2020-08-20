@@ -1,11 +1,13 @@
 package com.nesib.countriesapp.ui.quiz;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +30,7 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nesib.countriesapp.Constants;
 import com.nesib.countriesapp.R;
 import com.nesib.countriesapp.models.Country;
 import com.nesib.countriesapp.viewmodels.CountriesViewModel;
@@ -39,10 +42,10 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private Button nextButton;
     private NavController navController;
     private CountriesViewModel countriesViewModel;
-    private TextView questionNumber,questionText,countdownText,option_a_text,option_b_text,option_c_text,option_d_text,exitButton;
+    private TextView questionNumber, questionText, countdownText, option_a_text, option_b_text, option_c_text, option_d_text, exitButton;
     private LottieAnimationView loadingAnimation;
     private ScrollView optionsContainer;
-    private LinearLayout option_a,option_b,option_c,option_d;
+    private LinearLayout option_a, option_b, option_c, option_d;
     private ImageView questionImage;
 
     // Member variables
@@ -55,6 +58,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private Country answer;
     private int questionNumberValue = 0;
     private int correctCount = 0;
+    private CountDownTimer countDownTimer;
     public static final String TAG = "mytag";
 
     @Override
@@ -94,9 +98,11 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         optionTextViewList.add(option_d_text);
 
 
-        optionContainerList.add(option_a);optionContainerList.add(option_b);
-        optionContainerList.add(option_c);optionContainerList.add(option_d);
-        for(LinearLayout optionContainer: optionContainerList){
+        optionContainerList.add(option_a);
+        optionContainerList.add(option_b);
+        optionContainerList.add(option_c);
+        optionContainerList.add(option_d);
+        for (LinearLayout optionContainer : optionContainerList) {
             optionContainer.setOnClickListener(this);
         }
     }
@@ -106,23 +112,50 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         setupUi();
         fetchAllCountries();
+        countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean hasFailure) {
+                if(hasFailure){
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                    questionText.setText("");
+                    View view = LayoutInflater.from(getContext()).inflate(R.layout.error_box,null,false);
+                    dialogBuilder.setView(view);
+                    Button okButton = view.findViewById(R.id.okButton);
+                    AlertDialog dialog = dialogBuilder.create();
+                    dialog.show();
+                    okButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            navController.popBackStack();
+                            dialog.dismiss();
+                        }
+                    });
 
+                }
+            }
+        });
     }
 
-    public void makeQuestion(){
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: ");
+    }
+
+    public void makeQuestion() {
         int min = 0;
-        int max = allCountries.size()-2;
-        int answerIndex = getRandomIndex(min,max);
+        int max = allCountries.size() - 2;
+        int answerIndex = getRandomIndex(min, max);
         Country answer = allCountries.get(answerIndex);
         allCountries.remove(answerIndex);
-        ArrayList<Integer>optionIndexList = new ArrayList<>();
+        ArrayList<Integer> optionIndexList = new ArrayList<>();
         options = new ArrayList<>();
         optionIndexList.add(answerIndex);
         options.add(answer);
         int optionCount = 0;
-        while(optionCount != 3){
-            int index = getRandomIndex(min,max);
-            if (!optionIndexList.contains(index)){
+        while (optionCount != 3) {
+            int index = getRandomIndex(min, max);
+            if (!optionIndexList.contains(index)) {
                 optionIndexList.add(index);
                 options.add(allCountries.get(index));
                 optionCount++;
@@ -131,29 +164,34 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         setupQuestionUi();
     }
 
-    public void setupQuestionUi(){
+    public void setupQuestionUi() {
         answer = options.get(0);
-        switch (quizType){
-            case "flags":
+        switch (quizType) {
+            case Constants
+                    .QUIZ_TYPE_FLAGS:
                 showFlagsQuestion();
                 break;
-            case "regions":
+            case Constants
+                    .QUIZ_TYPE_REGION:
+                showRegionsQuestion();
                 break;
-            case "capitals":
+            case Constants
+                    .QUIZ_TYPE_CAPITALS:
+                showCapitalsQuestions();
                 break;
         }
     }
 
-    public void showFlagsQuestion(){
-        if(questionText.getVisibility() == View.VISIBLE){
+    public void showFlagsQuestion() {
+        if (questionText.getVisibility() == View.VISIBLE) {
             questionText.setVisibility(View.GONE);
         }
-        if(optionsContainer.getVisibility() == View.INVISIBLE){
+        if (optionsContainer.getVisibility() == View.INVISIBLE) {
             optionsContainer.setVisibility(View.VISIBLE);
         }
         String flagImageUrl = answer.getFlag();
-        for(TextView optionTextView : optionTextViewList){
-            int optionIndex = getRandomIndex(0,options.size()-1);
+        for (TextView optionTextView : optionTextViewList) {
+            int optionIndex = getRandomIndex(0, options.size() - 1);
             Country option = options.get(optionIndex);
             optionTextView.setText(option.getName());
             options.remove(optionIndex);
@@ -162,25 +200,53 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         GlideToVectorYou
                 .init()
                 .with(getActivity())
-                .load(Uri.parse(flagImageUrl),questionImage);
+                .load(Uri.parse(flagImageUrl), questionImage);
     }
 
-    public int getRandomIndex(int min,int max){
-        return (int)(Math.random() * (max - min + 1 )) + min;
+    public void showRegionsQuestion() {
+        if (optionsContainer.getVisibility() == View.INVISIBLE) {
+            optionsContainer.setVisibility(View.VISIBLE);
+        }
+        String region = answer.getRegion();
+        for (TextView optionTextView : optionTextViewList) {
+            int optionIndex = getRandomIndex(0, options.size() - 1);
+            Country option = options.get(optionIndex);
+            optionTextView.setText(option.getName());
+            options.remove(optionIndex);
+        }
+        questionText.setText("Which country is located in "+region+"?");
     }
 
-    public void setupUi(){
+    public void showCapitalsQuestions() {
+        if (optionsContainer.getVisibility() == View.INVISIBLE) {
+            optionsContainer.setVisibility(View.VISIBLE);
+        }
+        String capital = answer.getCapital();
+        for (TextView optionTextView : optionTextViewList) {
+            int optionIndex = getRandomIndex(0, options.size() - 1);
+            Country option = options.get(optionIndex);
+            optionTextView.setText(option.getName());
+            options.remove(optionIndex);
+        }
+        questionText.setText(capital + " is the capital of ...");
+    }
+
+    public int getRandomIndex(int min, int max) {
+        return (int) (Math.random() * (max - min + 1)) + min;
+    }
+
+    public void setupUi() {
         quizType = QuestionFragmentArgs.fromBundle(getArguments()).getQuizType();
 
-        BottomNavigationView navView =  getActivity().findViewById(R.id.nav_view);
+        BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
         navView.setVisibility(View.GONE);
         nextButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
 
-        countriesViewModel.getIsLoading().observe(getActivity(), new Observer<Boolean>() {
+        countriesViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
-                if(!isLoading){
+                if (!isLoading) {
                     loadingAnimation.cancelAnimation();
                     loadingAnimation.setVisibility(View.GONE);
                     questionNumber.setText("Question 00");
@@ -193,25 +259,22 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    public void enableNextButton(){
+    public void enableNextButton() {
         nextButton.setEnabled(true);
         nextButton.setBackground(getResources().getDrawable(R.drawable.option_bg_true));
     }
 
-    public void disableNextButton(){
+    public void disableNextButton() {
         nextButton.setEnabled(false);
         nextButton.setBackground(getResources().getDrawable(R.drawable.disabled_btn_bg));
     }
 
-    public void fetchAllCountries(){
+    public void fetchAllCountries() {
         countriesViewModel.getAllCountries().observe(getActivity(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countries) {
-                if(countries != null){
+                if (countries != null) {
                     allCountries = countries;
-                }
-                else{
-                    Log.d(TAG, "onChanged: Countries list is null");
                 }
             }
         });
@@ -219,16 +282,16 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.nextButton:
-                if(nextButton.getText().toString().equals("Start")){
+                if (nextButton.getText().toString().equals("Start")) {
                     quizStarted = true;
                     nextButton.setText("Next");
                     disableNextButton();
-                    new CountDownTimer(20000,1000) {
+                    countDownTimer = new CountDownTimer(60000, 1000) {
                         @Override
                         public void onTick(long millis) {
-                            String text = (int)(millis/1000) + "";
+                            String text = (int) (millis / 1000) + "";
                             countdownText.setText(text);
                         }
 
@@ -238,61 +301,65 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                                     QuestionFragmentDirections.actionQuestionFragmentToScoreFragment();
                             action.setCorrectCount(correctCount);
                             action.setQuestionCount(questionNumberValue);
+                            action.setQuizType(quizType);
                             navController.navigate(action);
                         }
-                    }.start();
+                    };
+                    countDownTimer.start();
                 }
                 questionNumberValue++;
                 resetOptions();
                 makeQuestion();
-                String questionNumberText = questionNumberValue/10 == 0 ? "Question 0"+questionNumberValue : "Question "+questionNumberValue;
+                String questionNumberText = questionNumberValue / 10 == 0 ? "Question 0" + questionNumberValue : "Question " + questionNumberValue;
                 questionNumber.setText(questionNumberText);
                 break;
             case R.id.exitButton:
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                if(quizStarted){
+                    countDownTimer.cancel();
+                }
+                navController.popBackStack();
                 break;
             case R.id.option_a:
-                checkAnswer(option_a_text,option_a);
+                checkAnswer(option_a_text, option_a);
                 break;
             case R.id.option_b:
-                checkAnswer(option_b_text,option_b);
+                checkAnswer(option_b_text, option_b);
                 break;
             case R.id.option_c:
-                checkAnswer(option_c_text,option_c);
+                checkAnswer(option_c_text, option_c);
                 break;
             case R.id.option_d:
-                checkAnswer(option_d_text,option_d);
+                checkAnswer(option_d_text, option_d);
                 break;
         }
     }
 
-    public void checkAnswer(TextView optionTextView,LinearLayout optionContainer){
-        if(answer.getName().equals(optionTextView.getText().toString())){
-            Animation scaleInOutAnimation = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in_out);
+    public void checkAnswer(TextView optionTextView, LinearLayout optionContainer) {
+        if (answer.getName().equals(optionTextView.getText().toString())) {
+            Animation scaleInOutAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_out);
             optionContainer.setBackground(getResources().getDrawable(R.drawable.option_bg_true));
             optionContainer.startAnimation(scaleInOutAnimation);
             correctCount++;
-        }
-        else{
+        } else {
             optionContainer.setBackground(getResources().getDrawable(R.drawable.option_bg_false));
-            Animation shakeAnimation = AnimationUtils.loadAnimation(getActivity(),R.anim.shake_anim);
+            Animation shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake_anim);
             optionContainer.startAnimation(shakeAnimation);
         }
-        for(LinearLayout opt: optionContainerList){
+        for (LinearLayout opt : optionContainerList) {
             opt.setEnabled(false);
         }
         optionTextView.setTextColor(Color.WHITE);
         enableNextButton();
     }
 
-    public void resetOptions(){
-        Animation scaleAnimation = AnimationUtils.loadAnimation(getActivity(),R.anim.scale_in_from_zero);
-        for(LinearLayout optionContainer: optionContainerList){
-            optionContainer.setBackground(getResources().getDrawable(R.drawable.option_bg));
+    public void resetOptions() {
+        Animation scaleAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_in_from_zero);
+        for (LinearLayout optionContainer : optionContainerList) {
+            optionContainer.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.option_bg,null));
             optionContainer.startAnimation(scaleAnimation);
             optionContainer.setEnabled(true);
         }
-        for(TextView optionTextView:optionTextViewList){
+        for (TextView optionTextView : optionTextViewList) {
             optionTextView.setTextColor(getResources().getColor(R.color.colorTextPrimary));
         }
         disableNextButton();

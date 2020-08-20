@@ -3,6 +3,7 @@ package com.nesib.countriesapp.ui.favorites;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,25 +58,34 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(countryCodes == null){
-            new DatabaseReaderAsyncTask(getActivity()).execute();
-        }
-        else{
+        if (countryCodes == null) {
+            favoritesProgressBar.setVisibility(View.VISIBLE);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (countryCodes == null) {
+                        new DatabaseReaderAsyncTask(getActivity()).execute();
+                    }
+                }
+            }, 300);
+        } else {
             setupRecyclerView();
         }
+
+
     }
 
-    public void setupRecyclerView(){
+    public void setupRecyclerView() {
         favoriteCountries = new ArrayList<>();
-        List<Country> europe,asia,africa,america,oceania;
+        List<Country> europe, asia, africa, america, oceania;
         europe = new ArrayList<>();
         asia = new ArrayList<>();
         africa = new ArrayList<>();
         america = new ArrayList<>();
         oceania = new ArrayList<>();
 
-        for(Country code : countryCodes){
-            switch (code.getRegion().toLowerCase()){
+        for (Country code : countryCodes) {
+            switch (code.getRegion().toLowerCase()) {
                 case "europe":
                     europe.add(code);
                     break;
@@ -93,46 +103,46 @@ public class FavoritesFragment extends Fragment {
                     break;
             }
         }
-        if(europe.size()>0){
-            FavoriteCountry favoriteCountriesEurope = new FavoriteCountry("europe",europe);
+        if (europe.size() > 0) {
+            FavoriteCountry favoriteCountriesEurope = new FavoriteCountry("europe", europe);
             favoriteCountries.add(favoriteCountriesEurope);
         }
-        if(asia.size()>0){
-            FavoriteCountry favoriteCountryAsia = new FavoriteCountry("asia",asia);
+        if (asia.size() > 0) {
+            FavoriteCountry favoriteCountryAsia = new FavoriteCountry("asia", asia);
             favoriteCountries.add(favoriteCountryAsia);
         }
-        if(africa.size()>0){
-            FavoriteCountry favoriteCountryAfrica = new FavoriteCountry("africa",africa);
+        if (africa.size() > 0) {
+            FavoriteCountry favoriteCountryAfrica = new FavoriteCountry("africa", africa);
             favoriteCountries.add(favoriteCountryAfrica);
         }
-        if(america.size()>0){
-            FavoriteCountry favoriteCountryAmerica = new FavoriteCountry("americas",america);
+        if (america.size() > 0) {
+            FavoriteCountry favoriteCountryAmerica = new FavoriteCountry("americas", america);
             favoriteCountries.add(favoriteCountryAmerica);
         }
-        if(oceania.size()>0){
-            FavoriteCountry favoriteCountryOceania = new FavoriteCountry("oceania",oceania);
+        if (oceania.size() > 0) {
+            FavoriteCountry favoriteCountryOceania = new FavoriteCountry("oceania", oceania);
             favoriteCountries.add(favoriteCountryOceania);
         }
-        favoritesProgressBar.setVisibility(View.GONE);
+
         recyclerView.setVisibility(View.VISIBLE);
-        favoritesParentAdapter = new FavoritesParentAdapter(favoriteCountries,navController);
+        favoritesParentAdapter = new FavoritesParentAdapter(favoriteCountries, navController);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(favoritesParentAdapter);
     }
 
-    class DatabaseReaderAsyncTask extends AsyncTask<Void ,Void, List<Country>> {
+    class DatabaseReaderAsyncTask extends AsyncTask<Void, Void, List<Country>> {
         private DatabaseHelper db;
         private Context context;
         private MutableLiveData<List<Country>> countriesInDatabase;
 
-        public DatabaseReaderAsyncTask(Context context){
+        public DatabaseReaderAsyncTask(Context context) {
             this.context = context;
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            favoritesProgressBar.setVisibility(View.VISIBLE);
             db = DatabaseHelper.getInstance(context);
         }
 
@@ -145,6 +155,7 @@ public class FavoritesFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Country> countries) {
             super.onPostExecute(countries);
+            favoritesProgressBar.setVisibility(View.GONE);
             countryCodes = countries;
             setupRecyclerView();
         }
