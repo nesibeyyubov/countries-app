@@ -136,11 +136,6 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d(TAG, "onDestroyView: ");
-    }
 
     public void makeQuestion() {
         int min = 0;
@@ -214,7 +209,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionTextView.setText(option.getName());
             options.remove(optionIndex);
         }
-        questionText.setText("Which country is located in "+region+"?");
+        questionText.setText(getString(R.string.question_region_text)+region);
     }
 
     public void showCapitalsQuestions() {
@@ -228,7 +223,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionTextView.setText(option.getName());
             options.remove(optionIndex);
         }
-        questionText.setText(capital + " is the capital of ...");
+        questionText.setText(capital + " "+ getString(R.string.question_capital_text));
     }
 
     public int getRandomIndex(int min, int max) {
@@ -249,9 +244,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 if (!isLoading) {
                     loadingAnimation.cancelAnimation();
                     loadingAnimation.setVisibility(View.GONE);
-                    questionNumber.setText("Question 00");
+                    questionNumber.setText(getString(R.string.question_number_text));
                     questionText.setVisibility(View.VISIBLE);
-                    questionText.setText("Click start button to play the quiz");
+                    questionText.setText(getString(R.string.click_start_btn_text));
 
                     enableNextButton();
                 }
@@ -284,9 +279,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.nextButton:
-                if (nextButton.getText().toString().equals("Start")) {
+                if (nextButton.getText().toString().equals(getString(R.string.start_button_text))) {
                     quizStarted = true;
-                    nextButton.setText("Next");
+                    nextButton.setText(getString(R.string.next_button_text));
                     disableNextButton();
                     countDownTimer = new CountDownTimer(60000, 1000) {
                         @Override
@@ -310,7 +305,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                 questionNumberValue++;
                 resetOptions();
                 makeQuestion();
-                String questionNumberText = questionNumberValue / 10 == 0 ? "Question 0" + questionNumberValue : "Question " + questionNumberValue;
+                String questionNumberText = questionNumberValue / 10 == 0 ? getString(R.string.question_number_text)+" 0" + questionNumberValue : getString(R.string.question_number_text) +" "+ questionNumberValue;
                 questionNumber.setText(questionNumberText);
                 break;
             case R.id.exitButton:

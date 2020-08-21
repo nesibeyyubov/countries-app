@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     private Button normal,satellite,hybrid,terrain,focusedButton;
     private ImageButton backButton;
     private Button [] settingButtons;
-
+    private NavController navController;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         terrain = view.findViewById(R.id.terrainBtn);
         satellite = view.findViewById(R.id.satelliteBtn);
         backButton = view.findViewById(R.id.backButton);
+
+        navController = Navigation.findNavController(view);
 
         settingButtons = new Button[]{normal,satellite,terrain,hybrid};
         for(Button btn: settingButtons){
@@ -145,7 +149,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 }
                 break;
             case R.id.backButton:
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                navController.popBackStack();
                 break;
 
         }

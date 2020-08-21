@@ -122,7 +122,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
         countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean hasFailure) {
-                Log.d("mytag", "onChanged->hasFailure: "+hasFailure);
                 if(hasFailure){
                     hasFailureText.setVisibility(View.VISIBLE);
                     filterContainer.setVisibility(View.GONE);

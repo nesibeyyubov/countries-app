@@ -1,13 +1,91 @@
 <resources>
-    <string name="app_name">CountriesApp</string>
+    <!-- GENERAL -->
+    <string name="app_name">Countries App</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_quiz">Quiz</string>
-    <string name="text">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+    <string name="something_went_wrong">Oops, Something went wrong …</string>
+    <string name="check_internet_error_text">Something went wrong \nplease check your \n internet connection</string>
 
-The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--HOME FRAGMENT-->
+    <string name="welcome_text">Welcome</string>
+    <string name="select_region_text">Select\nregion</string>
+    <string name="region_europe">Europe</string>
+    <string name="region_africa">Africa</string>
+    <string name="region_americas">America</string>
+    <string name="region_asia">Asia</string>
+    <string name="region_oceania">Oceania</string>
+
+    <!--SEARCH FRAGMENT-->
+    <string name="search_text">Search</string>
+    <string name="country_not_found_text">Country not found</string>
+    <string name="search_for_country_text">You can search any country here</string>
+
+
+
+    <!-- RESULTS FRAGMENT -->
+    <string name="sort_by_text">SORT BY</string>
+    <string name="population_text">population</string>
+    <string name="area_text">area</string>
+
+
+    <!--MAP FRAGMENT-->
+    <string name="map_type_normal">Normal</string>
+    <string name="map_type_satellite">Satellite</string>
+    <string name="map_type_hybrid">Hybrid</string>
+    <string name="map_type_terrain">Terrain</string>
+
+
+    <!--QUESTION FRAGMENT-->
+    <string name="loading_questions_text">Loading questions…</string>
+    <string name="question_number_text">Question</string>
+    <string name="question_region_text">Which country is located in </string>
+    <string name="question_capital_text"> is the capital of …</string>
+    <string name="start_button_text">Start</string>
+    <string name="next_button_text">Next</string>
+    <string name="click_start_btn_text">Click start button to play the quiz</string>
+
+
+    <!--QUIZ FRAGMENT-->
+    <string name="text_quiz">Quiz</string>
+
+
+    <!--SCORE FRAGMENT-->
+    <string name="congrats_text">Congrats!</string>
+    <string name="score_text">Score</string>
+    <string name="your_best_score_text">Your best score is: </string>
+    <string name="quiz_result_text">You attempted 60 questions\n from that 55 answer is right</string>
+
+    <!-- FAVORITES FRAGMENT -->
+    <string name="your_favorites_text">Your favorites</string>
+
+    <!-- DETAILS FRAGMENT -->
+    <string name="capital_text">Capital: </string>
+    <string name="pop_and_area_text">Population and area</string>
+    <string name="currency_text">Currency</string>
+    <string name="language_text">Language</string>
+    <string name="calling_code_text">Calling code</string>
+    <string name="borders_text">Borders</string>
+    <string name="show_in_map_text">Show in map</string>
+    <string name="no_borders_text">No borders</string>
+
+
+    <!-- QUIZ ITEM -->
+    <string name="quiz_title_capital_text">Capitals quiz</string>
+    <string name="quiz_subtitle_capital_text">Find the capital of country</string>
+
+    <string name="quiz_title_regions_text">Regions quiz</string>
+    <string name="quiz_subtitle_regions_text">Find the country located in given region</string>
+
+    <string name="quiz_title_flags_text">Flags quiz</string>
+    <string name="quiz_subtitle_flags_text">Find the country matches given flag</string>
+
+    <string name="question_count_text">Question count</string>
+    <string name="best_score_text">Your best score</string>
+    <string name="duration_text">duration</string>
+    <string name="seconds_text">60 seconds</string>
+    <string name="play_button_text">play</string>
+    <string name="search_results">Search results</string>
 
 </resources>

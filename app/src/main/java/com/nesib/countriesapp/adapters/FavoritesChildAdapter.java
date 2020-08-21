@@ -25,6 +25,7 @@ import com.nesib.countriesapp.database.DatabaseHelper;
 import com.nesib.countriesapp.models.Country;
 import com.nesib.countriesapp.ui.favorites.FavoritesFragmentDirections;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
@@ -42,6 +43,7 @@ public class FavoritesChildAdapter extends RecyclerView.Adapter<FavoritesChildAd
         db = DatabaseHelper.getInstance(context);
         this.navController = navController;
         this.deleteRow = deleteRow;
+        Collections.reverse(this.countryList);
     }
 
     @NonNull

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Countries App</string>
+
+    <string name="title_home">Ana sayfa</string>
+    <string name="title_search">Arama</string>
+    <string name="title_favorites">Favoriler</string>
+    <string name="title_quiz">Sınav</string>
+    <string name="something_went_wrong">Hoop! Birşeyler yanlış gitti …</string>
+    <string name="check_internet_error_text">Birşeyler yanlış gitti \nlütfen internet\nbağlantınızı kontrol edin</string>
+
+    <!--HOME FRAGMENT-->
+    <string name="welcome_text">Hoş geldiniz</string>
+    <string name="select_region_text">Kıta\nseçin</string>
+    <string name="region_europe">Avrupa</string>
+    <string name="region_africa">Afrika</string>
+    <string name="region_americas">Amerika</string>
+    <string name="region_asia">Asiya</string>
+    <string name="region_oceania">Okyanusya</string>
+
+    <!--SEARCH FRAGMENT-->
+    <string name="search_text">Arama</string>
+    <string name="country_not_found_text">Aradığınız ülke bulunamadı</string>
+    <string name="search_for_country_text">İstediğiniz ülkeyi burada araya bilirsiniz</string>
+
+
+
+    <!-- RESULTS FRAGMENT -->
+    <string name="sort_by_text">SIRALA</string>
+    <string name="population_text">nüfus</string>
+    <string name="area_text">arazi</string>
+
+
+    <!--MAP FRAGMENT-->
+    <string name="map_type_normal">Normal</string>
+    <string name="map_type_satellite">Uydu</string>
+    <string name="map_type_hybrid">Hibrit</string>
+    <string name="map_type_terrain">Arazi</string>
+
+
+    <!--QUESTION FRAGMENT-->
+    <string name="loading_questions_text">Sorular yükleniyor…</string>
+    <string name="question_number_text">Soru</string>
+    <string name="question_region_text">Hangi ülke verilen kıtada bulunuyor </string>
+    <string name="question_capital_text"> bu ülkenin başkentidir</string>
+    <string name="start_button_text">Başla</string>
+    <string name="next_button_text">Sonraki</string>
+    <string name="click_start_btn_text">Testi oynatmak için başlat düğmesine tıklayın</string>
+
+
+    <!--QUIZ FRAGMENT-->
+    <string name="text_quiz">Sınav</string>
+
+
+    <!--SCORE FRAGMENT-->
+    <string name="congrats_text">Tebrikler!</string>
+    <string name="score_text">Skor</string>
+    <string name="your_best_score_text">En iyi skorun: </string>
+    <string name="quiz_result_text">You attempted 60 questions\n from that 55 answer is right</string>
+
+    <!-- FAVORITES FRAGMENT -->
+    <string name="your_favorites_text">Favorilerin</string>
+
+    <!-- DETAILS FRAGMENT -->
+    <string name="capital_text">Başkent: </string>
+    <string name="pop_and_area_text">Nüfus ve arazi</string>
+    <string name="currency_text">Para birimi</string>
+    <string name="language_text">Dil</string>
+    <string name="calling_code_text">Arama kodu</string>
+    <string name="borders_text">Sınırlar</string>
+    <string name="show_in_map_text">Haritada göster</string>
+    <string name="no_borders_text">Sınırları yok</string>
+
+
+    <!-- QUIZ ITEM -->
+    <string name="quiz_title_capital_text">Başkentler testi</string>
+    <string name="quiz_subtitle_capital_text">Verilen ülkenin başkentini bulun</string>
+
+    <string name="quiz_title_regions_text">Kıtalar testi</string>
+    <string name="quiz_subtitle_regions_text">Verilen kıtada bulunan ülkeyi bulun</string>
+
+    <string name="quiz_title_flags_text">Bayraklar testi</string>
+    <string name="quiz_subtitle_flags_text">Verilen bayrağın hangi ülkenin olduğunu bul</string>
+
+    <string name="question_count_text">Soru sayısı</string>
+    <string name="best_score_text">En iyi skorun</string>
+    <string name="duration_text">zaman</string>
+    <string name="seconds_text">60 saniye</string>
+    <string name="play_button_text">oyna</string>
+    <string name="search_results">Arama sonuçları</string>
+</resources>

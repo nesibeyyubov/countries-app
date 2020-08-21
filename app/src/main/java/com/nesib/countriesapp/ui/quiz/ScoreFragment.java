@@ -82,16 +82,16 @@ public class ScoreFragment extends Fragment {
         int correctCount = ScoreFragmentArgs.fromBundle(getArguments()).getCorrectCount();
         int questionCount = ScoreFragmentArgs.fromBundle(getArguments()).getQuestionCount();
 
-        scorePercentage.setText((correctCount * 100) / questionCount + "% Score");
+        scorePercentage.setText((correctCount * 100) / questionCount + "% "+getString(R.string.score_text));
         Spanned quizResultText = Html.fromHtml("You attempted <b>" + questionCount + " questions</b> <br/> from that <b>" + correctCount + " answer</b> is right");
         quizResult.setText(quizResultText);
-        bestScore.setText("Your best score is: " + bestScoreValue);
+        bestScore.setText(getString(R.string.your_best_score_text) + bestScoreValue);
 
         editor = preferences.edit();
         if (bestScoreValue < correctCount) {
             editor.putInt(preferencesKey, correctCount);
             editor.apply();
-            bestScore.setText("Your best score is: " + correctCount);
+            bestScore.setText(getString(R.string.your_best_score_text) + correctCount);
         }
 
 

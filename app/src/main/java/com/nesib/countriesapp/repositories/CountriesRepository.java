@@ -25,7 +25,7 @@ public class CountriesRepository {
     private MutableLiveData<List<Country>> allCountries;
     private MutableLiveData<Boolean> hasFailure;
 
-    public CountriesRepository(){
+    public CountriesRepository() {
         countryListName = new MutableLiveData<>();
         isLoading = new MutableLiveData<>();
         allCountries = new MutableLiveData<>();
@@ -54,10 +54,9 @@ public class CountriesRepository {
                 List<Country> countries = response.body();
                 countryList.postValue(countries);
                 isLoading.postValue(false);
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     hasFailure.postValue(true);
-                }
-                else{
+                } else {
                     hasFailure.postValue(false);
                 }
             }
@@ -66,7 +65,7 @@ public class CountriesRepository {
             public void onFailure(Call<List<Country>> call, Throwable t) {
                 isLoading.postValue(false);
                 hasFailure.postValue(true);
-                Log.d(TAG, "onFailure: "+t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
 
             }
         });
@@ -77,7 +76,7 @@ public class CountriesRepository {
 
     public LiveData<List<Country>> getCountriesByName(String name) {
 
-        if(name != null){
+        if (name != null) {
             isLoading.postValue(true);
             Retrofit apiService = ApiService.getInstance();
             Call<List<Country>> call = apiService.create(CountriesApi.class).getCountriesByName(name);
@@ -86,12 +85,7 @@ public class CountriesRepository {
                 public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
                     isLoading.postValue(false);
                     countryListName.postValue(response.body());
-                    if(!response.isSuccessful()){
-                        hasFailure.postValue(true);
-                    }
-                    else{
-                        hasFailure.postValue(false);
-                    }
+                    hasFailure.postValue(false);
                 }
 
                 @Override
@@ -119,10 +113,9 @@ public class CountriesRepository {
         call.enqueue(new Callback<List<Country>>() {
             @Override
             public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     hasFailure.postValue(true);
-                }
-                else{
+                } else {
                     allCountries.postValue(response.body());
                     hasFailure.postValue(false);
                 }

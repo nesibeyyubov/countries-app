@@ -44,12 +44,12 @@ import java.util.List;
 
 public class DetailsFragment extends Fragment implements View.OnClickListener {
     private Country country;
-    private TextView countryName,noBorders, countryFullName, currency, borders, capitalName, population, area, language, callingCodes;
+    private TextView countryName, noBorders, countryFullName, currency, borders, capitalName, population, area, language, callingCodes;
     private ImageView flagImage;
-    private ImageButton backButton,heartButton;
+    private ImageButton backButton, heartButton;
     private RecyclerView bordersRecyclerView;
     private DatabaseHelper db;
-    private String TAG="mytag";
+    private String TAG = "mytag";
     private List<Country> countryCodes;
     private ProgressBar bordersProgressBar;
     private LinearLayout showMapButton;
@@ -60,7 +60,6 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         View root = inflater.inflate(R.layout.fragment_country_details, container, false);
         return root;
     }
-
 
 
     @Override
@@ -104,8 +103,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
     public void setupUi() {
         countryCodes = db.getCountryCodes();
-        for(Country code : countryCodes){
-            if(code.getFlag().equals(country.getFlag())){
+        for (Country code : countryCodes) {
+            if (code.getFlag().equals(country.getFlag())) {
                 heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_filled));
             }
         }
@@ -114,7 +113,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 .with(getActivity())
                 .load(Uri.parse(country.getFlag()), flagImage);
         countryName.setText(country.getName());
-        capitalName.setText("Capital: " + country.getCapital());
+        capitalName.setText(getString(R.string.capital_text) + country.getCapital());
         population.setText("" + country.getPopulation());
         flagImage.setTransitionName(country.getFlag());
 
@@ -122,7 +121,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         population.setText(decimalFormat.format(country.getPopulation()));
 
         String areaText = Double.toString(country.getArea());
-        areaText = areaText.substring(0,areaText.length()-2);
+        areaText = areaText.substring(0, areaText.length() - 2);
         area.setText(areaText);
 
         String[] callingCodesArray = country.getCallingCodes();
@@ -138,7 +137,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         }
         languageText.deleteCharAt(languageText.length() - 1);
 
-        callingCodes.setText(callingCodesArray[0]);
+        callingCodes.setText("+"+callingCodesArray[0]);
 
         // Sometimes there can be only 1 full name in rest api response
         if (countryFullNamesArray.length > 1) {
@@ -156,7 +155,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         if (borderText.length() > 0) {
             borderText.deleteCharAt(borderText.length() - 1);
         } else {
-            borderText.append("No border");
+            borderText.append(getString(R.string.no_borders_text));
         }
         setupCountryBorders(bordersArray);
     }
@@ -166,11 +165,12 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         boolean differentRegionSelected = false;
         List<Country> borderCountries = new ArrayList<>();
         CountriesViewModel countriesViewModel = new ViewModelProvider(getActivity()).get(CountriesViewModel.class);
-        if(DetailsFragmentArgs.fromBundle(getArguments()).getFromSearch()){
+        if (DetailsFragmentArgs.fromBundle(getArguments()).getFromSearch()) {
             countriesViewModel.setRegionName(country.getRegion());
             differentRegionSelected = true;
             bordersProgressBar.setVisibility(View.VISIBLE);
         }
+
         countriesViewModel.getCountries(differentRegionSelected).observe(getActivity(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countryList) {
@@ -183,7 +183,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                         }
                     }
                 }
-                if(borderCountries.size() == 0){
+                if (borderCountries.size() == 0) {
                     noBorders.setVisibility(View.VISIBLE);
                 }
                 CountryBordersAdapter adapter = new CountryBordersAdapter(borderCountries);
@@ -194,19 +194,30 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean hasFailure) {
+                if(hasFailure){
+                    bordersProgressBar.setVisibility(View.GONE);
+                    noBorders.setVisibility(View.VISIBLE);
+                    noBorders.setText("Ooops... Something went wrong");
+                    noBorders.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.backButton:
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                navController.popBackStack();
                 break;
             case R.id.heartButton:
-                if(isFavorite()){
+                if (isFavorite()) {
                     db.deleteCountry(country);
                     heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_outline));
-                }else{
+                } else {
                     db.addCountry(country);
                     heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_filled));
                 }
@@ -214,10 +225,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             case R.id.showMapButton:
                 DetailsFragmentDirections.ActionNavigationDetailsToMapFragment action =
                         DetailsFragmentDirections.actionNavigationDetailsToMapFragment();
-                double []latlng = country.getLatlng();
-                float lat = (float)latlng[0];
-                float lng = (float)latlng[1];
-                float[] latLngArgument = new float[]{lat,lng};
+                double[] latlng = country.getLatlng();
+                float lat = (float) latlng[0];
+                float lng = (float) latlng[1];
+                float[] latLngArgument = new float[]{lat, lng};
                 action.setLatLng(latLngArgument);
                 navController.navigate(action);
                 break;
@@ -225,12 +236,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
-    public boolean isFavorite(){
+    public boolean isFavorite() {
         countryCodes = db.getCountryCodes();
-        boolean flag=false;
-        for(Country code : countryCodes){
-            if(country.getFlag().equals(code.getFlag())){
+        boolean flag = false;
+        for (Country code : countryCodes) {
+            if (country.getFlag().equals(code.getFlag())) {
                 flag = true;
                 break;
             }

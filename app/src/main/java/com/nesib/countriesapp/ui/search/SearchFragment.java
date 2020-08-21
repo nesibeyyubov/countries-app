@@ -96,7 +96,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(searchResultAdapter);
-        countryNotFound.setText("Please search for a country");
+        countryNotFound.setText(getString(R.string.search_for_country_text));
         countryNotFound.setVisibility(View.VISIBLE);
 
         if (sortedByPopulation) {
@@ -117,7 +117,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 if(hasFailure){
                     countryNotFound.setVisibility(View.VISIBLE);
                     countryNotFound.setTextColor(getResources().getColor(R.color.colorRed));
-                    countryNotFound.setText("Something went wrong\nplease check your internet connection");
+                    countryNotFound.setText(getString(R.string.check_internet_error_text));
                     filterContainer.setVisibility(View.GONE);
                     shimmerLayout.setVisibility(View.GONE);
                 }
@@ -177,23 +177,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
                 shimmerLayout.setVisibility(View.VISIBLE);
                 shimmerView.startShimmer();
                 countriesViewModel.fetchCountriesByName(searchText);
-//               @Override
-//                   public void onFailure(Call<List<Country>> call, Throwable t) {
-//                        shimmerLayout.setVisibility(View.GONE);
-//                        shimmerView.stopShimmer();
-//                        Log.d("mytag", "onFailure: "+t.getMessage());
-//                    }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.d("mytag", "afterTextChanged: ");
             }
         });
     }
     public void fetchData(){
-        countriesViewModel = new ViewModelProvider(getActivity()).get(CountriesViewModel.class);
-        countriesViewModel.getCountryListName().observe(getActivity(), new Observer<List<Country>>() {
+        countriesViewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
+        countriesViewModel.getCountryListName().observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countriesResponse) {
                 countryList = countriesResponse;
@@ -222,7 +216,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
         } else {
             countryNotFound.setVisibility(View.VISIBLE);
-            countryNotFound.setText("Country not found!");
+            countryNotFound.setText(getString(R.string.country_not_found_text));
             resultsTextView.setVisibility(View.VISIBLE);
             searchResultAdapter.setCountryList(new ArrayList<>());
             countryList = new ArrayList<>();
@@ -315,9 +309,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
         buttonToFocus.setTextColor(Color.WHITE);
     }
 
-    public void unFocusButton(Button buttonToUnfocus) {
-        buttonToUnfocus.setBackgroundResource(R.drawable.filter_bg_outline);
-        buttonToUnfocus.setTextColor(getResources().getColor(R.color.colorPrimary));
+    public void unFocusButton(Button buttonToUnFocus) {
+        buttonToUnFocus.setBackgroundResource(R.drawable.filter_bg_outline);
+        buttonToUnFocus.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 
 

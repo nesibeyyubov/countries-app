@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/search_input_bg"
-            android:hint="Search"
+            android:hint="@string/search_text"
             android:padding="12dp"
             android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
             android:layout_weight="1"
-            android:text="Sort by:"
+            android:text="@string/sort_by_text"
             android:textAllCaps="true"
             android:textStyle="bold" />
 
@@ -56,7 +56,7 @@
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:background="@drawable/filter_bg_outline"
-            android:text="Population"
+            android:text="@string/population_text"
             android:textColor="@color/colorPrimary" />
 
         <Button
@@ -65,7 +65,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/filter_bg_outline"
-            android:text="Area"
+            android:text="@string/area_text"
             android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
@@ -78,7 +78,7 @@
         android:layout_below="@+id/filterContainer"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Search results"
+        android:text="@string/search_results"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -92,7 +92,7 @@
         android:textAlignment="center"
         android:layout_marginHorizontal="18dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Country not found"
+        android:text="@string/search_for_country_text"
         android:textSize="18sp"
          />
 

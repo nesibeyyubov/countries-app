@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="22dp">
 
 
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Hi, Nesib"
+            android:text="@string/welcome_text"
             android:textColor="@android:color/black"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -31,12 +31,12 @@
 
             <RelativeLayout
                 style="@style/continent_bg"
-                android:layout_marginRight="30dp">
+                android:layout_marginEnd="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select \nregion"
+                    android:text="@string/select_region_text"
                     android:textColor="@android:color/black"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -50,7 +50,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Europe"
+                    android:text="@string/region_europe"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -59,13 +59,13 @@
             <RelativeLayout
                 android:id="@+id/asia"
                 style="@style/continent_bg"
-                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/bg_asia">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Asia"
+                    android:text="@string/region_asia"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -79,7 +79,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Africa"
+                    android:text="@string/region_africa"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -88,13 +88,13 @@
             <RelativeLayout
                 android:id="@+id/america"
                 style="@style/continent_bg"
-                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
                 android:background="@drawable/bg_america">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="America"
+                    android:text="@string/region_americas"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -108,7 +108,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Oceania"
+                    android:text="@string/region_oceania"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />

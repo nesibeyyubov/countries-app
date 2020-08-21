@@ -37,22 +37,22 @@
                     <Button
                         style="@style/mapSettingBtnStyle"
                         android:id="@+id/normalBtn"
-                        android:text="Normal"
+                        android:text="@string/map_type_normal"
                         />
                     <Button
                         style="@style/mapSettingBtnStyle"
                         android:id="@+id/satelliteBtn"
-                        android:text="Satellite"
+                        android:text="@string/map_type_satellite"
                         />
                     <Button
                         style="@style/mapSettingBtnStyle"
                         android:id="@+id/terrainBtn"
-                        android:text="Terrain"
+                        android:text="@string/map_type_terrain"
                         />
                     <Button
                         style="@style/mapSettingBtnStyle"
                         android:id="@+id/hybridBtn"
-                        android:text="Hybrid"
+                        android:text="@string/map_type_hybrid"
                         />
                 </LinearLayout>
             </HorizontalScrollView>

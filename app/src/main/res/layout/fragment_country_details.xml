@@ -117,7 +117,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Population and area"
+                android:text="@string/pop_and_area_text"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Currency"
+                    android:text="@string/currency_text"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -228,7 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Language"
+                    android:text="@string/language_text"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -257,7 +257,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Calling code"
+                    android:text="@string/calling_code_text"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -281,7 +281,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Borders"
+                    android:text="@string/borders_text"
                     android:textColor="@android:color/black"
                     android:layout_marginBottom="10dp"
                     android:textSize="20sp"
@@ -326,7 +326,7 @@
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:text="Show in map"
+                    android:text="@string/show_in_map_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

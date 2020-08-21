@@ -46,17 +46,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setupName();
         setupClickListeners();
 
         action = HomeFragmentDirections.actionNavigationHomeToResultsFragment();
     }
 
-    private void setupName(){
-        name = getActivity().getIntent().getStringExtra("name");
-        name = "Hi, " + name;
-        nameTextView.setText(name);
-    }
     private void setupClickListeners(){
         europa.setOnClickListener(this);
         asia.setOnClickListener(this);

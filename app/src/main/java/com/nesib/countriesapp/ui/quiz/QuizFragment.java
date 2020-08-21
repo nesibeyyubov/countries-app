@@ -72,26 +72,23 @@ public class QuizFragment extends Fragment {
             Quiz quiz = new Quiz();
             if (i == 0) {
                 quiz.setQuizType(Constants.QUIZ_TYPE_CAPITALS);
-                quiz.setDuration("10 seconds per question");
-                quiz.setSubTitle("Find capital of given country");
+                quiz.setSubTitle(getString(R.string.quiz_subtitle_capital_text));
                 quiz.setQuestionCount(500);
-                quiz.setTitle("Capitals quiz");
+                quiz.setTitle(getString(R.string.quiz_title_capital_text));
                 quiz.setBestScore(preferences.getInt(Constants.SCORE_KEY_CAPITALS, 0));
             } else if (i == 1) {
                 quiz.setQuizType(Constants.QUIZ_TYPE_FLAGS);
                 quiz.setBestScore(preferences.getInt(Constants.SCORE_KEY_FLAGS, 0));
-                quiz.setDuration("10 seconds per question");
-                quiz.setSubTitle("Find country matches flag");
+                quiz.setSubTitle(getString(R.string.quiz_subtitle_flags_text));
                 quiz.setQuestionCount(500);
-                quiz.setTitle("Flags quiz");
+                quiz.setTitle(getString(R.string.quiz_title_flags_text));
 
             } else {
                 quiz.setQuizType(Constants.QUIZ_TYPE_REGION);
                 quiz.setBestScore(preferences.getInt(Constants.SCORE_KEY_REGIONS, 0));
-                quiz.setDuration("10 seconds per question");
-                quiz.setSubTitle("Find the country located in given region");
+                quiz.setSubTitle(getString(R.string.quiz_subtitle_regions_text));
                 quiz.setQuestionCount(500);
-                quiz.setTitle("Regions quiz");
+                quiz.setTitle(getString(R.string.quiz_title_regions_text));
             }
             quizList.add(quiz);
         }
