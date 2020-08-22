@@ -8,6 +8,9 @@
     <string name="title_quiz">Sınav</string>
     <string name="something_went_wrong">Hoop! Birşeyler yanlış gitti …</string>
     <string name="check_internet_error_text">Birşeyler yanlış gitti \nlütfen internet\nbağlantınızı kontrol edin</string>
+    <string name="no_information_text">Bilgi yok</string>
+
+
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Hoş geldiniz</string>
@@ -46,6 +49,7 @@
     <string name="start_button_text">Başla</string>
     <string name="next_button_text">Sonraki</string>
     <string name="click_start_btn_text">Testi oynatmak için başlat düğmesine tıklayın</string>
+    <string name="which_country_not_have_capital">Hangi ülkenin başkenti yoktur?</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -56,10 +60,11 @@
     <string name="congrats_text">Tebrikler!</string>
     <string name="score_text">Skor</string>
     <string name="your_best_score_text">En iyi skorun: </string>
-    <string name="quiz_result_text">You attempted 60 questions\n from that 55 answer is right</string>
+    <string name="quiz_result_text"> &lt;b>%1$d soru&lt;/b> denediniz&lt;br/>bunlardan &lt;b>%2$d-i doğru&lt;/b> </string>
 
     <!-- FAVORITES FRAGMENT -->
     <string name="your_favorites_text">Favorilerin</string>
+    <string name="no_favorites_text">Favorileriniz yok,\n eklemek için kalp düğmesine\n tıklaya bilirsiniz</string>
 
     <!-- DETAILS FRAGMENT -->
     <string name="capital_text">Başkent: </string>

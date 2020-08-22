@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:lineHeight="28sp"
-        android:text="Something went wrong\nPlease check out\n your internet connection"
+        android:text="@string/check_internet_error_text"
         android:textSize="18sp"
         android:textStyle="bold"
         />

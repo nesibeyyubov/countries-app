@@ -50,6 +50,7 @@ public class ScoreFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        assert getArguments() != null;
         switch (ScoreFragmentArgs.fromBundle(getArguments()).getQuizType()) {
             case Constants
                     .QUIZ_TYPE_FLAGS:
@@ -69,11 +70,10 @@ public class ScoreFragment extends Fragment {
         }
 
 
-
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.popBackStack(R.id.navigation_quiz,false);
+                navController.popBackStack(R.id.navigation_quiz, false);
             }
         });
     }
@@ -82,9 +82,10 @@ public class ScoreFragment extends Fragment {
         int correctCount = ScoreFragmentArgs.fromBundle(getArguments()).getCorrectCount();
         int questionCount = ScoreFragmentArgs.fromBundle(getArguments()).getQuestionCount();
 
-        scorePercentage.setText((correctCount * 100) / questionCount + "% "+getString(R.string.score_text));
-        Spanned quizResultText = Html.fromHtml("You attempted <b>" + questionCount + " questions</b> <br/> from that <b>" + correctCount + " answer</b> is right");
+        scorePercentage.setText((correctCount * 100) / questionCount + "% " + getString(R.string.score_text));
+        Spanned quizResultText = Html.fromHtml(getString(R.string.quiz_result_text, questionCount, correctCount));
         quizResult.setText(quizResultText);
+
         bestScore.setText(getString(R.string.your_best_score_text) + bestScoreValue);
 
         editor = preferences.edit();

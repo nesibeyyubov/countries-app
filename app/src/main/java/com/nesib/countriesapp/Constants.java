@@ -29,11 +29,13 @@ public class Constants {
     public static final String QUIZ_TYPE_REGION="regions";
     public static final String QUIZ_TYPE_FLAGS="flags";
     public static final String QUIZ_TYPE_CAPITALS="capitals";
-
+    public static final long QUIZ_DURATION = 60000;
 
     // Score
     public static final String SCORE_KEY_FLAGS = "bestScoreFlags";
     public static final String SCORE_KEY_REGIONS = "bestScoreRegions";
     public static final String SCORE_KEY_CAPITALS = "bestScoreCapitals";
+
+
 
 }

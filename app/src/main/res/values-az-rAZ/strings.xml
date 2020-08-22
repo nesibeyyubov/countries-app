@@ -6,7 +6,10 @@
     <string name="title_favorites">Favoritlər</string>
     <string name="title_quiz">Test</string>
     <string name="something_went_wrong">Nəsə səhv baş verdi…</string>
-    <string name="check_internet_error_text">Nəsə səhv baş verdi, zəhmət olmasa internet əlaqənizi yoxlayın</string>
+    <string name="check_internet_error_text">Nəsə səhv baş verdi,\nzəhmət olmasa \ninternet əlaqənizi yoxlayın</string>
+    <string name="no_information_text">Məlumat yoxdur</string>
+
+
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Xoş gəldiniz</string>
@@ -45,6 +48,7 @@
     <string name="start_button_text">Başla</string>
     <string name="next_button_text">Növbəti</string>
     <string name="click_start_btn_text">Testə başlamaq üçün başla düyməsinə klikləyin</string>
+    <string name="which_country_not_have_capital">Hansı ölkənin paytaxtı yoxdur?</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -55,10 +59,11 @@
     <string name="congrats_text">Təbriklər!</string>
     <string name="score_text">Nəticə</string>
     <string name="your_best_score_text">Sizin ən yaxşı nəticəniz :</string>
-    <string name="quiz_result_text">Siz 60 suala cavab verdiniz\nbunlardan 55-i düzgündür</string>
+    <string name="quiz_result_text">Siz &lt;b>%1$d suala&lt;/b> cavab verdiniz&lt;br/>bunlardan &lt;b>%2$d-i düzgündür&lt;/b></string>
 
     <!-- FAVORITES FRAGMENT -->
     <string name="your_favorites_text">Favoritləriniz</string>
+    <string name="no_favorites_text">Favorit ölkəniz yoxdur,\n əlavə etmək üçün \nürək düyməsinə tıklayın</string>
 
     <!-- DETAILS FRAGMENT -->
     <string name="capital_text">Paytaxt:</string>

@@ -13,7 +13,6 @@ import com.nesib.countriesapp.repositories.CountriesRepository;
 import java.util.List;
 
 public class CountriesViewModel extends ViewModel {
-    private static final String TAG = "mytag";
     private CountriesRepository repository;
     private LiveData<Boolean> isLoading;
     private LiveData<List<Country>> countryList;

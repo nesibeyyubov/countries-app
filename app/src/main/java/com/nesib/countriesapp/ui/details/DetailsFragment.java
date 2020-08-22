@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -49,7 +50,6 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
     private ImageButton backButton, heartButton;
     private RecyclerView bordersRecyclerView;
     private DatabaseHelper db;
-    private String TAG = "mytag";
     private List<Country> countryCodes;
     private ProgressBar bordersProgressBar;
     private LinearLayout showMapButton;
@@ -105,7 +105,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         countryCodes = db.getCountryCodes();
         for (Country code : countryCodes) {
             if (code.getFlag().equals(country.getFlag())) {
-                heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_filled));
+                heartButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_favorites_filled, null));
             }
         }
         GlideToVectorYou
@@ -113,7 +113,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 .with(getActivity())
                 .load(Uri.parse(country.getFlag()), flagImage);
         countryName.setText(country.getName());
-        capitalName.setText(getString(R.string.capital_text) + country.getCapital());
+        if (country.getCapital() == null || country.getCapital().length() == 0) {
+            capitalName.setText(getString(R.string.capital_text) + "  " + getString(R.string.no_information_text));
+        } else {
+            capitalName.setText(getString(R.string.capital_text) + "  " + country.getCapital());
+        }
         population.setText("" + country.getPopulation());
         flagImage.setTransitionName(country.getFlag());
 
@@ -137,7 +141,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         }
         languageText.deleteCharAt(languageText.length() - 1);
 
-        callingCodes.setText("+"+callingCodesArray[0]);
+        if (callingCodesArray[0] != null && callingCodesArray[0].length() > 0) {
+            callingCodes.setText("+" + callingCodesArray[0]);
+        } else {
+            callingCodes.setText(getString(R.string.no_information_text));
+        }
 
         // Sometimes there can be only 1 full name in rest api response
         if (countryFullNamesArray.length > 1) {
@@ -165,13 +173,17 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         boolean differentRegionSelected = false;
         List<Country> borderCountries = new ArrayList<>();
         CountriesViewModel countriesViewModel = new ViewModelProvider(getActivity()).get(CountriesViewModel.class);
+        assert getArguments() != null;
         if (DetailsFragmentArgs.fromBundle(getArguments()).getFromSearch()) {
             countriesViewModel.setRegionName(country.getRegion());
+            if (country.getRegion().isEmpty()) {
+                countriesViewModel.setRegionName("oceania");
+            }
             differentRegionSelected = true;
             bordersProgressBar.setVisibility(View.VISIBLE);
         }
 
-        countriesViewModel.getCountries(differentRegionSelected).observe(getActivity(), new Observer<List<Country>>() {
+        countriesViewModel.getCountries(differentRegionSelected).observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countryList) {
                 bordersProgressBar.setVisibility(View.GONE);
@@ -185,6 +197,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 }
                 if (borderCountries.size() == 0) {
                     noBorders.setVisibility(View.VISIBLE);
+                    noBorders.setText(R.string.no_borders_text);
                 }
                 CountryBordersAdapter adapter = new CountryBordersAdapter(borderCountries);
                 bordersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -197,10 +210,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean hasFailure) {
-                if(hasFailure){
+                if (hasFailure) {
                     bordersProgressBar.setVisibility(View.GONE);
                     noBorders.setVisibility(View.VISIBLE);
-                    noBorders.setText("Ooops... Something went wrong");
+                    noBorders.setText(getString(R.string.something_went_wrong));
                     noBorders.setTextColor(getResources().getColor(R.color.colorRed));
                 }
             }
@@ -216,10 +229,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             case R.id.heartButton:
                 if (isFavorite()) {
                     db.deleteCountry(country);
-                    heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_outline));
+                    heartButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_favorites_outline, null));
                 } else {
                     db.addCountry(country);
-                    heartButton.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_favorites_filled));
+                    heartButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_favorites_filled, null));
                 }
                 break;
             case R.id.showMapButton:

@@ -33,7 +33,6 @@ public class QuizFragment extends Fragment {
     private List<Quiz> quizList;
     private NavController navController;
     private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,6 @@ public class QuizFragment extends Fragment {
         quizList = new ArrayList<>();
         navController = Navigation.findNavController(view);
         preferences = getActivity().getSharedPreferences("score_prefs", Context.MODE_PRIVATE);
-        editor = preferences.edit();
     }
 
     @Override

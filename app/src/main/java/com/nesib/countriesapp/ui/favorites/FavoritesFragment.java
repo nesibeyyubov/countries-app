@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ public class FavoritesFragment extends Fragment {
     private List<Country> countryCodes;
     private RecyclerView recyclerView;
     private NavController navController;
+    private TextView noFavorites;
     private CountriesViewModel countriesViewModel;
     private ProgressBar favoritesProgressBar;
 
@@ -51,6 +53,8 @@ public class FavoritesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.parentRecyclerView);
         favoritesProgressBar = view.findViewById(R.id.favoritesProgressBar);
+        noFavorites = view.findViewById(R.id.noFavorites);
+
         db = DatabaseHelper.getInstance(getActivity());
         navController = Navigation.findNavController(view);
     }
@@ -58,19 +62,13 @@ public class FavoritesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (countryCodes == null) {
-            favoritesProgressBar.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (countryCodes == null) {
-                        new DatabaseReaderAsyncTask(getActivity()).execute();
-                    }
-                }
-            }, 300);
-        } else {
-            setupRecyclerView();
-        }
+        favoritesProgressBar.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new DatabaseReaderAsyncTask(getActivity()).execute();
+            }
+        }, 200);
 
 
     }
@@ -126,9 +124,20 @@ public class FavoritesFragment extends Fragment {
 
         recyclerView.setVisibility(View.VISIBLE);
         favoritesParentAdapter = new FavoritesParentAdapter(favoriteCountries, navController);
+        favoritesParentAdapter.setListener(new FavoritesParentAdapter.OnAllItemsDeletedListener() {
+            @Override
+            public void onAllDeleted() {
+                recyclerView.setVisibility(View.GONE);
+                noFavorites.setVisibility(View.VISIBLE);
+            }
+        });
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(favoritesParentAdapter);
+        if (favoriteCountries.size() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            noFavorites.setVisibility(View.VISIBLE);
+        }
     }
 
     class DatabaseReaderAsyncTask extends AsyncTask<Void, Void, List<Country>> {

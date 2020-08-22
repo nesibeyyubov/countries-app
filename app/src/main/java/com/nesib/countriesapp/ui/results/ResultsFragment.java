@@ -54,7 +54,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     private NavController navController;
     private RelativeLayout shimmerLayout;
     private LinearLayout filterContainer;
-    private ShimmerFrameLayout shimmerView;
     private DatabaseHelper db;
     private List<Country> countryCodes;
     private EditText searchInput;
@@ -65,6 +64,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     private boolean sortedByPopulation = false;
     private boolean sortedByArea = false;
     private boolean filteredByName = false;
+    private boolean mHasFailure = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,7 +81,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
         regionNameContainer = view.findViewById(R.id.regionNameContainer);
         recyclerView = view.findViewById(R.id.recyclerView);
         shimmerLayout = view.findViewById(R.id.shimmerLayout);
-        shimmerView = view.findViewById(R.id.shimmer_view_container);
         searchInput = view.findViewById(R.id.searchInput);
         sortPopulationButton = view.findViewById(R.id.sort_population);
         sortAreaButton = view.findViewById(R.id.sort_area);
@@ -108,7 +107,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
             fetchData();
         }
 
-        countriesViewModel.getIsLoading().observe(getActivity(), new Observer<Boolean>() {
+        countriesViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
                 if (isLoading) {
@@ -122,6 +121,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
         countriesViewModel.getHasFailure().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean hasFailure) {
+                mHasFailure = hasFailure;
                 if(hasFailure){
                     hasFailureText.setVisibility(View.VISIBLE);
                     filterContainer.setVisibility(View.GONE);
@@ -136,6 +136,9 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(mHasFailure){
+                    return;
+                }
                 if (charSequence.length() == 0) {
                     filteredByName = false;
                     if(sortedByPopulation){
@@ -173,7 +176,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
             differentRegionSelected = true;
         }
         countriesViewModel.setRegionName(regionName.toLowerCase());
-        countriesViewModel.getCountries(differentRegionSelected).observe(getActivity(), new Observer<List<Country>>() {
+        countriesViewModel.getCountries(differentRegionSelected).observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countries) {
                 if (countries != null) {
@@ -185,7 +188,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setupRecyclerView() {
-        Log.d("mytag", "setupRecyclerView: ");
         countryCodes = db.getCountryCodes();
         searchResultAdapter = new SearchResultAdapter(countryCodes, getActivity());
         searchResultAdapter.setOnItemClickListener(new SearchResultAdapter.OnItemClickListener() {
@@ -199,7 +201,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
                 } else {
                     currentCountry = countryList.get(position);
                 }
-                Log.d("mytag", "onClick: sortedByPopulation:" + sortedByPopulation + ",sortedByArea:" + sortedByArea);
                 ResultsFragmentDirections.ActionResultsFragmentToNavigationDetails action =
                         ResultsFragmentDirections.actionResultsFragmentToNavigationDetails();
                 action.setCountry(currentCountry);
@@ -231,6 +232,7 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setupUi() {
+        assert getArguments() != null;
         ResultsFragmentArgs args = ResultsFragmentArgs.fromBundle(getArguments());
         regionName = args.getRegionName();
         regionTextView.setText(regionName);
@@ -346,8 +348,8 @@ public class ResultsFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    public void unFocusButton(Button buttonToUnfocus) {
-        buttonToUnfocus.setBackgroundResource(R.drawable.filter_bg_outline);
-        buttonToUnfocus.setTextColor(getResources().getColor(R.color.colorPrimary));
+    public void unFocusButton(Button buttonToUnFocus) {
+        buttonToUnFocus.setBackgroundResource(R.drawable.filter_bg_outline);
+        buttonToUnFocus.setTextColor(getResources().getColor(R.color.colorPrimary));
     }
 }

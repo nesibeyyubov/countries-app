@@ -40,25 +40,6 @@ public class Country implements Parcelable {
         this.altSpellings = altSpellings;
     }
 
-    @Override
-    public String toString() {
-        return "Country{" +
-                "name='" + name + '\'' +
-                ", capital='" + capital + '\'' +
-                ", region='" + region + '\'' +
-                ", population=" + population +
-                ", area=" + area +
-                ", flag='" + flag + '\'' +
-                ", alpha3Code='" + alpha3Code + '\'' +
-                ", altSpellings=" + Arrays.toString(altSpellings) +
-                ", callingCodes=" + Arrays.toString(callingCodes) +
-                ", latlng=" + Arrays.toString(latlng) +
-                ", borders=" + Arrays.toString(borders) +
-                ", currencies=" + Arrays.toString(currencies) +
-                ", languages=" + Arrays.toString(languages) +
-                '}';
-    }
-
     protected Country(Parcel in) {
         name = in.readString();
         capital = in.readString();

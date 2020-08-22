@@ -1,8 +1,6 @@
 package com.nesib.countriesapp.adapters;
 
-import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 import com.nesib.countriesapp.R;
 import com.nesib.countriesapp.models.Country;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CountryBordersAdapter extends RecyclerView.Adapter<CountryBordersAdapter.ViewHolder> {

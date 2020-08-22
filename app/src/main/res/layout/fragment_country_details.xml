@@ -217,6 +217,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -233,10 +234,12 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:textAlignment="center"
                     android:id="@+id/language"
                     android:layout_width="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_height="wrap_content"
-                    android:text="Azeri"
+                    android:text="No language"
                     android:textColor="#B4000000"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -305,6 +308,8 @@
                     android:id="@+id/bordersRecyclerView"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
+                    android:paddingVertical="10dp"
+                    android:clipToPadding="false"
                     tools:listitem="@layout/border_country_item"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

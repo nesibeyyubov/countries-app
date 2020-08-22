@@ -107,7 +107,7 @@
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Something went wrong\nplease check your internet connection"
+        android:text="@string/check_internet_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

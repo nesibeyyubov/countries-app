@@ -7,32 +7,33 @@
     tools:context=".ui.quiz.ScoreFragment">
 
     <RelativeLayout
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
         <TextView
             android:id="@+id/exitButton"
-            android:layout_marginVertical="20dp"
-            android:layout_marginHorizontal="40dp"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="X"
-            android:scaleX="1.4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="20dp"
             android:layout_marginRight="3dp"
+            android:scaleX="1.4"
+            android:text="X"
             android:textColor="@android:color/white"
-            android:textSize="22sp"
-            />
+            android:textSize="22sp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_centerInParent="true"
-            android:background="@drawable/score_bg"
-            android:layout_marginHorizontal="40dp"
             android:layout_width="match_parent"
-            android:layout_height="370dp">
+            android:layout_height="370dp"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="40dp"
+            android:background="@drawable/score_bg">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieAnimationView"
@@ -77,10 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="108dp"
-                android:textStyle="italic"
                 android:text="Your best score is: 41"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
+                android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.492"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,10 +89,11 @@
 
             <TextView
                 android:id="@+id/quizResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="152dp"
-            android:text="You attempted 60 questions\n from that 55 answer is right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="152dp"
+                android:text="@string/quiz_result_text"
+                android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="17sp"
                 app:layout_constraintEnd_toEndOf="parent"

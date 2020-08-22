@@ -20,8 +20,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.nesib.countriesapp.R;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
-    private TextView nameTextView;
-    private String name;
     private RelativeLayout europa,asia,africa,oceania,america;
     private NavController navController;
     private HomeFragmentDirections.ActionNavigationHomeToResultsFragment action;
@@ -34,7 +32,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nameTextView = view.findViewById(R.id.nameTextView);
         europa = view.findViewById(R.id.europa);
         asia = view.findViewById(R.id.asia);
         africa = view.findViewById(R.id.africa);

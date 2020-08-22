@@ -17,13 +17,6 @@ public class Currency {
         return code;
     }
 
-    @Override
-    public String toString() {
-        return "Currency{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-
     public void setCode(String code) {
         this.code = code;
     }

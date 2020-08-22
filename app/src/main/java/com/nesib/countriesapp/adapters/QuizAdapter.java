@@ -14,6 +14,7 @@ import com.nesib.countriesapp.Constants;
 import com.nesib.countriesapp.R;
 import com.nesib.countriesapp.models.Quiz;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
@@ -39,7 +40,7 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder> {
         Quiz quiz = quizList.get(position);
         holder.quizTitle.setText(quiz.getTitle());
         holder.quizSubTitle.setText(quiz.getSubTitle());
-        holder.bestScore.setText(quiz.getBestScore()+"");
+        holder.bestScore.setText(MessageFormat.format("{0}", quiz.getBestScore()));
         if(quiz.getQuizType().equals(Constants.QUIZ_TYPE_FLAGS)){
             holder.overlay.setBackgroundResource(R.color.colorOrangeDark);
         }

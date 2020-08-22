@@ -63,6 +63,9 @@
                     android:textStyle="bold"
                     android:text="12.996"
                     android:layout_marginLeft="5dp"
+                    android:maxWidth="80dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -81,6 +84,9 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="5dp"
                     android:text="86km"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:maxWidth="80dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

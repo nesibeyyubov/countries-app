@@ -23,9 +23,18 @@ public class FavoritesParentAdapter extends RecyclerView.Adapter<FavoritesParent
     private List<FavoriteCountry> favoriteCountries;
     private FavoritesChildAdapter favoritesChildAdapter;
     private NavController navController;
+    private OnAllItemsDeletedListener listener;
     public FavoritesParentAdapter(List<FavoriteCountry> favoriteCountries, NavController navController) {
         this.favoriteCountries = favoriteCountries;
         this.navController = navController;
+    }
+
+    public void setListener(OnAllItemsDeletedListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnAllItemsDeletedListener{
+        void onAllDeleted();
     }
 
     @NonNull
@@ -69,17 +78,18 @@ public class FavoritesParentAdapter extends RecyclerView.Adapter<FavoritesParent
     }
 
     public Void deleteRow(String regionName){
-        Log.d("mytag", "deleteRow: "+regionName);
         int indexToDelete = 0;
         for(int i = 0;i<favoriteCountries.size();i++){
             FavoriteCountry favoriteCountry = favoriteCountries.get(i);
-            Log.d("mytag", "Region: "+favoriteCountry.getRegionName());
             if(favoriteCountry.getRegionName().equals(regionName.toLowerCase())){
                 indexToDelete = i;
                 break;
             }
         }
         favoriteCountries.remove(indexToDelete);
+        if(favoriteCountries.size() == 0){
+            listener.onAllDeleted();
+        }
         notifyItemRemoved(indexToDelete);
         return null;
     }

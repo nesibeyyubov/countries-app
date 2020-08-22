@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.nesib.countriesapp.Constants;
 import com.nesib.countriesapp.models.Country;
@@ -57,8 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long addCountry(Country country) {
-        Log.d("mytag", "addCountry: " + country);
+    public void addCountry(Country country) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Constants.COL_FLAG, country.getFlag());
@@ -97,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Constants.COL_CURRENCIES, currencyText.toString());
         values.put(Constants.COL_LANGUAGES, languageText.toString());
 
-        return db.insert(Constants.TABLE_NAME, null, values);
+        db.insert(Constants.TABLE_NAME, null, values);
     }
 
     public String arrayToString(String[] array) {
@@ -119,12 +117,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Country> getCountryCodes() {
         ArrayList<Country> countryList = new ArrayList<>();
-        int count = 0;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + Constants.TABLE_NAME, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                count++;
                 Country country = new Country();
                 country.setName(cursor.getString(cursor.getColumnIndex(Constants.COL_NAME)));
                 country.setAlpha3Code(cursor.getString(cursor.getColumnIndex(Constants.COL_ALPHA3_CODE)));

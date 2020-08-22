@@ -7,6 +7,8 @@
     <string name="title_quiz">Quiz</string>
     <string name="something_went_wrong">Oops, Something went wrong …</string>
     <string name="check_internet_error_text">Something went wrong \nplease check your \n internet connection</string>
+    <string name="no_information_text">No information</string>
+
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Welcome</string>
@@ -45,6 +47,7 @@
     <string name="start_button_text">Start</string>
     <string name="next_button_text">Next</string>
     <string name="click_start_btn_text">Click start button to play the quiz</string>
+    <string name="which_country_not_have_capital">Which country doesn\'t have capital?</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -55,10 +58,11 @@
     <string name="congrats_text">Congrats!</string>
     <string name="score_text">Score</string>
     <string name="your_best_score_text">Your best score is: </string>
-    <string name="quiz_result_text">You attempted 60 questions\n from that 55 answer is right</string>
+    <string name="quiz_result_text">You attempted &lt;b>%1$d questions&lt;/b> &lt;br/> from that &lt;b>%2$d answer&lt;/b> is right</string>
 
     <!-- FAVORITES FRAGMENT -->
     <string name="your_favorites_text">Your favorites</string>
+    <string name="no_favorites_text">No favorites to add them,\nclick heart button</string>
 
     <!-- DETAILS FRAGMENT -->
     <string name="capital_text">Capital: </string>

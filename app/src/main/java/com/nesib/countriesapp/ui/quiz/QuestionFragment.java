@@ -59,7 +59,6 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private int questionNumberValue = 0;
     private int correctCount = 0;
     private CountDownTimer countDownTimer;
-    public static final String TAG = "mytag";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,8 +135,10 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-
     public void makeQuestion() {
+        if(allCountries.size() == 0){
+            navigateToScoreFragment();
+        }
         int min = 0;
         int max = allCountries.size() - 2;
         int answerIndex = getRandomIndex(min, max);
@@ -209,7 +210,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionTextView.setText(option.getName());
             options.remove(optionIndex);
         }
-        questionText.setText(getString(R.string.question_region_text)+region);
+        questionText.setText(getString(R.string.question_region_text)+":  "+region);
     }
 
     public void showCapitalsQuestions() {
@@ -223,7 +224,13 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionTextView.setText(option.getName());
             options.remove(optionIndex);
         }
-        questionText.setText(capital + " "+ getString(R.string.question_capital_text));
+        if(capital == null || capital.length()==0){
+            questionText.setText(R.string.which_country_not_have_capital);
+        }
+        else{
+            questionText.setText(capital + " "+ getString(R.string.question_capital_text));
+        }
+
     }
 
     public int getRandomIndex(int min, int max) {
@@ -231,6 +238,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     }
 
     public void setupUi() {
+        assert getArguments() != null;
         quizType = QuestionFragmentArgs.fromBundle(getArguments()).getQuizType();
 
         BottomNavigationView navView = getActivity().findViewById(R.id.nav_view);
@@ -256,16 +264,17 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
     public void enableNextButton() {
         nextButton.setEnabled(true);
-        nextButton.setBackground(getResources().getDrawable(R.drawable.option_bg_true));
+
+        nextButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.option_bg_true,null));
     }
 
     public void disableNextButton() {
         nextButton.setEnabled(false);
-        nextButton.setBackground(getResources().getDrawable(R.drawable.disabled_btn_bg));
+        nextButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.disabled_btn_bg,null));
     }
 
     public void fetchAllCountries() {
-        countriesViewModel.getAllCountries().observe(getActivity(), new Observer<List<Country>>() {
+        countriesViewModel.getAllCountries().observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countries) {
                 if (countries != null) {
@@ -283,7 +292,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
                     quizStarted = true;
                     nextButton.setText(getString(R.string.next_button_text));
                     disableNextButton();
-                    countDownTimer = new CountDownTimer(60000, 1000) {
+                    countDownTimer = new CountDownTimer(Constants.QUIZ_DURATION, 1000) {
                         @Override
                         public void onTick(long millis) {
                             String text = (int) (millis / 1000) + "";
@@ -292,12 +301,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
 
                         @Override
                         public void onFinish() {
-                            QuestionFragmentDirections.ActionQuestionFragmentToScoreFragment action =
-                                    QuestionFragmentDirections.actionQuestionFragmentToScoreFragment();
-                            action.setCorrectCount(correctCount);
-                            action.setQuestionCount(questionNumberValue);
-                            action.setQuizType(quizType);
-                            navController.navigate(action);
+                            navigateToScoreFragment();
                         }
                     };
                     countDownTimer.start();
@@ -329,14 +333,23 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void navigateToScoreFragment(){
+        QuestionFragmentDirections.ActionQuestionFragmentToScoreFragment action =
+                QuestionFragmentDirections.actionQuestionFragmentToScoreFragment();
+        action.setCorrectCount(correctCount);
+        action.setQuestionCount(questionNumberValue);
+        action.setQuizType(quizType);
+        navController.navigate(action);
+    }
+
     public void checkAnswer(TextView optionTextView, LinearLayout optionContainer) {
         if (answer.getName().equals(optionTextView.getText().toString())) {
             Animation scaleInOutAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in_out);
-            optionContainer.setBackground(getResources().getDrawable(R.drawable.option_bg_true));
+            optionContainer.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.option_bg_true,null));
             optionContainer.startAnimation(scaleInOutAnimation);
             correctCount++;
         } else {
-            optionContainer.setBackground(getResources().getDrawable(R.drawable.option_bg_false));
+            optionContainer.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.option_bg_false,null));
             Animation shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake_anim);
             optionContainer.startAnimation(shakeAnimation);
         }

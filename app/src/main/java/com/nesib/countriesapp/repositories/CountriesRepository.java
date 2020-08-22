@@ -17,7 +17,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CountriesRepository {
-    private static final String TAG = "mytag";
     private static CountriesRepository instance;
     private MutableLiveData<Boolean> isLoading;
     private MutableLiveData<List<Country>> countryList;
@@ -54,18 +53,13 @@ public class CountriesRepository {
                 List<Country> countries = response.body();
                 countryList.postValue(countries);
                 isLoading.postValue(false);
-                if (!response.isSuccessful()) {
-                    hasFailure.postValue(true);
-                } else {
-                    hasFailure.postValue(false);
-                }
+                hasFailure.postValue(false);
             }
 
             @Override
             public void onFailure(Call<List<Country>> call, Throwable t) {
                 isLoading.postValue(false);
                 hasFailure.postValue(true);
-                Log.d(TAG, "onFailure: " + t.getMessage());
 
             }
         });

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -32,10 +33,11 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     private MapView mapView;
     private GoogleMap mGoogleMap;
     private float[] latlng;
-    private Button normal,satellite,hybrid,terrain,focusedButton;
+    private Button normal, satellite, hybrid, terrain, focusedButton;
     private ImageButton backButton;
-    private Button [] settingButtons;
+    private Button[] settingButtons;
     private NavController navController;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +62,13 @@ public class MapFragment extends Fragment implements View.OnClickListener {
 
         navController = Navigation.findNavController(view);
 
-        settingButtons = new Button[]{normal,satellite,terrain,hybrid};
-        for(Button btn: settingButtons){
+        settingButtons = new Button[]{normal, satellite, terrain, hybrid};
+        for (Button btn : settingButtons) {
             btn.setOnClickListener(this);
         }
         focusedButton = settingButtons[0];
         focusedButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-        focusedButton.setBackground(getResources().getDrawable(R.drawable.map_setttings_item_bg_filled));
+        focusedButton.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.map_setttings_item_bg_filled,null));
         backButton.setOnClickListener(this);
     }
 
@@ -75,6 +77,7 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         MapsInitializer.initialize(getActivity());
         mapView.onCreate(savedInstanceState);
+        assert getArguments() != null;
         latlng = MapFragmentArgs.fromBundle(getArguments()).getLatLng();
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -82,10 +85,10 @@ public class MapFragment extends Fragment implements View.OnClickListener {
                 mGoogleMap = googleMap;
 
                 MarkerOptions markerOptions = new MarkerOptions();
-                LatLng latLng = new LatLng(latlng[0],latlng[1]);
+                LatLng latLng = new LatLng(latlng[0], latlng[1]);
                 markerOptions.position(latLng);
                 googleMap.addMarker(markerOptions);
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5f));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 5f));
             }
         });
     }
@@ -123,28 +126,28 @@ public class MapFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         boolean sameButtonPressed = false;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.normalBtn:
                 sameButtonPressed = changeButtonFocusTo(settingButtons[0]);
-                if(!sameButtonPressed){
+                if (!sameButtonPressed) {
                     mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 }
                 break;
             case R.id.satelliteBtn:
                 sameButtonPressed = changeButtonFocusTo(settingButtons[1]);
-                if(!sameButtonPressed){
+                if (!sameButtonPressed) {
                     mGoogleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 }
                 break;
             case R.id.terrainBtn:
                 sameButtonPressed = changeButtonFocusTo(settingButtons[2]);
-                if(!sameButtonPressed){
+                if (!sameButtonPressed) {
                     mGoogleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
                 }
                 break;
             case R.id.hybridBtn:
                 sameButtonPressed = changeButtonFocusTo(settingButtons[3]);
-                if(!sameButtonPressed){
+                if (!sameButtonPressed) {
                     mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 }
                 break;
@@ -155,15 +158,15 @@ public class MapFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public boolean changeButtonFocusTo(Button buttonToFocus){
-        if(focusedButton == buttonToFocus){
+    public boolean changeButtonFocusTo(Button buttonToFocus) {
+        if (focusedButton == buttonToFocus) {
             return true;
         }
         buttonToFocus.setTextColor(getResources().getColor(R.color.colorPrimary));
-        buttonToFocus.setBackground(getResources().getDrawable(R.drawable.map_setttings_item_bg_filled));
+        buttonToFocus.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.map_setttings_item_bg_filled, null));
 
         focusedButton.setTextColor(Color.WHITE);
-        focusedButton.setBackground(getResources().getDrawable(R.drawable.map_setttings_item_bg));
+        focusedButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.map_setttings_item_bg, null));
 
         this.focusedButton = buttonToFocus;
         return false;

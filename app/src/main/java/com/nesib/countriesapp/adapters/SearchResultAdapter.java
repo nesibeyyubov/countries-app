@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
@@ -76,10 +77,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.flagImage.setTransitionName(country.getFlag());
 
         if(isFavorite(country)){
-            holder.heartButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_favorites_filled));
+
+            holder.heartButton.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_favorites_filled,null));
         }
         else{
-            holder.heartButton.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_favorites_outline));
+            holder.heartButton.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_favorites_outline,null));
         }
 
     }
@@ -110,7 +112,6 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 }
             });
             heartButton.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("UseCompatLoadingForDrawables")
                 @Override
                 public void onClick(View view) {
                     listener.onHeartClick(getAdapterPosition());
