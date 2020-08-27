@@ -53,6 +53,7 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
     private List<Country> allCountries;
     private List<Country> options;
     private List<LinearLayout> optionContainerList;
+    private LinearLayout answerOptionContainer;
     private String quizType;
     private boolean quizStarted = false;
     private Country answer;
@@ -178,6 +179,21 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public void makeRandomOptions(){
+        int index = 0;
+        for (TextView optionTextView : optionTextViewList) {
+            int optionIndex = getRandomIndex(0, options.size() - 1);
+            Country option = options.get(optionIndex);
+            optionTextView.setText(option.getName());
+            options.remove(optionIndex);
+
+            if(option.getName().equals(answer.getName())){
+                answerOptionContainer = optionContainerList.get(index);
+            }
+            index++;
+        }
+    }
+
     public void showFlagsQuestion() {
         if (questionText.getVisibility() == View.VISIBLE) {
             questionText.setVisibility(View.GONE);
@@ -186,12 +202,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionsContainer.setVisibility(View.VISIBLE);
         }
         String flagImageUrl = answer.getFlag();
-        for (TextView optionTextView : optionTextViewList) {
-            int optionIndex = getRandomIndex(0, options.size() - 1);
-            Country option = options.get(optionIndex);
-            optionTextView.setText(option.getName());
-            options.remove(optionIndex);
-        }
+
+        makeRandomOptions();
         questionImage.setVisibility(View.VISIBLE);
         GlideToVectorYou
                 .init()
@@ -204,13 +216,8 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionsContainer.setVisibility(View.VISIBLE);
         }
         String region = answer.getRegion();
-        for (TextView optionTextView : optionTextViewList) {
-            int optionIndex = getRandomIndex(0, options.size() - 1);
-            Country option = options.get(optionIndex);
-            optionTextView.setText(option.getName());
-            options.remove(optionIndex);
-        }
-        questionText.setText(getString(R.string.question_region_text)+":  "+region);
+        makeRandomOptions();
+        questionText.setText(getString(R.string.question_region_text)+":  "+"\""+region+"\"");
     }
 
     public void showCapitalsQuestions() {
@@ -218,17 +225,12 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionsContainer.setVisibility(View.VISIBLE);
         }
         String capital = answer.getCapital();
-        for (TextView optionTextView : optionTextViewList) {
-            int optionIndex = getRandomIndex(0, options.size() - 1);
-            Country option = options.get(optionIndex);
-            optionTextView.setText(option.getName());
-            options.remove(optionIndex);
-        }
+        makeRandomOptions();
         if(capital == null || capital.length()==0){
             questionText.setText(R.string.which_country_not_have_capital);
         }
         else{
-            questionText.setText(capital + " "+ getString(R.string.question_capital_text));
+            questionText.setText("\""+capital +"\""+ " "+ getString(R.string.question_capital_text));
         }
 
     }
@@ -352,6 +354,15 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
             optionContainer.setBackground(ResourcesCompat.getDrawable(getResources(),R.drawable.option_bg_false,null));
             Animation shakeAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake_anim);
             optionContainer.startAnimation(shakeAnimation);
+
+            Animation fadeInAnimation = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_in);
+            answerOptionContainer.setBackgroundResource(R.drawable.option_bg_true);
+            answerOptionContainer.startAnimation(fadeInAnimation);
+            for(TextView txtView: optionTextViewList){
+                if(txtView.getText().toString().equals(answer.getName())){
+                    txtView.setTextColor(Color.WHITE);
+                }
+            }
         }
         for (LinearLayout opt : optionContainerList) {
             opt.setEnabled(false);
@@ -369,6 +380,9 @@ public class QuestionFragment extends Fragment implements View.OnClickListener {
         }
         for (TextView optionTextView : optionTextViewList) {
             optionTextView.setTextColor(getResources().getColor(R.color.colorTextPrimary));
+        }
+        if(answerOptionContainer != null){
+            answerOptionContainer.setBackgroundResource(R.drawable.option_bg);
         }
         disableNextButton();
     }

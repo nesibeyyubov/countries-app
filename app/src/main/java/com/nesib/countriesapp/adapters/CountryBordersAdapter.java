@@ -1,9 +1,12 @@
 package com.nesib.countriesapp.adapters;
 
 import android.net.Uri;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +21,15 @@ import java.util.List;
 
 public class CountryBordersAdapter extends RecyclerView.Adapter<CountryBordersAdapter.ViewHolder> {
     private List<Country> countryList;
+    private OnItemClickListener listener;
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onClick(Country selectedCountry);
+    }
 
     public CountryBordersAdapter(List<Country> countryList){
         this.countryList = countryList;
@@ -52,6 +64,20 @@ public class CountryBordersAdapter extends RecyclerView.Adapter<CountryBordersAd
             super(itemView);
             flagImage = itemView.findViewById(R.id.borderCountryImage);
             countryName = itemView.findViewById(R.id.borderCountryName);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Animation scaleOut = AnimationUtils.loadAnimation(view.getContext(),R.anim.scale_out);
+                    itemView.startAnimation(scaleOut);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onClick(countryList.get(getAdapterPosition()));
+                        }
+                    },200);
+
+                }
+            });
         }
     }
 

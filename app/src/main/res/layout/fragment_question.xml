@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/questionBackground"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:background="@drawable/radial_question_bg"
@@ -89,6 +90,8 @@
             </LinearLayout>
         </LinearLayout>
 
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -121,6 +124,7 @@
                 android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="false"
                 android:paddingBottom="50dp">
 
                 <LinearLayout

@@ -75,6 +75,7 @@
     <string name="borders_text">Sınırlar</string>
     <string name="show_in_map_text">Haritada göster</string>
     <string name="no_borders_text">Sınırları yok</string>
+    <string name="region_text">Kıta</string>
 
 
     <!-- QUIZ ITEM -->

@@ -10,6 +10,7 @@
     <string name="no_information_text">No information</string>
 
 
+
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Welcome</string>
     <string name="select_region_text">Select\nregion</string>
@@ -73,6 +74,7 @@
     <string name="borders_text">Borders</string>
     <string name="show_in_map_text">Show in map</string>
     <string name="no_borders_text">No borders</string>
+    <string name="region_text">Region</string>
 
 
     <!-- QUIZ ITEM -->

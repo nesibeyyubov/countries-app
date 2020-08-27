@@ -3,6 +3,7 @@ package com.nesib.countriesapp.ui.details;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Layout;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -45,7 +47,7 @@ import java.util.List;
 
 public class DetailsFragment extends Fragment implements View.OnClickListener {
     private Country country;
-    private TextView countryName, noBorders, countryFullName, currency, borders, capitalName, population, area, language, callingCodes;
+    private TextView countryName, noBorders, countryFullName, currency, regionName, capitalName, population, area, language, callingCodes;
     private ImageView flagImage;
     private ImageButton backButton, heartButton;
     private RecyclerView bordersRecyclerView;
@@ -54,6 +56,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
     private ProgressBar bordersProgressBar;
     private LinearLayout showMapButton;
     private NavController navController;
+    private NestedScrollView nestedScrollView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +83,8 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         bordersProgressBar = view.findViewById(R.id.bordersProgressBar);
         bordersRecyclerView = view.findViewById(R.id.bordersRecyclerView);
         showMapButton = view.findViewById(R.id.showMapButton);
+        regionName = view.findViewById(R.id.regionName);
+        nestedScrollView = view.findViewById(R.id.nestedScrollView);
 
         navController = Navigation.findNavController(view);
 
@@ -165,12 +170,17 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         } else {
             borderText.append(getString(R.string.no_borders_text));
         }
+        if(country.getRegion().isEmpty()){
+            regionName.setText(R.string.no_information_text);
+        }
+        else{
+            regionName.setText(country.getRegion());
+        }
         setupCountryBorders(bordersArray);
     }
 
 
     public void setupCountryBorders(String[] bordersArray) {
-        boolean differentRegionSelected = false;
         List<Country> borderCountries = new ArrayList<>();
         CountriesViewModel countriesViewModel = new ViewModelProvider(getActivity()).get(CountriesViewModel.class);
         assert getArguments() != null;
@@ -179,11 +189,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             if (country.getRegion().isEmpty()) {
                 countriesViewModel.setRegionName("oceania");
             }
-            differentRegionSelected = true;
             bordersProgressBar.setVisibility(View.VISIBLE);
         }
 
-        countriesViewModel.getCountries(differentRegionSelected).observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
+        countriesViewModel.getAllCountries().observe(getViewLifecycleOwner(), new Observer<List<Country>>() {
             @Override
             public void onChanged(List<Country> countryList) {
                 bordersProgressBar.setVisibility(View.GONE);
@@ -203,6 +212,16 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
                 bordersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                 bordersRecyclerView.setHasFixedSize(true);
                 bordersRecyclerView.setAdapter(adapter);
+
+                adapter.setListener(new CountryBordersAdapter.OnItemClickListener() {
+                    @Override
+                    public void onClick(Country selectedCountry) {
+                        country = selectedCountry;
+                        nestedScrollView.fullScroll(View.FOCUS_UP);
+                        setupUi();
+
+                    }
+                });
 
             }
         });
