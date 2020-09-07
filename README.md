@@ -1,4 +1,5 @@
-You can see full app on the link play store
+You can see full app on the link
+
 https://play.google.com/store/apps/details?id=com.nesib.countriesapp
 
 
