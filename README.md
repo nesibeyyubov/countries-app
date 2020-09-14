@@ -8,10 +8,11 @@ https://play.google.com/store/apps/details?id=com.nesib.countriesapp
   <li>Data binding</li>
   <li>Retrofit</li>
   <li>Jetpack Navigation</li>
-  <li>Implemented map view</li>
-  <li>Implemented shimmer loader</li>
+  <li>Implemented Google Map</li>
+  <li>Implemented Shimmer loader</li>
   <li>SQLite for saving favorites</li>
   <li>Collapsing Toolbar</li>
+  <li>3 Languages Support !</li>
 </ul>
 
 
