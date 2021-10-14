@@ -4,6 +4,9 @@ import com.nesib.countriesapp.models.Currency;
 import com.nesib.countriesapp.models.Language;
 
 public class Constants {
+    // Api
+    public static final String API_BASE_URL="https://restcountries.com/v2/";
+
     // Database
     public static final String DB_NAME = "countries_db";
     public static final String TABLE_NAME = "countries_table";

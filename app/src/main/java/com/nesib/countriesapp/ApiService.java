@@ -10,7 +10,7 @@ public class ApiService {
         if(instance == null){
             instance = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("https://restcountries.eu/rest/v2/")
+                    .baseUrl(Constants.API_BASE_URL)
                     .build();
         }
         return instance;
