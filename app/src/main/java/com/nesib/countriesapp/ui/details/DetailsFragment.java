@@ -162,9 +162,12 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         if (currenciesArray.length > 0) {
             currency.setText(currenciesArray[0].getName());
         }
-        for (int i = 0; i < bordersArray.length; i++) {
-            borderText.append(bordersArray[i]).append(",");
+        if(bordersArray != null){
+            for (int i = 0; i < bordersArray.length; i++) {
+                borderText.append(bordersArray[i]).append(",");
+            }
         }
+
         if (borderText.length() > 0) {
             borderText.deleteCharAt(borderText.length() - 1);
         } else {
@@ -196,11 +199,13 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(List<Country> countryList) {
                 bordersProgressBar.setVisibility(View.GONE);
-                for (Country country : countryList) {
-                    for (String border : bordersArray) {
-                        if (country.getAlpha3Code().equals(border)) {
-                            borderCountries.add(country);
-                            break;
+                if(bordersArray != null){
+                    for (Country country : countryList) {
+                        for (String border : bordersArray) {
+                            if (country.getAlpha3Code().equals(border)) {
+                                borderCountries.add(country);
+                                break;
+                            }
                         }
                     }
                 }

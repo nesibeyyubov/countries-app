@@ -70,14 +70,18 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.###");
         holder.population.setText(decimalFormat.format(country.getPopulation()));
-        GlideToVectorYou
-                .init()
-                .with(holder.itemView.getContext())
-                .load(Uri.parse(country.getFlag()), holder.flagImage);
-        holder.flagImage.setTransitionName(country.getFlag());
+        try{
+            GlideToVectorYou
+                    .init()
+                    .with(holder.itemView.getContext())
+                    .load(Uri.parse(country.getFlag()), holder.flagImage);
+            holder.flagImage.setTransitionName(country.getFlag());
+
+        }catch (Exception exception){
+
+        }
 
         if(isFavorite(country)){
-
             holder.heartButton.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),R.drawable.ic_favorites_filled,null));
         }
         else{
