@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Button
 import com.nesib.countriesapp.R
 import android.widget.TextView
-import com.nesib.countriesapp.Constants
+import com.nesib.countriesapp.utils.Constants
 import java.text.MessageFormat
 
 class QuizAdapter(private val quizList: List<Quiz>, private val context: Context) :

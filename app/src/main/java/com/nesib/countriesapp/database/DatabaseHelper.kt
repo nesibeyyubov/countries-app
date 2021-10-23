@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import com.nesib.countriesapp.models.Country
 import android.content.ContentValues
 import android.content.Context
-import com.nesib.countriesapp.Constants
+import com.nesib.countriesapp.utils.Constants
 import com.nesib.countriesapp.models.Currency
 import com.nesib.countriesapp.models.Language
 import java.lang.StringBuilder

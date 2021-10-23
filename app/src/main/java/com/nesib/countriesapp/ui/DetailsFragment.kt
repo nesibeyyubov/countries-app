@@ -1,4 +1,4 @@
-package com.nesib.countriesapp.ui.details
+package com.nesib.countriesapp.ui
 
 import android.net.Uri
 import com.nesib.countriesapp.models.Country
@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nesib.countriesapp.database.DatabaseHelper
 import androidx.navigation.NavController
 import androidx.core.widget.NestedScrollView
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -19,8 +17,8 @@ import androidx.navigation.Navigation
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import com.nesib.countriesapp.adapters.CountryBordersAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nesib.countriesapp.DataState
-import com.nesib.countriesapp.viewmodels.CountriesViewModel2
+import com.nesib.countriesapp.utils.DataState
+import com.nesib.countriesapp.viewmodels.CountriesViewModel
 import java.lang.StringBuilder
 import java.text.DecimalFormat
 import java.util.ArrayList
@@ -48,7 +46,7 @@ class DetailsFragment : Fragment(R.layout.fragment_country_details), View.OnClic
     private lateinit var navController: NavController
     private lateinit var nestedScrollView: NestedScrollView
 
-    private lateinit var countriesViewModel: CountriesViewModel2
+    private lateinit var countriesViewModel: CountriesViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,11 +73,13 @@ class DetailsFragment : Fragment(R.layout.fragment_country_details), View.OnClic
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         countriesViewModel = ViewModelProvider(this).get(
-            CountriesViewModel2::class.java
+            CountriesViewModel::class.java
         )
         db = DatabaseHelper.getInstance(activity)
         if (arguments != null) {
-            country = DetailsFragmentArgs.fromBundle(requireArguments()).country!!
+            country = DetailsFragmentArgs.fromBundle(
+                requireArguments()
+            ).country!!
             setupUi()
             backButton.setOnClickListener(this)
             heartButton.setOnClickListener(this)
@@ -233,7 +233,8 @@ class DetailsFragment : Fragment(R.layout.fragment_country_details), View.OnClic
                 )
             }
             R.id.showMapButton -> {
-                val action = DetailsFragmentDirections.actionNavigationDetailsToMapFragment()
+                val action =
+                    DetailsFragmentDirections.actionNavigationDetailsToMapFragment()
                 val latlng = country.latlng
                 val lat = latlng[0].toFloat()
                 val lng = latlng[1].toFloat()

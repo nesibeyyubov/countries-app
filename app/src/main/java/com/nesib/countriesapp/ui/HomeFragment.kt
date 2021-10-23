@@ -1,8 +1,7 @@
-package com.nesib.countriesapp.ui.home
+package com.nesib.countriesapp.ui
 
 import android.widget.RelativeLayout
 import androidx.navigation.NavController
-import com.nesib.countriesapp.ui.home.HomeFragmentDirections.ActionNavigationHomeToResultsFragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
@@ -18,7 +17,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var oceania: RelativeLayout? = null
     private var america: RelativeLayout? = null
     private var navController: NavController? = null
-    private var action: ActionNavigationHomeToResultsFragment? = null
+    private var action: HomeFragmentDirections.ActionNavigationHomeToResultsFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?

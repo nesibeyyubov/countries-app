@@ -1,4 +1,4 @@
-package com.nesib.countriesapp.ui.map
+package com.nesib.countriesapp.ui
 
 import android.graphics.Color
 import com.google.android.gms.maps.MapView
@@ -6,16 +6,13 @@ import com.google.android.gms.maps.GoogleMap
 import android.widget.ImageButton
 import androidx.navigation.NavController
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import com.nesib.countriesapp.R
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.gms.maps.MapsInitializer
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.CameraUpdateFactory

@@ -15,7 +15,7 @@ import android.widget.TextView
 import android.widget.ImageButton
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import com.nesib.countriesapp.ui.favorites.FavoritesFragmentDirections
+import com.nesib.countriesapp.ui.FavoritesFragmentDirections
 import java.util.*
 
 class FavoritesChildAdapter(

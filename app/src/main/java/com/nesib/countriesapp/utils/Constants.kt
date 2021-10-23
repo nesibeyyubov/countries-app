@@ -1,4 +1,4 @@
-package com.nesib.countriesapp
+package com.nesib.countriesapp.utils
 
 object Constants {
     // Api

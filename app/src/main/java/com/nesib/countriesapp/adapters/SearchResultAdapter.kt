@@ -20,14 +20,14 @@ import java.lang.Exception
 import java.text.DecimalFormat
 import java.util.ArrayList
 
-class SearchResultAdapter(private var countryCodes: List<Country>, private val context: Context) :
+class SearchResultAdapter() :
     RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
     private var countryList: List<Country> = ArrayList()
     private var listener: OnItemClickListener? = null
-    private val db: DatabaseHelper = DatabaseHelper.getInstance(context)
-    fun setCountryCodes(countryCodes: List<Country>) {
-        this.countryCodes = countryCodes
-    }
+//    private val db: DatabaseHelper = DatabaseHelper.getInstance(context)
+//    fun setCountryCodes(countryCodes: List<Country>) {
+//        this.countryCodes = countryCodes
+//    }
 
     fun setCountryList(countryList: List<Country>) {
         this.countryList = countryList
@@ -58,23 +58,23 @@ class SearchResultAdapter(private var countryCodes: List<Country>, private val c
             holder.flagImage.transitionName = country.flag
         } catch (exception: Exception) {
         }
-        if (isFavorite(country)) {
-            holder.heartButton.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    context.resources,
-                    R.drawable.ic_favorites_filled,
-                    null
-                )
-            )
-        } else {
-            holder.heartButton.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    context.resources,
-                    R.drawable.ic_favorites_outline,
-                    null
-                )
-            )
-        }
+//        if (isFavorite(country)) {
+//            holder.heartButton.setImageDrawable(
+//                ResourcesCompat.getDrawable(
+//                    context.resources,
+//                    R.drawable.ic_favorites_filled,
+//                    null
+//                )
+//            )
+//        } else {
+//            holder.heartButton.setImageDrawable(
+//                ResourcesCompat.getDrawable(
+//                    context.resources,
+//                    R.drawable.ic_favorites_outline,
+//                    null
+//                )
+//            )
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -93,24 +93,24 @@ class SearchResultAdapter(private var countryCodes: List<Country>, private val c
         init {
             itemView.setOnClickListener {
                 listener!!.onClick(
-                    adapterPosition
+                    countryList[adapterPosition]
                 )
             }
-            heartButton.setOnClickListener { view ->
-                listener!!.onHeartClick(adapterPosition)
-                if (isFavorite(countryList[adapterPosition])) {
-                    heartButton.setImageDrawable(view.context.getDrawable(R.drawable.ic_favorites_outline))
-                } else {
-                    heartButton.setImageDrawable(view.context.getDrawable(R.drawable.ic_favorites_filled))
-                }
-                val scaleInAnimation =
-                    AnimationUtils.loadAnimation(itemView.context, R.anim.scale_in)
-                val scaleOutAnimation =
-                    AnimationUtils.loadAnimation(itemView.context, R.anim.scale_out)
-                heartButton.startAnimation(scaleInAnimation)
-                heartButton.startAnimation(scaleOutAnimation)
-                countryCodes = db.countryCodes
-            }
+//            heartButton.setOnClickListener { view ->
+//                listener!!.onHeartClick(adapterPosition)
+//                if (isFavorite(countryList[adapterPosition])) {
+//                    heartButton.setImageDrawable(view.context.getDrawable(R.drawable.ic_favorites_outline))
+//                } else {
+//                    heartButton.setImageDrawable(view.context.getDrawable(R.drawable.ic_favorites_filled))
+//                }
+//                val scaleInAnimation =
+//                    AnimationUtils.loadAnimation(itemView.context, R.anim.scale_in)
+//                val scaleOutAnimation =
+//                    AnimationUtils.loadAnimation(itemView.context, R.anim.scale_out)
+//                heartButton.startAnimation(scaleInAnimation)
+//                heartButton.startAnimation(scaleOutAnimation)
+//                countryCodes = db.countryCodes
+//            }
         }
     }
 
@@ -119,19 +119,19 @@ class SearchResultAdapter(private var countryCodes: List<Country>, private val c
     }
 
     interface OnItemClickListener {
-        fun onClick(position: Int)
-        fun onHeartClick(position: Int)
+        fun onClick(country: Country)
+        fun onHeartClick(country: Country)
     }
 
-    fun isFavorite(currentCountry: Country): Boolean {
-        var flag = false
-        for (code: Country in countryCodes) {
-            if ((currentCountry.flag == code.flag)) {
-                flag = true
-                break
-            }
-        }
-        return flag
-    }
+//    fun isFavorite(currentCountry: Country): Boolean {
+//        var flag = false
+//        for (code: Country in countryCodes) {
+//            if ((currentCountry.flag == code.flag)) {
+//                flag = true
+//                break
+//            }
+//        }
+//        return flag
+//    }
 
 }

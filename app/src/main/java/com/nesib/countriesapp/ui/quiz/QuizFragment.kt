@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import com.nesib.countriesapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.nesib.countriesapp.Constants
+import com.nesib.countriesapp.utils.Constants
 import java.util.ArrayList
 
 class QuizFragment : Fragment(R.layout.fragment_quiz) {

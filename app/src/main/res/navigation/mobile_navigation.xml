@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.nesib.countriesapp.ui.home.HomeFragment"
+        android:name="com.nesib.countriesapp.ui.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.nesib.countriesapp.ui.search.SearchFragment"
+        android:name="com.nesib.countriesapp.ui.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search">
         <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.nesib.countriesapp.ui.favorites.FavoritesFragment"
+        android:name="com.nesib.countriesapp.ui.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -66,7 +66,7 @@
 
     <fragment
         android:id="@+id/navigation_details"
-        android:name="com.nesib.countriesapp.ui.details.DetailsFragment"
+        android:name="com.nesib.countriesapp.ui.DetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_country_details">
         <argument
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/map_fragment"
-        android:name="com.nesib.countriesapp.ui.map.MapFragment"
+        android:name="com.nesib.countriesapp.ui.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <argument
@@ -102,7 +102,7 @@
 
     <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.nesib.countriesapp.ui.results.ResultsFragment"
+        android:name="com.nesib.countriesapp.ui.ResultsFragment"
         android:label="ResultsFragment"
         tools:layout="@layout/fragment_results">
         <argument

@@ -1,12 +1,10 @@
 package com.nesib.countriesapp.repositories
 
-import com.nesib.countriesapp.ApiService
-import com.nesib.countriesapp.api.CountriesApi
+import com.nesib.countriesapp.api.ApiService
 import com.nesib.countriesapp.models.Country
 import retrofit2.Response
-import retrofit2.Retrofit
 
-object CountriesRepository2 {
+object CountriesRepository {
     suspend fun getAllCountries(): Response<List<Country>> = ApiService.api.getAllCountries()
 
     suspend fun getCountriesByName(name: String): Response<List<Country>> =

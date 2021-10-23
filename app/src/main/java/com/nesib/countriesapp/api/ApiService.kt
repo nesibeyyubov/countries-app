@@ -1,8 +1,7 @@
-package com.nesib.countriesapp
+package com.nesib.countriesapp.api
 
 import retrofit2.Retrofit
-import com.nesib.countriesapp.ApiService
-import com.nesib.countriesapp.api.CountriesApi
+import com.nesib.countriesapp.utils.Constants
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
@@ -11,5 +10,5 @@ object ApiService {
         .baseUrl(Constants.API_BASE_URL)
         .build()
 
-    val api = retrofit.create(CountriesApi::class.java)
+    val api: CountriesApi = retrofit.create(CountriesApi::class.java)
 }

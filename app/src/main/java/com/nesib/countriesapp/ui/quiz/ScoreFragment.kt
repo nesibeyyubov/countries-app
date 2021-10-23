@@ -10,7 +10,7 @@ import android.text.Html
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.nesib.countriesapp.Constants
+import com.nesib.countriesapp.utils.Constants
 
 class ScoreFragment : Fragment(R.layout.fragment_score) {
     private lateinit var scorePercentage: TextView

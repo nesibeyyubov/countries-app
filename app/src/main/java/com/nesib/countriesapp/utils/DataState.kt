@@ -1,4 +1,4 @@
-package com.nesib.countriesapp
+package com.nesib.countriesapp.utils
 
 sealed class DataState<T>(val data: T? = null, val message: String? = null) {
     class Loading<T>() : DataState<T>()

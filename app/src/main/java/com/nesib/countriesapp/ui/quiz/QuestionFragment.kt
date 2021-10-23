@@ -1,32 +1,29 @@
 package com.nesib.countriesapp.ui.quiz
 
-import android.app.AlertDialog
 import android.graphics.Color
 import android.net.Uri
 import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
 import com.nesib.countriesapp.models.Country
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.os.Bundle
 import android.view.View
 import com.nesib.countriesapp.R
 import androidx.lifecycle.ViewModelProvider
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.content.res.ResourcesCompat
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.nesib.countriesapp.Constants
-import com.nesib.countriesapp.viewmodels.CountriesViewModel2
+import com.nesib.countriesapp.utils.Constants
+import com.nesib.countriesapp.viewmodels.CountriesViewModel
 import java.util.ArrayList
 
 class QuestionFragment : Fragment(R.layout.fragment_question), View.OnClickListener {
     private lateinit var nextButton: Button
     private lateinit var navController: NavController
-    private lateinit var countriesViewModel: CountriesViewModel2
+    private lateinit var countriesViewModel: CountriesViewModel
     private lateinit var questionNumber: TextView
     private lateinit var questionText: TextView
     private lateinit var countdownText: TextView
@@ -78,7 +75,7 @@ class QuestionFragment : Fragment(R.layout.fragment_question), View.OnClickListe
         exitButton = view.findViewById(R.id.exitButton)
         navController = Navigation.findNavController(view)
         countriesViewModel = ViewModelProvider(requireActivity()).get(
-            CountriesViewModel2::class.java
+            CountriesViewModel::class.java
         )
         optionTextViewList = ArrayList()
         optionContainerList = ArrayList()

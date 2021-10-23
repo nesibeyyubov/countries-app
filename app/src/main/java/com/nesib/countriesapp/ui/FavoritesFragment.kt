@@ -1,4 +1,4 @@
-package com.nesib.countriesapp.ui.favorites
+package com.nesib.countriesapp.ui
 
 import android.content.Context
 import com.nesib.countriesapp.adapters.FavoritesParentAdapter
@@ -22,7 +22,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
-import com.nesib.countriesapp.viewmodels.CountriesViewModel2
+import com.nesib.countriesapp.viewmodels.CountriesViewModel
 
 class FavoritesFragment : Fragment() {
     private var favoritesParentAdapter: FavoritesParentAdapter? = null
@@ -33,7 +33,7 @@ class FavoritesFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var navController: NavController? = null
     private var noFavorites: TextView? = null
-    private val countriesViewModel: CountriesViewModel2? = null
+    private val countriesViewModel: CountriesViewModel? = null
     private var favoritesProgressBar: ProgressBar? = null
     override fun onCreateView(
         inflater: LayoutInflater,

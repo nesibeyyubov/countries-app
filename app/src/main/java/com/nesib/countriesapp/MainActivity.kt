@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 
 class MainActivity : AppCompatActivity() {
