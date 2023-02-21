@@ -31,7 +31,7 @@ abstract class BaseFragment<
         get() = _binding!!
 
 
-    abstract val viewModel: VM
+    protected abstract val viewModel: VM
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = createBinding(inflater, container)
@@ -55,7 +55,7 @@ abstract class BaseFragment<
 
     private fun handleScreenParams() {
         val bundle = arguments?.getBundle(KEY_PARAMS)
-        params = bundle?.getParcelable(KEY_PARAMS)
+        params = bundle?.getSerializable(KEY_PARAMS) as PARAMS
     }
 
     fun toast(message: String) {
@@ -69,17 +69,17 @@ abstract class BaseFragment<
     fun navigate(screenId: Int, params: PARAMS? = null) {
         if (params != null) {
             val bundle = Bundle()
-            bundle.putParcelable(KEY_PARAMS, params)
+            bundle.putSerializable(KEY_PARAMS, params)
             findNavController().navigate(screenId, bundle)
         } else {
             findNavController().navigate(screenId)
         }
     }
 
-    abstract fun createBinding(inflater: LayoutInflater, container: ViewGroup?): VB
+    protected abstract fun createBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 
-    abstract fun initViews()
+    protected abstract fun initViews()
 
-    abstract fun render(state: STATE)
+    protected abstract fun render(state: STATE)
 
 }

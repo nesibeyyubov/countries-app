@@ -1,6 +1,7 @@
 package com.nesib.countriesapp.base
 
-import android.os.Parcelable
+import java.io.Serializable
 
-interface ScreenParams : Parcelable {
+
+interface ScreenParams : Serializable {
 }
