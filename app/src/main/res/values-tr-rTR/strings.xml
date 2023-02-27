@@ -14,7 +14,7 @@
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Hoş geldiniz</string>
-    <string name="select_region_text">Kıta\nseçin</string>
+    <string name="select_region_text">Kıta seçin</string>
     <string name="region_europe">Avrupa</string>
     <string name="region_africa">Afrika</string>
     <string name="region_americas">Amerika</string>

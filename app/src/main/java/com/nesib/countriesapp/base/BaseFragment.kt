@@ -24,14 +24,14 @@ abstract class BaseFragment<
         const val KEY_PARAMS = "SCREEN_PARAMS"
     }
 
-    private var params: PARAMS? = null
+    protected var params: PARAMS? = null
 
     private var _binding: VB? = null
     private val binding: VB
         get() = _binding!!
 
 
-    protected abstract val viewModel: VM
+    protected abstract val viewModel: VM?
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = createBinding(inflater, container)
@@ -47,15 +47,15 @@ abstract class BaseFragment<
     }
 
     private fun observeState() {
-        viewModel.state
-            .onEach(this::render)
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            .launchIn(lifecycleScope)
+        viewModel?.state
+            ?.onEach(this::render)
+            ?.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            ?.launchIn(lifecycleScope)
     }
 
     private fun handleScreenParams() {
         val bundle = arguments?.getBundle(KEY_PARAMS)
-        params = bundle?.getSerializable(KEY_PARAMS) as PARAMS
+        params = bundle?.getSerializable(KEY_PARAMS) as? PARAMS
     }
 
     fun toast(message: String) {

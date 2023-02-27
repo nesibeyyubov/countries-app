@@ -13,7 +13,7 @@
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Welcome</string>
-    <string name="select_region_text">Select\nregion</string>
+    <string name="select_region_text">Select region</string>
     <string name="region_europe">Europe</string>
     <string name="region_africa">Africa</string>
     <string name="region_americas">America</string>

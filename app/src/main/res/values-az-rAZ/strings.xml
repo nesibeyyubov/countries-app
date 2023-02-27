@@ -13,7 +13,7 @@
 
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Xoş gəldiniz</string>
-    <string name="select_region_text">Region\nseçin</string>
+    <string name="select_region_text">Region seçin</string>
     <string name="region_europe">Avropa</string>
     <string name="region_africa">Afrika</string>
     <string name="region_americas">Amerika</string>

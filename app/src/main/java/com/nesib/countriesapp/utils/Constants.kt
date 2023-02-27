@@ -2,7 +2,7 @@ package com.nesib.countriesapp.utils
 
 object Constants {
     // Api
-    const val API_BASE_URL = "https://restcountries.com/v2/"
+    const val API_BASE_URL = "https://restcountries.com/v3.1/"
 
     // Database
     const val DB_NAME = "countries_db"
