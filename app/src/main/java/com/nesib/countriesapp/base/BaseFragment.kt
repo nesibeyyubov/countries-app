@@ -27,7 +27,7 @@ abstract class BaseFragment<
     protected var params: PARAMS? = null
 
     private var _binding: VB? = null
-    private val binding: VB
+    protected val binding: VB
         get() = _binding!!
 
 
@@ -54,8 +54,7 @@ abstract class BaseFragment<
     }
 
     private fun handleScreenParams() {
-        val bundle = arguments?.getBundle(KEY_PARAMS)
-        params = bundle?.getSerializable(KEY_PARAMS) as? PARAMS
+        params = arguments?.getSerializable(KEY_PARAMS) as? PARAMS
     }
 
     fun toast(message: String) {

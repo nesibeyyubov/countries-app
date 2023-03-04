@@ -101,15 +101,15 @@
 
     <TextView
         android:id="@+id/hasFailureText"
-        android:visibility="gone"
-        android:textColor="@android:color/holo_red_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:text="@string/check_internet_error_text"
         android:textAlignment="center"
+        android:textColor="@android:color/holo_red_dark"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="@string/check_internet_error_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/shimmerLayout"
