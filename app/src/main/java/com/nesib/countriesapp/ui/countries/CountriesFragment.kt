@@ -14,6 +14,7 @@ import com.nesib.countriesapp.databinding.FragmentResultsBinding
 import com.nesib.countriesapp.databinding.FragmentSearchBinding
 import com.nesib.countriesapp.utils.Region
 import com.nesib.countriesapp.utils.toSafeString
+import com.nesib.countriesapp.utils.toTranslatedText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,16 +29,23 @@ class CountriesFragment :
     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentResultsBinding.inflate(inflater, container, false)
 
-    override fun initViews() = with(binding) {
+    override fun initViews(): Unit = with(binding) {
         recyclerView.adapter = countriesAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        regionName.text = params?.region?.value.toSafeString()
+        params?.run {
+            regionName.text = this.region.toTranslatedText(requireContext())
+            regionNameContainer.background = getDrawable(this.region.drawableRes)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         params?.region?.run {
-            viewModel.getCountriesByRegion(this.value)
+            if (this == Region.ALL_COUNTRIES) {
+                viewModel.getAllCountries()
+            } else {
+                viewModel.getCountriesByRegion(this.value)
+            }
         }
     }
 

@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -56,6 +59,10 @@ abstract class BaseFragment<
     private fun handleScreenParams() {
         params = arguments?.getSerializable(KEY_PARAMS) as? PARAMS
     }
+
+    fun getColor(@ColorRes colorRes: Int) = ContextCompat.getColor(requireContext(), colorRes)
+
+    fun getDrawable(@DrawableRes drawableRes: Int?) = ContextCompat.getDrawable(requireContext(), drawableRes ?: 0)
 
     fun toast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
