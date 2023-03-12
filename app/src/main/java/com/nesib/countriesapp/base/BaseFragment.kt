@@ -50,10 +50,13 @@ abstract class BaseFragment<
     }
 
     private fun observeState() {
-        viewModel?.state
-            ?.onEach(this::render)
-            ?.flowWithLifecycle(viewLifecycleOwner.lifecycle)
-            ?.launchIn(lifecycleScope)
+        viewModel?.let {
+            it.state
+                .onEach(this::render)
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .launchIn(lifecycleScope)
+        }
+
     }
 
     private fun handleScreenParams() {
@@ -72,7 +75,7 @@ abstract class BaseFragment<
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun navigate(screenId: Int, params: PARAMS? = null) {
+    fun navigate(screenId: Int, params: ScreenParams? = null) {
         if (params != null) {
             val bundle = Bundle()
             bundle.putSerializable(KEY_PARAMS, params)
@@ -80,6 +83,10 @@ abstract class BaseFragment<
         } else {
             findNavController().navigate(screenId)
         }
+    }
+
+    fun navigateBack() {
+        findNavController().popBackStack()
     }
 
     protected abstract fun createBinding(inflater: LayoutInflater, container: ViewGroup?): VB

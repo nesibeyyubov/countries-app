@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseFragment
 import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentHomeBinding
 import com.nesib.countriesapp.databinding.FragmentResultsBinding
 import com.nesib.countriesapp.databinding.FragmentSearchBinding
+import com.nesib.countriesapp.models.CountryDetail
+import com.nesib.countriesapp.ui.details.CountryDetailsFragment
 import com.nesib.countriesapp.utils.Region
 import com.nesib.countriesapp.utils.toSafeString
 import com.nesib.countriesapp.utils.toTranslatedText
@@ -32,6 +35,10 @@ class CountriesFragment :
     override fun initViews(): Unit = with(binding) {
         recyclerView.adapter = countriesAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        countriesAdapter.onCountryClick = {
+            navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it))
+        }
         params?.run {
             regionName.text = this.region.toTranslatedText(requireContext())
             regionNameContainer.background = getDrawable(this.region.drawableRes)

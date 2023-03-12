@@ -17,7 +17,13 @@ class CountriesViewModel @Inject constructor(
 
     fun getAllCountries() {
         countriesRepository.getAllCountries()
-            .onStart { setState { it.copy(loading = true) } }
+            .onStart {
+                if (currentState().countries.isNotEmpty()) {
+                    emit(currentState().countries)
+                } else {
+                    setState { it.copy(loading = true) }
+                }
+            }
             .catch {
             }
             .onEach { countries ->
@@ -29,11 +35,16 @@ class CountriesViewModel @Inject constructor(
 
     fun getCountriesByRegion(region: String) {
         countriesRepository.getCountryByRegion(region)
-            .onStart { setState { it.copy(loading = true) } }
+            .onStart {
+                if (currentState().countries.isNotEmpty()) {
+                    emit(currentState().countries)
+                } else {
+                    setState { it.copy(loading = true) }
+                }
+            }
             .catch {
             }
             .onEach { countries ->
-                Log.d("mytag", "getCountriesByRegion: $countries")
                 setState { currentState -> currentState.copy(loading = false, countries = countries) }
             }
             .flowOn(Dispatchers.IO)

@@ -32,6 +32,7 @@ data class CountryModel(
     val translations: Map<String, Translation>?,
     val currencies: Map<String, Currency>?,
     val languages: Map<String, String>?,
+    val postalCode: PostalCode?
 )
 
 
@@ -63,7 +64,8 @@ fun CountryModel.toUiModel(): CountryUi {
         unMember = this.unMember.toSafeBoolean(),
         translations = this.translations.toUiModel(),
         currencies = this.currencies.toUiModel2(),
-        languages = this.languages ?: emptyMap()
+        languages = this.languages ?: emptyMap(),
+        postalCode = this.postalCode.toUiModel()
     )
 }
 
@@ -164,4 +166,12 @@ data class Translation(
 fun Translation?.toUiModel() = TranslationUi(
     common = this?.common.toSafeString(),
     official = this?.official.toSafeString()
+)
+
+data class PostalCode(
+    val format: String?
+)
+
+fun PostalCode?.toUiModel() = PostalCodeUi(
+    format = this?.format.toSafeString()
 )
