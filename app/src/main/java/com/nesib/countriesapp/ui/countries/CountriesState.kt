@@ -5,5 +5,6 @@ import com.nesib.countriesapp.models.CountryUi
 
 data class CountriesState(
     val countries: List<CountryUi> = emptyList(),
-    val loading: Boolean = false
+    val loading: Boolean = false,
+    val sortedBy: SingleChipSelector.SortBy = SingleChipSelector.SortBy.None
 ) : State

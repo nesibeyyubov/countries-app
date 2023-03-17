@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.details
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -29,10 +30,32 @@ class CountryDetailsFragment :
         params?.let {
             val country = it.country
             ivFlag.load(country.flags.pngFormat)
+            if (country.coatOfArms.pngFormat.isEmpty()) {
+                ivCoatArms.isVisible = false
+            } else {
+                ivCoatArms.load(country.coatOfArms.pngFormat) {
+                    listener(
+                        onStart = {
+                            photoShimmer.isVisible = true
+                            ivCoatArms.isVisible = false
+                        },
+                        onSuccess = { _, _ ->
+                            photoShimmer.isVisible = false
+                            ivCoatArms.isVisible = true
+                        },
+                        onError = { _, _ ->
+                            photoShimmer.isVisible = false
+                            ivCoatArms.isVisible = false
+                        }
+                    )
+                }
+            }
+
+
             tvCountryName.text = country.name.common
             tvCountryFullName.text = country.name.official
             tvCountryFullName.text = country.name.official
-            tvCapital.text = country.capital.first()
+            tvCapital.text = country.capital.firstOrNull()
             tvArea.text = country.area.toString()
             tvPopulation.text = country.population.toString()
 

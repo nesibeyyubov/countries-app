@@ -10,13 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseFragment
 import com.nesib.countriesapp.base.ScreenParams
-import com.nesib.countriesapp.databinding.FragmentHomeBinding
 import com.nesib.countriesapp.databinding.FragmentResultsBinding
-import com.nesib.countriesapp.databinding.FragmentSearchBinding
-import com.nesib.countriesapp.models.CountryDetail
 import com.nesib.countriesapp.ui.details.CountryDetailsFragment
 import com.nesib.countriesapp.utils.Region
-import com.nesib.countriesapp.utils.toSafeString
 import com.nesib.countriesapp.utils.toTranslatedText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,6 +39,12 @@ class CountriesFragment :
             regionName.text = this.region.toTranslatedText(requireContext())
             regionNameContainer.background = getDrawable(this.region.drawableRes)
         }
+
+        ibBack.setOnClickListener { navigateBack() }
+
+        singleChipSelector.chipSelectListener = { selectedChip ->
+            viewModel.sortCountriesBy(selectedChip)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,8 +62,22 @@ class CountriesFragment :
         shimmerLayout.isVisible = state.loading
         recyclerView.isVisible = !state.loading
 
-        if (!state.loading) {
-            countriesAdapter.submitList(state.countries)
+        when (state.sortedBy) {
+            SingleChipSelector.SortBy.Population -> {
+                if (!state.loading) {
+                    countriesAdapter.submitList(state.countries.sortedBy { it.population })
+                }
+            }
+            SingleChipSelector.SortBy.Area -> {
+                if (!state.loading) {
+                    countriesAdapter.submitList(state.countries.sortedBy { it.area })
+                }
+            }
+            SingleChipSelector.SortBy.None -> {
+                if (!state.loading) {
+                    countriesAdapter.submitList(state.countries)
+                }
+            }
         }
 
     }

@@ -1,6 +1,5 @@
 package com.nesib.countriesapp.ui.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider

@@ -34,4 +34,26 @@ object Constants {
     const val SCORE_KEY_FLAGS = "bestScoreFlags"
     const val SCORE_KEY_REGIONS = "bestScoreRegions"
     const val SCORE_KEY_CAPITALS = "bestScoreCapitals"
+
+    val NECESSARY_APİ_FİELDS = listOf(
+        "name",
+        "tld",
+        "currencies",
+        "idd",
+        "capital",
+        "altSpellings",
+        "region",
+        "subregion",
+        "languages",
+        "latlng",
+        "borders",
+        "area",
+        "population",
+        "car",
+        "timezones",
+        "continents",
+        "flags",
+        "coatOfArms",
+        "postalCode",
+    ).joinToString(",")
 }
