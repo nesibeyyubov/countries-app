@@ -19,6 +19,7 @@
     <string name="region_americas">America</string>
     <string name="region_asia">Asia</string>
     <string name="region_oceania">Oceania</string>
+    <string name="region_all">All</string>
 
     <!--SEARCH FRAGMENT-->
     <string name="search_text">Search</string>

@@ -11,7 +11,6 @@
     <string name="no_information_text">Bilgi yok</string>
 
 
-
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Hoş geldiniz</string>
     <string name="select_region_text">Kıta seçin</string>
@@ -20,12 +19,12 @@
     <string name="region_americas">Amerika</string>
     <string name="region_asia">Asiya</string>
     <string name="region_oceania">Okyanusya</string>
+    <string name="region_all">Tüm Ülkeler</string>
 
     <!--SEARCH FRAGMENT-->
     <string name="search_text">Arama</string>
     <string name="country_not_found_text">Aradığınız ülke bulunamadı</string>
     <string name="search_for_country_text">İstediğiniz ülkeyi burada araya bilirsiniz</string>
-
 
 
     <!-- RESULTS FRAGMENT -->

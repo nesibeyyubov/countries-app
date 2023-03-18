@@ -18,6 +18,9 @@ class CountriesViewModel @Inject constructor(
         setState { it.copy(sortedBy = sortBy) }
     }
 
+    fun search(query: String) {
+        setState { it.copy(searchQuery = query) }
+    }
 
     fun getAllCountries() {
         if (currentState().countries.isNotEmpty()) {

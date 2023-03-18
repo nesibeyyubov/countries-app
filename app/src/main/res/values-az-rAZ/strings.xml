@@ -19,6 +19,7 @@
     <string name="region_americas">Amerika</string>
     <string name="region_asia">Asiya</string>
     <string name="region_oceania">Okeaniya</string>
+    <string name="region_all">Bütün Ölkələr</string>
 
     <!--SEARCH FRAGMENT-->
     <string name="search_text">Axtar</string>

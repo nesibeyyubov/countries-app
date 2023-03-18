@@ -41,8 +41,14 @@ fun CountryUi.toDetailsKeyValue(): List<CountryDetail> {
     details.add(CountryDetail("Timezones", timezones.joinToString("\n")))
     details.add(CountryDetail("Start Of Week", startOfWeek))
     details.add(CountryDetail("Postal Code", postalCode.format))
-    details.add(CountryDetail("Calling Code", "${phoneNumberDetails.root}${phoneNumberDetails.suffixes.first()}"))
-    details.add(CountryDetail("Language", languages[languages.keys.first()] ?: languages.keys.first()))
+    details.add(CountryDetail("Calling Code", "${phoneNumberDetails.root}${phoneNumberDetails.suffixes.firstOrNull()}"))
+    details.add(CountryDetail("Car side", car.side))
+    details.add(
+        CountryDetail(
+            "Language",
+            languages[languages.keys.firstOrNull()] ?: languages.keys.firstOrNull().toSafeString()
+        )
+    )
     return details.filter { it.value.isNotEmpty() }
 }
 

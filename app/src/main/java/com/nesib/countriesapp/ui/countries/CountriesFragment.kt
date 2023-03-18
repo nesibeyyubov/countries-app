@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nesib.countriesapp.R
@@ -43,6 +44,11 @@ class CountriesFragment :
             regionNameContainer.background = getDrawable(this.region.drawableRes)
         }
 
+        searchInput.doAfterTextChanged {
+            val query = it.toString().trim()
+            if (query.isNotEmpty()) viewModel.search(query)
+        }
+
         ibBack.setOnClickListener { navigateBack() }
 
         singleChipSelector.chipSelectListener = { selectedChip ->
@@ -69,19 +75,31 @@ class CountriesFragment :
             when (state.sortedBy) {
                 SingleChipSelector.SortBy.Population -> {
                     singleChipSelector.populationSelected()
-                    countriesAdapter.submitList(state.countries.sortedBy { it.population }) {
+                    val countries =
+                        state.countries
+                            .sortedBy { it.population }
+                            .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
+                    countriesAdapter.submitList(countries) {
                         recyclerView.scrollToPosition(0)
                     }
                 }
                 SingleChipSelector.SortBy.Area -> {
                     singleChipSelector.areaSelected()
-                    countriesAdapter.submitList(state.countries.sortedBy { it.area }) {
+                    val countries =
+                        state.countries
+                            .sortedBy { it.area }
+                            .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
+                    countriesAdapter.submitList(countries) {
                         recyclerView.scrollToPosition(0)
                     }
                 }
                 SingleChipSelector.SortBy.None -> {
                     singleChipSelector.resetChips()
-                    countriesAdapter.submitList(state.countries) {
+                    val countries =
+                        state.countries
+                            .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
+
+                    countriesAdapter.submitList(countries) {
                         recyclerView.scrollToPosition(0)
                     }
                 }

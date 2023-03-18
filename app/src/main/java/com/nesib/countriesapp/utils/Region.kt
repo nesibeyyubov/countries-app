@@ -20,6 +20,6 @@ fun Region.toTranslatedText(context: Context): String {
         Region.AMERICAS -> context.getString(R.string.region_americas)
         Region.EUROPE -> context.getString(R.string.region_europe)
         Region.OCEANIA -> context.getString(R.string.region_oceania)
-        Region.ALL_COUNTRIES -> context.getString(R.string.region_asia)
+        Region.ALL_COUNTRIES -> context.getString(R.string.region_all)
     }
 }
