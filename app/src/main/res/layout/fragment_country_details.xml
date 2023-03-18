@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     android:paddingBottom="60dp">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,7 +27,7 @@
                 <ImageView
                     android:id="@+id/iv_flag"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="250dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="250dp"
                     android:background="@drawable/gradient_bg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="86dp"
                 app:layout_collapseMode="pin">
 
                 <ImageButton
@@ -83,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/actionBarItemBackground"
                     android:clickable="true"
-                    android:src="@drawable/ic_back" />
+                    android:src="@drawable/ic_back"
+                    android:translationY="16dp" />
             </androidx.appcompat.widget.Toolbar>
 
 

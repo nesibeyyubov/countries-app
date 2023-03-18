@@ -1,6 +1,9 @@
 package com.nesib.countriesapp.ui.countries
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,23 +65,31 @@ class CountriesFragment :
         shimmerLayout.isVisible = state.loading
         recyclerView.isVisible = !state.loading
 
-        when (state.sortedBy) {
-            SingleChipSelector.SortBy.Population -> {
-                if (!state.loading) {
-                    countriesAdapter.submitList(state.countries.sortedBy { it.population })
+        if (!state.loading) {
+            when (state.sortedBy) {
+                SingleChipSelector.SortBy.Population -> {
+                    singleChipSelector.populationSelected()
+                    countriesAdapter.submitList(state.countries.sortedBy { it.population }) {
+                        recyclerView.scrollToPosition(0)
+                    }
+                }
+                SingleChipSelector.SortBy.Area -> {
+                    singleChipSelector.areaSelected()
+                    countriesAdapter.submitList(state.countries.sortedBy { it.area }) {
+                        recyclerView.scrollToPosition(0)
+                    }
+                }
+                SingleChipSelector.SortBy.None -> {
+                    singleChipSelector.resetChips()
+                    countriesAdapter.submitList(state.countries) {
+                        recyclerView.scrollToPosition(0)
+                    }
                 }
             }
-            SingleChipSelector.SortBy.Area -> {
-                if (!state.loading) {
-                    countriesAdapter.submitList(state.countries.sortedBy { it.area })
-                }
-            }
-            SingleChipSelector.SortBy.None -> {
-                if (!state.loading) {
-                    countriesAdapter.submitList(state.countries)
-                }
-            }
+
+
         }
+
 
     }
 

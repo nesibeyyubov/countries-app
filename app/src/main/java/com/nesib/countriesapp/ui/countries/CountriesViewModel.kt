@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.countries
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.base.BaseViewModel
 import com.nesib.countriesapp.data.network.CountriesRepository
@@ -19,25 +20,30 @@ class CountriesViewModel @Inject constructor(
 
 
     fun getAllCountries() {
-        countriesRepository.getAllCountries().onStart {
-                if (currentState().countries.isNotEmpty()) {
-                    emit(currentState().countries)
-                } else {
-                    setState { it.copy(loading = true) }
-                }
-            }.catch {}.onEach { countries ->
+        if (currentState().countries.isNotEmpty()) {
+            return
+        }
+        countriesRepository.getAllCountries()
+            .onStart {
+                setState { it.copy(loading = true) }
+            }
+            .catch {}
+            .onEach { countries ->
+                Log.d("mytag", "getAllCountries:[onEach] ")
                 setState { it.copy(loading = false, countries = countries) }
             }.flowOn(Dispatchers.IO).launchIn(viewModelScope)
     }
 
     fun getCountriesByRegion(region: String) {
-        countriesRepository.getCountryByRegion(region).onStart {
-                if (currentState().countries.isNotEmpty()) {
-                    emit(currentState().countries)
-                } else {
-                    setState { it.copy(loading = true) }
-                }
-            }.catch {}.onEach { countries ->
+        if (currentState().countries.isNotEmpty()) {
+            return
+        }
+        countriesRepository.getCountryByRegion(region)
+            .onStart {
+                setState { it.copy(loading = true) }
+            }
+            .catch {}
+            .onEach { countries ->
                 setState { currentState -> currentState.copy(loading = false, countries = countries) }
             }.flowOn(Dispatchers.IO).launchIn(viewModelScope)
 

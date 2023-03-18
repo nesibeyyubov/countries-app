@@ -1,5 +1,7 @@
 package com.nesib.countriesapp.models
 
+import com.nesib.countriesapp.utils.toSafeString
+
 data class CountryUi(
     val altSpellings: List<String>,
     val area: Double,
@@ -33,7 +35,7 @@ data class CountryUi(
 
 fun CountryUi.toDetailsKeyValue(): List<CountryDetail> {
     val details = mutableListOf<CountryDetail>()
-    details.add(CountryDetail("Currency", currencies.keys.first()))
+    details.add(CountryDetail("Currency", currencies.keys.firstOrNull().toSafeString()))
     details.add(CountryDetail("Region", region))
     details.add(CountryDetail("Subregion", subregion))
     details.add(CountryDetail("Timezones", timezones.joinToString("\n")))

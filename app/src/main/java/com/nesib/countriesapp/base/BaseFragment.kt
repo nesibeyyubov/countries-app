@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.base
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.nesib.countriesapp.utils.sdkVersion
+import com.nesib.countriesapp.utils.supportsChangingStatusBarColors
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -83,6 +86,16 @@ abstract class BaseFragment<
         } else {
             findNavController().navigate(screenId)
         }
+    }
+
+    fun changeStatusBarIconColor(iconsIsLight: Boolean) {
+
+        if (sdkVersion.supportsChangingStatusBarColors()) {
+
+            val decorView = requireActivity().window.decorView
+            decorView.systemUiVisibility = if (iconsIsLight) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
     }
 
     fun navigateBack() {

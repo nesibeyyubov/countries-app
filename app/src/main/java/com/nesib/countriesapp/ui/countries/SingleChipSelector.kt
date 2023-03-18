@@ -30,38 +30,42 @@ class SingleChipSelector @JvmOverloads constructor(
         binding.sortArea.setOnClickListener {
             if (currentChip == SortBy.Area) {
                 chipSelectListener?.invoke(SortBy.None)
-                resetChips()
             } else {
                 chipSelectListener?.invoke(SortBy.Area)
-                binding.sortArea.setTextColor(Color.WHITE)
-                binding.sortArea.setBackgroundResource(R.drawable.filter_bg_filled)
-
-                binding.sortPopulation.setTextColor(primaryColor)
-                binding.sortPopulation.setBackgroundResource(R.drawable.filter_bg_outline)
-
-                currentChip = SortBy.Area
             }
-
         }
         binding.sortPopulation.setOnClickListener {
             if (currentChip == SortBy.Population) {
                 chipSelectListener?.invoke(SortBy.None)
-                resetChips()
             } else {
                 chipSelectListener?.invoke(SortBy.Population)
-                binding.sortArea.setTextColor(primaryColor)
-                binding.sortArea.setBackgroundResource(R.drawable.filter_bg_outline)
-
-                binding.sortPopulation.setTextColor(Color.WHITE)
-                binding.sortPopulation.setBackgroundResource(R.drawable.filter_bg_filled)
-
-                currentChip = SortBy.Population
             }
-
         }
     }
 
-    private fun resetChips() = with(binding) {
+    fun populationSelected() {
+        chipSelectListener?.invoke(SortBy.Population)
+        binding.sortArea.setTextColor(primaryColor)
+        binding.sortArea.setBackgroundResource(R.drawable.filter_bg_outline)
+
+        binding.sortPopulation.setTextColor(Color.WHITE)
+        binding.sortPopulation.setBackgroundResource(R.drawable.filter_bg_filled)
+
+        currentChip = SortBy.Population
+    }
+
+    fun areaSelected() {
+        chipSelectListener?.invoke(SortBy.Area)
+        binding.sortArea.setTextColor(Color.WHITE)
+        binding.sortArea.setBackgroundResource(R.drawable.filter_bg_filled)
+
+        binding.sortPopulation.setTextColor(primaryColor)
+        binding.sortPopulation.setBackgroundResource(R.drawable.filter_bg_outline)
+
+        currentChip = SortBy.Area
+    }
+
+    fun resetChips() = with(binding) {
         sortArea.setTextColor(primaryColor)
         sortArea.setBackgroundResource(R.drawable.filter_bg_outline)
         sortPopulation.setBackgroundResource(R.drawable.filter_bg_outline)
