@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.models
 
+import com.nesib.countriesapp.utils.toFormattedDecimal
 import com.nesib.countriesapp.utils.toSafeBoolean
 import com.nesib.countriesapp.utils.toSafeList
 import com.nesib.countriesapp.utils.toSafeString
@@ -54,7 +55,7 @@ fun CountryModel.toUiModel(): CountryUi {
         latlng = this.latlng.toSafeList(),
         maps = this.maps.toUiModel(),
         name = this.name.toUiModel(),
-        population = this.population ?: 0,
+        population = this.population.toFormattedDecimal(),
         region = this.region.toSafeString(),
         startOfWeek = this.startOfWeek.toSafeString(),
         status = this.status.toSafeString(),

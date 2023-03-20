@@ -17,9 +17,14 @@
         tools:layout="@layout/fragment_results" />
     <fragment
         android:id="@+id/countryDetailsFragment"
-        tools:layout="@layout/fragment_country_details"
         android:name="com.nesib.countriesapp.ui.details.CountryDetailsFragment"
-        android:label="CountryDetailsFragment" />
+        android:label="CountryDetailsFragment"
+        tools:layout="@layout/fragment_country_details" />
+    <fragment
+        android:id="@+id/detailsMapFragment"
+        android:name="com.nesib.countriesapp.ui.details.map.DetailsMapFragment"
+        android:label="DetailsMapFragment"
+        tools:layout="@layout/fragment_map" />
 
 
     <!--    <fragment-->

@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.details
 
+import android.telecom.Call.Details
 import android.view.LayoutInflater
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -14,6 +15,7 @@ import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentCountryDetailsBinding
 import com.nesib.countriesapp.models.CountryUi
 import com.nesib.countriesapp.models.toDetailsKeyValue
+import com.nesib.countriesapp.ui.details.map.DetailsMapFragment
 
 
 class CountryDetailsFragment :
@@ -81,9 +83,17 @@ class CountryDetailsFragment :
             tvFlagDescription.isSelected = true
             tvFlagDescription.text = country.flags.description
 
+            showMapButton.setOnClickListener {
+                navigate(
+                    R.id.detailsMapFragment,
+                    DetailsMapFragment.Params(country.latlng)
+                )
+            }
+
         }
 
         backButton.setOnClickListener { navigateBack() }
+
     }
 
     override fun render(state: CountryDetailsState) {

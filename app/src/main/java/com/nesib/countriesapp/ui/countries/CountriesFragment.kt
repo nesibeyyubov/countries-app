@@ -36,6 +36,7 @@ class CountriesFragment :
         recyclerView.adapter = countriesAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+
         countriesAdapter.onCountryClick = {
             navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it))
         }

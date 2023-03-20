@@ -7,6 +7,7 @@ import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import java.text.DecimalFormat
 
 /**
  * Nullability
@@ -60,3 +61,16 @@ fun Int.supportsChangingStatusBarColors(): Boolean {
 
 val Fragment.sdkVersion
     get() = Build.VERSION.SDK_INT
+
+
+/**
+ * Common
+ */
+
+fun Int?.toFormattedDecimal(): String {
+    if (this == null) return "0"
+
+    return DecimalFormat("#,###")
+        .format(this)
+        .replace(",", ".")
+}

@@ -55,6 +55,6 @@ object Constants {
         "flags",
         "coatOfArms",
         "postalCode",
-        "startOfWeek"
+        "startOfWeek",
     ).joinToString(",")
 }
