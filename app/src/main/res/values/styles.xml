@@ -31,7 +31,7 @@
     </style>
 
     <style name="mapSettingBtnStyle">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/map_setttings_item_bg</item>
         <item name="android:layout_marginRight">13dp</item>

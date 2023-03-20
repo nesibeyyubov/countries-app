@@ -86,7 +86,7 @@ class CountryDetailsFragment :
             showMapButton.setOnClickListener {
                 navigate(
                     R.id.detailsMapFragment,
-                    DetailsMapFragment.Params(country.latlng)
+                    DetailsMapFragment.Params(country.latlng, country.name.common)
                 )
             }
 
