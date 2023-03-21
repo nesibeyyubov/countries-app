@@ -1,8 +1,12 @@
 package com.nesib.countriesapp.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.nesib.countriesapp.utils.toSafeString
 
+@Entity(tableName = "countries")
 data class CountryUi(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val altSpellings: List<String>,
     val area: Double,
     val borders: List<String>,
@@ -32,6 +36,7 @@ data class CountryUi(
     val unMember: Boolean,
     val postalCode: PostalCodeUi
 )
+
 
 fun CountryUi.toDetailsKeyValue(): List<CountryDetail> {
     val details = mutableListOf<CountryDetail>()
