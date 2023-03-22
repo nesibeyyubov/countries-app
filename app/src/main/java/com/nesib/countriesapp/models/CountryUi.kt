@@ -13,6 +13,7 @@ data class CountryUi(
     val capital: List<String>,
     val capitalInfo: CapitalInfoUi,
     val car: CarUi,
+    val countryCode: String,
     val coatOfArms: CoatOfArmsUi,
     val continents: List<String>,
     val currencies: Map<String, CurrencyUi>,

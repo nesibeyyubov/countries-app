@@ -16,6 +16,7 @@ data class CountryModel(
     val continents: List<String>?,
     val fifa: String?,
     val flags: Flags?,
+    val cca3: String?,
     val idd: Idd?,
     val independent: Boolean?,
     val landlocked: Boolean?,
@@ -36,6 +37,13 @@ data class CountryModel(
     val postalCode: PostalCode?
 )
 
+fun CountryModel.toBorderModel(): BorderUi {
+    return BorderUi(
+        key = this.cca3.toSafeString(),
+        flag = this.flags.toUiModel().pngFormat,
+        name = this.name.toUiModel().common,
+    )
+}
 
 fun CountryModel.toUiModel(): CountryUi {
     return CountryUi(
@@ -49,6 +57,7 @@ fun CountryModel.toUiModel(): CountryUi {
         continents = this.continents.toSafeList(),
         fifaCode = this.fifa.toSafeString(),
         flags = this.flags.toUiModel(),
+        countryCode = this.cca3.toSafeString(),
         phoneNumberDetails = this.idd.toUiModel(),
         independent = this.independent.toSafeBoolean(),
         landlocked = this.landlocked.toSafeBoolean(),

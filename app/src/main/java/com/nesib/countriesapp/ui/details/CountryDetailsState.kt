@@ -1,6 +1,9 @@
 package com.nesib.countriesapp.ui.details
 
 import com.nesib.countriesapp.base.State
+import com.nesib.countriesapp.models.BorderUi
 
-class CountryDetailsState : State {
-}
+data class CountryDetailsState(
+    val borders: List<BorderUi> = emptyList(),
+    val bordersLoading: Boolean = false
+) : State

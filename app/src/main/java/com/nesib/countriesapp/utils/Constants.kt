@@ -56,5 +56,12 @@ object Constants {
         "coatOfArms",
         "postalCode",
         "startOfWeek",
+        "cca3"
+    ).joinToString(",")
+
+    val BORDER_COUNTRIES_FIELDS = listOf(
+        "name",
+        "flags",
+        "cca3"
     ).joinToString(",")
 }

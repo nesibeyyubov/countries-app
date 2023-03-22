@@ -9,6 +9,12 @@ import retrofit2.http.Query
 
 interface CountriesApi {
 
+    @GET("alpha")
+    suspend fun getCountriesByAlphaCode(
+        @Query("codes") codes: String,
+        @Query("fields") fields: String
+    ): List<CountryModel>
+
     @GET("all")
     suspend fun getAllCountries(@Query("fields") necessaryFields: String = Constants.NECESSARY_APİ_FİELDS): List<CountryModel>
 

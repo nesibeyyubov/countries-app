@@ -1,12 +1,15 @@
 package com.nesib.countriesapp.ui.details
 
-import android.telecom.Call.Details
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseFragment
@@ -16,15 +19,19 @@ import com.nesib.countriesapp.databinding.FragmentCountryDetailsBinding
 import com.nesib.countriesapp.models.CountryUi
 import com.nesib.countriesapp.models.toDetailsKeyValue
 import com.nesib.countriesapp.ui.details.map.DetailsMapFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class CountryDetailsFragment :
-    BaseFragment<FragmentCountryDetailsBinding, CountryDetailsState, BaseViewModel<CountryDetailsState>, CountryDetailsFragment.Params>() {
+    BaseFragment<FragmentCountryDetailsBinding, CountryDetailsState, CountryDetailsViewModel, CountryDetailsFragment.Params>() {
 
-    override val viewModel: BaseViewModel<CountryDetailsState>?
-        get() = null
+    override val viewModel: CountryDetailsViewModel
+        get() = ViewModelProvider(this)[CountryDetailsViewModel::class.java]
 
     private val detailsAdapter by lazy { CountryDetailsAdapter() }
+
+    private val bordersAdapter by lazy { BordersAdapter() }
 
     data class Params(val country: CountryUi) : ScreenParams
 
@@ -41,10 +48,19 @@ class CountryDetailsFragment :
         window.statusBarColor = getColor(R.color.transparent)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        params?.country?.let {
+            viewModel.getBorders(it.borders)
+        }
+    }
+
     override fun initViews(): Unit = with(binding) {
         initStatusBarColors()
 
         rvDetails.adapter = detailsAdapter
+        bordersRecyclerView.adapter = bordersAdapter
+        bordersRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         params?.let {
             val country = it.country
             ivFlag.load(country.flags.pngFormat)
@@ -96,8 +112,13 @@ class CountryDetailsFragment :
 
     }
 
-    override fun render(state: CountryDetailsState) {
+    override fun render(state: CountryDetailsState) = with(binding) {
+        bordersProgressBar.isVisible = state.bordersLoading
+        noBorders.isVisible = state.borders.isEmpty() && !state.bordersLoading
 
+        if (state.borders.isNotEmpty()) {
+            bordersAdapter.submitItems(state.borders)
+        }
     }
 
     override fun onResume() {
