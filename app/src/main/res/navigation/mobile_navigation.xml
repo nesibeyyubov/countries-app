@@ -25,145 +25,16 @@
         android:name="com.nesib.countriesapp.ui.details.map.DetailsMapFragment"
         android:label="DetailsMapFragment"
         tools:layout="@layout/fragment_map" />
-
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_search"-->
-    <!--        android:name="com.nesib.countriesapp.ui.SearchFragment"-->
-    <!--        android:label="@string/title_search"-->
-    <!--        tools:layout="@layout/fragment_search">-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_navigation_search_to_navigation_details"-->
-    <!--            app:destination="@id/navigation_details"-->
-    <!--            app:enterAnim="@anim/slide_in_right"-->
-    <!--            app:exitAnim="@anim/slide_out_left"-->
-    <!--            app:popEnterAnim="@anim/slide_in_left"-->
-    <!--            app:popExitAnim="@anim/slide_out_right" />-->
-
-    <!--    </fragment>-->
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_favorites"-->
-    <!--        android:name="com.nesib.countriesapp.ui.FavoritesFragment"-->
-    <!--        android:label="@string/title_favorites"-->
-    <!--        tools:layout="@layout/fragment_favorites">-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_navigation_favorites_to_navigation_details"-->
-    <!--            app:destination="@id/navigation_details"-->
-    <!--            app:enterAnim="@anim/slide_in_right"-->
-    <!--            app:exitAnim="@anim/slide_out_left"-->
-    <!--            app:popEnterAnim="@anim/slide_in_left"-->
-    <!--            app:popExitAnim="@anim/slide_out_right" />-->
-    <!--    </fragment>-->
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_quiz"-->
-    <!--        android:name="com.nesib.countriesapp.ui.quiz.QuizFragment"-->
-    <!--        android:label="fragment_quiz"-->
-    <!--        tools:layout="@layout/fragment_quiz" >-->
-    <!--        <action-->
-    <!--            app:enterAnim="@anim/slide_up"-->
-    <!--            app:exitAnim="@anim/fade_out"-->
-    <!--            app:popEnterAnim="@anim/fade_in"-->
-    <!--            app:popExitAnim="@anim/slide_down"-->
-    <!--            android:id="@+id/action_navigation_quiz_to_questionFragment"-->
-    <!--            app:destination="@id/questionFragment" />-->
-    <!--    </fragment>-->
-
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/navigation_details"-->
-    <!--        android:name="com.nesib.countriesapp.ui.DetailsFragment"-->
-    <!--        android:label="DetailsFragment"-->
-    <!--        tools:layout="@layout/fragment_country_details">-->
-    <!--        <argument-->
-    <!--            android:name="country"-->
-    <!--            android:defaultValue="@null"-->
-    <!--            app:argType="com.nesib.countriesapp.models.Country"-->
-    <!--            app:nullable="true" />-->
-    <!--        <argument-->
-    <!--            android:name="fromSearch"-->
-    <!--            android:defaultValue="false"-->
-    <!--            app:argType="boolean" />-->
-    <!--        <action-->
-    <!--            app:enterAnim="@anim/slide_in_right"-->
-    <!--            app:exitAnim="@anim/slide_out_left"-->
-    <!--            app:popEnterAnim="@anim/slide_in_left"-->
-    <!--            app:popExitAnim="@anim/slide_out_right"-->
-    <!--            android:id="@+id/action_navigation_details_to_mapFragment"-->
-    <!--            app:destination="@id/map_fragment" />-->
-    <!--    </fragment>-->
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/map_fragment"-->
-    <!--        android:name="com.nesib.countriesapp.ui.MapFragment"-->
-    <!--        android:label="fragment_map"-->
-    <!--        tools:layout="@layout/fragment_map" >-->
-    <!--        <argument-->
-    <!--            android:name="LatLng"-->
-    <!--            app:argType="float[]"-->
-    <!--            app:nullable="true"-->
-    <!--            android:defaultValue="@null" />-->
-    <!--    </fragment>-->
-
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/resultsFragment"-->
-    <!--        android:name="com.nesib.countriesapp.ui.ResultsFragment"-->
-    <!--        android:label="ResultsFragment"-->
-    <!--        tools:layout="@layout/fragment_results">-->
-    <!--        <argument-->
-    <!--            android:name="regionName"-->
-    <!--            android:defaultValue="null"-->
-    <!--            app:argType="string" />-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_resultsFragment_to_navigation_details"-->
-    <!--            app:destination="@id/navigation_details"-->
-    <!--            app:enterAnim="@anim/slide_in_right"-->
-    <!--            app:exitAnim="@anim/slide_out_left"-->
-    <!--            app:popEnterAnim="@anim/slide_in_left"-->
-    <!--            app:popExitAnim="@anim/slide_out_right" />-->
-    <!--    </fragment>-->
-
-    <!--    <fragment-->
-    <!--        android:id="@+id/questionFragment"-->
-    <!--        android:name="com.nesib.countriesapp.ui.quiz.QuestionFragment"-->
-    <!--        android:label="fragment_question"-->
-    <!--        tools:layout="@layout/fragment_question" >-->
-    <!--        <argument-->
-    <!--            android:name="quizType"-->
-    <!--            app:argType="string"-->
-    <!--            app:nullable="true"-->
-    <!--            android:defaultValue="null" />-->
-    <!--        <action-->
-    <!--            app:enterAnim="@anim/slide_in_right"-->
-    <!--            app:exitAnim="@anim/slide_out_left"-->
-    <!--            app:popEnterAnim="@anim/slide_in_left"-->
-    <!--            app:popExitAnim="@anim/slide_out_right"-->
-    <!--            android:id="@+id/action_questionFragment_to_scoreFragment"-->
-    <!--            app:destination="@id/scoreFragment" />-->
-    <!--    </fragment>-->
-    <!--    <fragment-->
-    <!--        android:id="@+id/scoreFragment"-->
-    <!--        android:name="com.nesib.countriesapp.ui.quiz.ScoreFragment"-->
-    <!--        android:label="fragment_score"-->
-    <!--        tools:layout="@layout/fragment_score" >-->
-    <!--        <argument-->
-    <!--            android:name="questionCount"-->
-    <!--            app:argType="integer"-->
-    <!--            android:defaultValue="0" />-->
-    <!--        <argument-->
-    <!--            android:name="correctCount"-->
-    <!--            app:argType="integer"-->
-    <!--            android:defaultValue="0" />-->
-    <!--        <argument-->
-    <!--            android:name="quizType"-->
-    <!--            app:argType="string"-->
-    <!--            android:defaultValue="null" />-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_scoreFragment_to_navigation_quiz"-->
-    <!--            app:destination="@id/navigation_quiz" />-->
-    <!--    </fragment>-->
+    <fragment
+        android:id="@+id/navigation_quiz"
+        android:name="com.nesib.countriesapp.ui.quiz.QuizFragment"
+        android:label="QuizFragment"
+        tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="com.nesib.countriesapp.ui.quiz.questions.QuestionsFragment"
+        android:label="QuestionsFragment"
+        tools:layout="@layout/fragment_question" />
 
 
 </navigation>

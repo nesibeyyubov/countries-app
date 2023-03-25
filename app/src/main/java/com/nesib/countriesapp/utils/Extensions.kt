@@ -1,11 +1,13 @@
 package com.nesib.countriesapp.utils
 
+import android.content.Context
 import android.os.Build
 import android.os.Build.VERSION
 import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import java.text.DecimalFormat
 
@@ -61,6 +63,9 @@ fun Int.supportsChangingStatusBarColors(): Boolean {
 
 val Fragment.sdkVersion
     get() = Build.VERSION.SDK_INT
+
+
+val Context.dataStore by preferencesDataStore(name = "score_prefs")
 
 
 /**

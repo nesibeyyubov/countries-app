@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.quiz.QuestionFragment">
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -26,10 +25,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_weight="1"
                     android:id="@+id/questionNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/loading_questions_text"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
@@ -39,7 +38,6 @@
                     android:id="@+id/exitButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
                     android:scaleX="1.4"
                     android:text="X"
                     android:textColor="@android:color/white"
@@ -47,49 +45,45 @@
             </LinearLayout>
 
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:gravity="center_vertical"
                 android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/questionText"
-                    android:paddingTop="15dp"
-                    android:visibility="gone"
-                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:text="Question here "
+                    android:paddingTop="15dp"
+                    android:text=""
+                    android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
-                     />
+                    android:textStyle="bold"
+                    android:visibility="visible" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/loadingAnimation"
-                    android:layout_marginTop="-5dp"
-                    app:lottie_rawRes="@raw/loading"
                     android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="-5dp"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
-                    android:layout_height="120dp"/>
+                    app:lottie_rawRes="@raw/loading" />
 
                 <ImageView
                     android:id="@+id/questionImage"
-                    android:visibility="gone"
                     android:layout_width="190dp"
                     android:layout_height="110dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/flag" />
+                    android:visibility="visible"
+                    tools:src="@drawable/flag" />
 
             </LinearLayout>
         </LinearLayout>
-
 
 
         <androidx.cardview.widget.CardView
@@ -121,11 +115,11 @@
 
             <ScrollView
                 android:id="@+id/optionsContainer"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingBottom="50dp">
+                android:paddingBottom="50dp"
+                android:visibility="invisible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -135,10 +129,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clipToPadding="false"
-                        android:paddingHorizontal="20dp"
                         android:layout_marginTop="20dp"
-                        android:orientation="vertical">
+                        android:clipToPadding="false"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp">
 
 
                         <LinearLayout
@@ -291,12 +285,12 @@
                 android:paddingBottom="10dp">
 
                 <Button
-                    android:enabled="false"
                     android:id="@+id/nextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="45dp"
                     android:layout_weight="1"
                     android:background="@drawable/disabled_btn_bg"
+                    android:enabled="false"
                     android:text="@string/start_button_text"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />

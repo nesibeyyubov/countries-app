@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 open class GenericListAdapter<Binding : ViewBinding, Model>(
-    val inflate: (Context, ViewGroup, Boolean) -> Binding,
-    val onBind: (Model, Int, Binding) -> Unit
+    val inflate: (context: Context, parent: ViewGroup, attachToParent: Boolean) -> Binding,
+    val onBind: (model: Model, index: Int, binding: Binding) -> Unit
 ) :
     RecyclerView.Adapter<GenericListAdapter.GenericViewHolder<Binding>>() {
 
