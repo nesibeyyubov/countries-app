@@ -38,7 +38,7 @@ class CountriesFragment :
 
 
         countriesAdapter.onCountryClick = {
-            navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it))
+            navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it), withAnimation = false)
         }
         params?.run {
             regionName.text = this.region.toTranslatedText(requireContext())
@@ -80,8 +80,10 @@ class CountriesFragment :
                         state.countries
                             .sortedBy { it.population }
                             .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
+
+                    val isCountriesSame = countries == countriesAdapter.currentList
                     countriesAdapter.submitList(countries) {
-                        recyclerView.scrollToPosition(0)
+                        if (!isCountriesSame) recyclerView.scrollToPosition(0)
                     }
                 }
                 SingleChipSelector.SortBy.Area -> {
@@ -90,8 +92,10 @@ class CountriesFragment :
                         state.countries
                             .sortedBy { it.area }
                             .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
+
+                    val isCountriesSame = countries == countriesAdapter.currentList
                     countriesAdapter.submitList(countries) {
-                        recyclerView.scrollToPosition(0)
+                        if (!isCountriesSame) recyclerView.scrollToPosition(0)
                     }
                 }
                 SingleChipSelector.SortBy.None -> {
@@ -100,8 +104,9 @@ class CountriesFragment :
                         state.countries
                             .filter { it.name.common.contains(state.searchQuery, ignoreCase = true) }
 
+                    val isCountriesSame = countries == countriesAdapter.currentList
                     countriesAdapter.submitList(countries) {
-                        recyclerView.scrollToPosition(0)
+                        if (!isCountriesSame) recyclerView.scrollToPosition(0)
                     }
                 }
             }

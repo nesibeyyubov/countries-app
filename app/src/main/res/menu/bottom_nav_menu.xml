@@ -11,9 +11,4 @@
         android:icon="@drawable/ic_quiz"
         android:title="@string/title_quiz" />
 
-    <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search"
-        android:title="Random" />
-
 </menu>

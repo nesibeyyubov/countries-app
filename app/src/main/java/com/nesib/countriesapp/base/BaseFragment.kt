@@ -12,9 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.nesib.countriesapp.R
 import com.nesib.countriesapp.utils.sdkVersion
 import com.nesib.countriesapp.utils.supportsChangingStatusBarColors
 import kotlinx.coroutines.flow.launchIn
@@ -78,13 +81,24 @@ abstract class BaseFragment<
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun navigate(screenId: Int, params: ScreenParams? = null) {
+    fun navigate(screenId: Int, params: ScreenParams? = null, withAnimation: Boolean = true) {
+        var navOptions: NavOptions? = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
+        if (!withAnimation) {
+            navOptions = null
+        }
         if (params != null) {
             val bundle = Bundle()
             bundle.putSerializable(KEY_PARAMS, params)
-            findNavController().navigate(screenId, bundle)
+            findNavController().navigate(screenId, bundle, navOptions)
         } else {
-            findNavController().navigate(screenId)
+            findNavController().navigate(screenId, Bundle(), navOptions)
         }
     }
 

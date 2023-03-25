@@ -11,16 +11,18 @@
         android:id="@+id/regionNameContainer2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/ib_back"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:background="@android:color/transparent"
-            android:paddingHorizontal="10dp"
+            android:background="?android:attr/actionBarItemBackground"
+            android:clickable="true"
+            android:padding="10dp"
             android:src="@drawable/ic_back"
             app:tint="@android:color/black" />
 
