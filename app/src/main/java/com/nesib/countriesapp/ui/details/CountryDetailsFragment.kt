@@ -38,15 +38,6 @@ class CountryDetailsFragment :
     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentCountryDetailsBinding.inflate(inflater)
 
-    private fun initStatusBarColors() = with(binding) {
-        root.systemUiVisibility =
-            SYSTEM_UI_FLAG_LAYOUT_STABLE or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-
-        val window = requireActivity().window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        window.statusBarColor = getColor(R.color.transparent)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +47,7 @@ class CountryDetailsFragment :
     }
 
     override fun initViews(): Unit = with(binding) {
-        initStatusBarColors()
+        makeFragmentFullScreen()
 
         rvDetails.adapter = detailsAdapter
         bordersRecyclerView.adapter = bordersAdapter

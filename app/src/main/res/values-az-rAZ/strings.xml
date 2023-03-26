@@ -44,8 +44,8 @@
     <!--QUESTION FRAGMENT-->
     <string name="loading_questions_text">Suallar yüklənir…</string>
     <string name="question_number_text">Sual</string>
-    <string name="question_region_text">"Hansı ölkə verilmiş qitədə yerləşir\n"</string>
-    <string name="question_capital_text"> hansı ölkənin paytaxtıdır?</string>
+    <string name="question_region_text">"Hansı ölkə verilmiş %s qitəsində yerləşir?"</string>
+    <string name="question_capital_text">%s hansı ölkənin paytaxtıdır?</string>
     <string name="start_button_text">Başla</string>
     <string name="next_button_text">Növbəti</string>
     <string name="click_start_btn_text">Testə başlamaq üçün başla düyməsinə klikləyin</string>

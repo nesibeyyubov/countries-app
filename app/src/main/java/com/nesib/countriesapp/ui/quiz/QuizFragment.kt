@@ -8,6 +8,7 @@ import com.nesib.countriesapp.base.BaseFragment
 import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentQuizBinding
 import com.nesib.countriesapp.ui.quiz.questions.QuestionsFragment
+import com.nesib.countriesapp.utils.slideUpDownAnimationNavOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +21,7 @@ class QuizFragment : BaseFragment<FragmentQuizBinding, QuizState, QuizViewModel,
 
     private val quizAdapter by lazy {
         QuizAdapter {
-            navigate(R.id.questionsFragment, QuestionsFragment.Params(it.quizType))
+            navigate(R.id.questionsFragment, QuestionsFragment.Params(it.quizType), slideUpDownAnimationNavOptions)
         }
     }
 
@@ -28,6 +29,7 @@ class QuizFragment : BaseFragment<FragmentQuizBinding, QuizState, QuizViewModel,
         FragmentQuizBinding.inflate(inflater, container, false)
 
     override fun initViews() = with(binding) {
+        showBottomNav(true)
         viewModel.getQuizzes()
         recyclerView.adapter = quizAdapter
     }

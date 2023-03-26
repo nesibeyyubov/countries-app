@@ -9,6 +9,7 @@ import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentHomeBinding
 import com.nesib.countriesapp.ui.countries.CountriesFragment
 import com.nesib.countriesapp.utils.Region
+import com.nesib.countriesapp.utils.slideInOutAnimationNavOptions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,22 +27,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeState, HomeViewModel,
         allCountries.setOnClickListener {
             navigate(
                 R.id.countriesFragment,
-                CountriesFragment.Params(Region.ALL_COUNTRIES)
+                CountriesFragment.Params(Region.ALL_COUNTRIES),
+                slideInOutAnimationNavOptions
             )
         }
-        europe.setOnClickListener { navigate(R.id.countriesFragment, CountriesFragment.Params(Region.EUROPE)) }
-        africa.setOnClickListener { navigate(R.id.countriesFragment, CountriesFragment.Params(Region.AFRICA)) }
-        asia.setOnClickListener { navigate(R.id.countriesFragment, CountriesFragment.Params(Region.ASIA)) }
+        europe.setOnClickListener {
+            navigate(
+                R.id.countriesFragment,
+                CountriesFragment.Params(Region.EUROPE),
+                slideInOutAnimationNavOptions
+            )
+        }
+        africa.setOnClickListener {
+            navigate(
+                R.id.countriesFragment,
+                CountriesFragment.Params(Region.AFRICA),
+                slideInOutAnimationNavOptions
+            )
+        }
+        asia.setOnClickListener {
+            navigate(
+                R.id.countriesFragment, CountriesFragment.Params(Region.ASIA),
+                slideInOutAnimationNavOptions
+            )
+        }
         oceania.setOnClickListener {
             navigate(
                 R.id.countriesFragment,
-                CountriesFragment.Params(Region.OCEANIA)
+                CountriesFragment.Params(Region.OCEANIA),
+                slideInOutAnimationNavOptions
             )
         }
         americas.setOnClickListener {
             navigate(
                 R.id.countriesFragment,
-                CountriesFragment.Params(Region.AMERICAS)
+                CountriesFragment.Params(Region.AMERICAS),
+                slideInOutAnimationNavOptions
             )
         }
     }

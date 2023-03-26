@@ -35,6 +35,11 @@
         android:name="com.nesib.countriesapp.ui.quiz.questions.QuestionsFragment"
         android:label="QuestionsFragment"
         tools:layout="@layout/fragment_question" />
+    <fragment
+        android:id="@+id/scoreFragment"
+        android:name="com.nesib.countriesapp.ui.quiz.score.ScoreFragment"
+        android:label="ScoreFragment"
+        tools:layout="@layout/fragment_score" />
 
 
 </navigation>

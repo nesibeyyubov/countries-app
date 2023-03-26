@@ -43,8 +43,8 @@
     <!--QUESTION FRAGMENT-->
     <string name="loading_questions_text">Sorular yükleniyor…</string>
     <string name="question_number_text">Soru</string>
-    <string name="question_region_text">Hangi ülke verilen kıtada bulunuyor </string>
-    <string name="question_capital_text"> bu ülkenin başkentidir</string>
+    <string name="question_region_text">Hangi ülke %s kıtasında bulunuyor?</string>
+    <string name="question_capital_text">%s bu ülkenin başkentidir…</string>
     <string name="start_button_text">Başla</string>
     <string name="next_button_text">Sonraki</string>
     <string name="click_start_btn_text">Testi oynatmak için başlat düğmesine tıklayın</string>

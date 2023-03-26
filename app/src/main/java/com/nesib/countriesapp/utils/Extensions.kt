@@ -9,6 +9,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.navigation.navOptions
+import com.nesib.countriesapp.R
 import java.text.DecimalFormat
 
 /**
@@ -66,6 +68,22 @@ val Fragment.sdkVersion
 
 
 val Context.dataStore by preferencesDataStore(name = "score_prefs")
+
+val slideInOutAnimationNavOptions = navOptions {
+    anim {
+        enter = R.anim.slide_in_right
+        exit = R.anim.slide_out_left
+        popEnter = R.anim.slide_in_left
+        popExit = R.anim.slide_out_right
+    }
+}
+
+val slideUpDownAnimationNavOptions = navOptions {
+    anim {
+        enter = R.anim.slide_up
+        popExit = R.anim.slide_down
+    }
+}
 
 
 /**

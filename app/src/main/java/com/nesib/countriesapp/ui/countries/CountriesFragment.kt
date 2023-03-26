@@ -17,6 +17,7 @@ import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentResultsBinding
 import com.nesib.countriesapp.ui.details.CountryDetailsFragment
 import com.nesib.countriesapp.utils.Region
+import com.nesib.countriesapp.utils.slideInOutAnimationNavOptions
 import com.nesib.countriesapp.utils.toTranslatedText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +39,7 @@ class CountriesFragment :
 
 
         countriesAdapter.onCountryClick = {
-            navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it), withAnimation = false)
+            navigate(R.id.countryDetailsFragment, CountryDetailsFragment.Params(it), slideInOutAnimationNavOptions)
         }
         params?.run {
             regionName.text = this.region.toTranslatedText(requireContext())

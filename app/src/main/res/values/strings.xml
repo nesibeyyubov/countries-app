@@ -10,7 +10,6 @@
     <string name="no_information_text">No information</string>
 
 
-
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Welcome</string>
     <string name="select_region_text">Select region</string>
@@ -25,7 +24,6 @@
     <string name="search_text">Search</string>
     <string name="country_not_found_text">Country not found</string>
     <string name="search_for_country_text">You can search any country here</string>
-
 
 
     <!-- RESULTS FRAGMENT -->
@@ -44,8 +42,8 @@
     <!--QUESTION FRAGMENT-->
     <string name="loading_questions_text">Loading questions…</string>
     <string name="question_number_text">Question</string>
-    <string name="question_region_text">Which country is located in </string>
-    <string name="question_capital_text"> is the capital of …</string>
+    <string name="question_region_text">Which country is located in: %s</string>
+    <string name="question_capital_text">%s is the capital of …</string>
     <string name="start_button_text">Start</string>
     <string name="next_button_text">Next</string>
     <string name="click_start_btn_text">Click start button to play the quiz</string>

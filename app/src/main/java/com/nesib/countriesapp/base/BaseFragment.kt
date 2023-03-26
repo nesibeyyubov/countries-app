@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.nesib.countriesapp.MainActivity
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.utils.sdkVersion
 import com.nesib.countriesapp.utils.supportsChangingStatusBarColors
@@ -55,6 +57,16 @@ abstract class BaseFragment<
         observeState()
     }
 
+    fun makeFragmentFullScreen() = with(binding) {
+        root.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+        val window = requireActivity().window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.statusBarColor = getColor(R.color.transparent)
+    }
+
     private fun observeState() {
         viewModel?.let {
             it.state
@@ -81,18 +93,15 @@ abstract class BaseFragment<
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun navigate(screenId: Int, params: ScreenParams? = null, withAnimation: Boolean = true) {
-        var navOptions: NavOptions? = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
-        if (!withAnimation) {
-            navOptions = null
-        }
+    fun showBottomNav(show: Boolean) {
+        (requireActivity() as MainActivity).showBottomNav(show)
+    }
+
+    fun navigate(
+        screenId: Int,
+        params: ScreenParams? = null,
+        navOptions: NavOptions? = null
+    ) {
         if (params != null) {
             val bundle = Bundle()
             bundle.putSerializable(KEY_PARAMS, params)
@@ -103,9 +112,7 @@ abstract class BaseFragment<
     }
 
     fun changeStatusBarIconColor(iconsIsLight: Boolean) {
-
         if (sdkVersion.supportsChangingStatusBarColors()) {
-
             val decorView = requireActivity().window.decorView
             decorView.systemUiVisibility = if (iconsIsLight) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }

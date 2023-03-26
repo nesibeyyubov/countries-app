@@ -2,6 +2,7 @@ package com.nesib.countriesapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         if (!isGooglePlayServicesAvailable()) {
             finish()
         }
+    }
+
+    fun showBottomNav(show: Boolean) {
+        binding.navView.isVisible = show
     }
 
     private fun isGooglePlayServicesAvailable(): Boolean {

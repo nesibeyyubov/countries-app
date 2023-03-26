@@ -14,7 +14,7 @@
         <LinearLayout
             android:id="@+id/questionBackground"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="250dp"
             android:background="@drawable/radial_question_bg"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
@@ -22,26 +22,30 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/questionNumber"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/loading_questions_text"
                     android:textColor="@android:color/white"
                     android:textSize="22sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="visible" />
 
-                <TextView
+                <ImageButton
                     android:id="@+id/exitButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:scaleX="1.4"
-                    android:text="X"
+                    android:background="?android:attr/actionBarItemBackground"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_close"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    app:tint="@color/white" />
             </LinearLayout>
 
 
@@ -49,16 +53,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="15dp"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/questionText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:paddingTop="15dp"
-                    android:text=""
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
@@ -70,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:layout_marginTop="-5dp"
+                    android:visibility="gone"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/loading" />
@@ -78,8 +82,9 @@
                     android:id="@+id/questionImage"
                     android:layout_width="190dp"
                     android:layout_height="110dp"
+                    android:layout_gravity="center"
                     android:scaleType="centerCrop"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     tools:src="@drawable/flag" />
 
             </LinearLayout>
