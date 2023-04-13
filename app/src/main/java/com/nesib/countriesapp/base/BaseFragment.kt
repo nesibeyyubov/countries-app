@@ -24,6 +24,7 @@ import com.nesib.countriesapp.utils.sdkVersion
 import com.nesib.countriesapp.utils.supportsChangingStatusBarColors
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class BaseFragment<
         VB : ViewBinding,
@@ -74,6 +75,11 @@ abstract class BaseFragment<
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .launchIn(lifecycleScope)
         }
+
+
+    }
+
+    open fun onAction(action: Int) {
 
     }
 

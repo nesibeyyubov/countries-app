@@ -58,7 +58,7 @@
     <!--SCORE FRAGMENT-->
     <string name="congrats_text">Tebrikler!</string>
     <string name="score_text">Skor</string>
-    <string name="your_best_score_text">En iyi skorun: </string>
+    <string name="your_best_score_text">En iyi skorun: %d</string>
     <string name="quiz_result_text"> &lt;b>%1$d soru&lt;/b> denediniz&lt;br/>bunlardan &lt;b>%2$d-i doğru&lt;/b> </string>
 
     <!-- FAVORITES FRAGMENT -->

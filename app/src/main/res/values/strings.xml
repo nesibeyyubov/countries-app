@@ -57,7 +57,7 @@
     <!--SCORE FRAGMENT-->
     <string name="congrats_text">Congrats!</string>
     <string name="score_text">Score</string>
-    <string name="your_best_score_text">Your best score is: </string>
+    <string name="your_best_score_text">Your best score is: %d</string>
     <string name="quiz_result_text">You attempted &lt;b>%1$d questions&lt;/b> &lt;br/> from that &lt;b>%2$d answer&lt;/b> is right</string>
 
     <!-- FAVORITES FRAGMENT -->

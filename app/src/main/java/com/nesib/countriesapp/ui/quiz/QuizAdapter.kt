@@ -15,6 +15,7 @@ class QuizAdapter(val onClickListener: (Quiz) -> Unit) : GenericListAdapter<Quiz
             overlay.setBackgroundResource(quiz.quizType.backgroundColorResource)
             quizTitle.text = context.getString(quiz.title)
             quizSubTitle.text = context.getString(quiz.subTitle)
+            bestScore.text = quiz.bestScore.toString()
 
 
             playButton.setOnClickListener { onClickListener(quiz) }

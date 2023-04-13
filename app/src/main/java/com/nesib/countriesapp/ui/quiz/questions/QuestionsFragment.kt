@@ -1,6 +1,7 @@
 package com.nesib.countriesapp.ui.quiz.questions
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,10 @@ import com.nesib.countriesapp.ui.quiz.score.ScoreFragment
 import com.nesib.countriesapp.utils.slideInOutAnimationNavOptions
 import com.nesib.countriesapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class QuestionsFragment :
@@ -75,19 +78,26 @@ class QuestionsFragment :
             .onEach {
                 countdownText.text = it.toString()
                 if (it == 0) {
-//                    viewModel.saveBestScore()
-                    navigate(
-                        R.id.scoreFragment,
-                        ScoreFragment.Params(
-                            viewModel.currentState().currentQuestionNumber,
-                            viewModel.getRightAnswerCount()
-                        ),
-                        slideInOutAnimationNavOptions
-                    )
+                    viewModel.saveBestScore(params?.quizType)
                 }
             }
             .flowWithLifecycle(viewLifecycleOwner.lifecycle)
             .launchIn(lifecycleScope)
+    }
+
+    override fun onAction(action: Int) {
+        Log.d("mytag", "onAction: ")
+        requireActivity().runOnUiThread {
+            navigate(
+                R.id.scoreFragment,
+                ScoreFragment.Params(
+                    viewModel.currentState().currentQuestionNumber,
+                    viewModel.getRightAnswerCount(),
+                    params?.quizType
+                ),
+                slideInOutAnimationNavOptions
+            )
+        }
     }
 
 

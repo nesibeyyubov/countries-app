@@ -7,5 +7,6 @@ data class QuestionsState(
     val loading: Boolean = false,
     val questions: List<Question> = emptyList(),
     val currentQuestion: Question? = null,
-    val currentQuestionNumber: Int = 0
+    val currentQuestionNumber: Int = 0,
+    val readyForNavigatingToScoreFragment: Boolean = false
 ) : State

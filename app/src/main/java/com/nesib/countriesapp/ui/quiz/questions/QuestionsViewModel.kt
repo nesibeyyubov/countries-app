@@ -49,25 +49,29 @@ class QuestionsViewModel @Inject constructor(
     }
 
 
-    fun saveBestScore(quizType: QuizType) {
+    fun saveBestScore(quizType: QuizType?) {
+        if (quizType == null) return
         preferencesDataStore.getScorePreferences()
             .onStart { }
-            .catch { }
+            .catch { setState { state -> state.copy(readyForNavigatingToScoreFragment = true) } }
             .onEach {
                 when (quizType) {
                     QuizType.Capitals -> {
                         if (rightAnswerCount > it.capitalsScore) {
                             preferencesDataStore.setCapitalsScore(rightAnswerCount)
+                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                     QuizType.Regions -> {
                         if (rightAnswerCount > it.regionsScore) {
-                            preferencesDataStore.setCapitalsScore(rightAnswerCount)
+                            preferencesDataStore.setRegionsScore(rightAnswerCount)
+                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                     QuizType.Flags -> {
                         if (rightAnswerCount > it.flagsScore) {
-                            preferencesDataStore.setCapitalsScore(rightAnswerCount)
+                            preferencesDataStore.setFlagsScore(rightAnswerCount)
+                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                 }
@@ -127,13 +131,19 @@ class QuestionsViewModel @Inject constructor(
             val rightOption = countries.random()
             countries.remove(rightOption)
 
-            val wrongOption1 = countries.random()
+            val wrongOption1 =
+                countries.filter { if (quizType == QuizType.Regions) it.region != rightOption.region else true }
+                    .random()
             countries.remove(wrongOption1)
 
-            val wrongOption2 = countries.random()
+            val wrongOption2 =
+                countries.filter { if (quizType == QuizType.Regions) it.region != rightOption.region else true }
+                    .random()
             countries.remove(wrongOption2)
 
-            val wrongOption3 = countries.random()
+            val wrongOption3 =
+                countries.filter { if (quizType == QuizType.Regions) it.region != rightOption.region else true }
+                    .random()
             countries.remove(wrongOption3)
 
             val questionTitle = when (quizType) {

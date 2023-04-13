@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.quiz
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseViewModel
@@ -18,62 +19,47 @@ class QuizViewModel @Inject constructor(
     private val preferencesDataStore: PreferencesDataStore
 ) : BaseViewModel<QuizState>(QuizState()) {
 
+    private val defaultQuizzes = listOf(
+        Quiz(
+            title = R.string.quiz_title_capital_text,
+            subTitle = R.string.quiz_subtitle_capital_text,
+            questionCount = 500,
+            bestScore = 0,
+            quizType = QuizType.Capitals,
+        ),
+        Quiz(
+            title = R.string.quiz_title_regions_text,
+            subTitle = R.string.quiz_subtitle_regions_text,
+            questionCount = 500,
+            bestScore = 0,
+            quizType = QuizType.Regions,
+        ),
+        Quiz(
+            title = R.string.quiz_title_flags_text,
+            subTitle = R.string.quiz_subtitle_flags_text,
+            questionCount = 500,
+            bestScore = 0,
+            quizType = QuizType.Flags,
+        )
+    )
 
     fun getQuizzes() {
         preferencesDataStore.getScorePreferences()
-            .onStart { setState { it.copy(loading = true) } }
+            .onStart { setState { it.copy(quizzes = defaultQuizzes) } }
             .onEach { scorePreference ->
-                val quizzes = listOf(
-                    Quiz(
-                        title = R.string.quiz_title_capital_text,
-                        subTitle = R.string.quiz_subtitle_capital_text,
-                        questionCount = 500,
-                        bestScore = scorePreference.capitalsScore,
-                        quizType = QuizType.Capitals,
-                    ),
-                    Quiz(
-                        title = R.string.quiz_title_regions_text,
-                        subTitle = R.string.quiz_subtitle_regions_text,
-                        questionCount = 500,
-                        bestScore = scorePreference.regionsScore,
-                        quizType = QuizType.Regions,
-                    ),
-                    Quiz(
-                        title = R.string.quiz_title_flags_text,
-                        subTitle = R.string.quiz_subtitle_flags_text,
-                        questionCount = 500,
-                        bestScore = scorePreference.flagsScore,
-                        quizType = QuizType.Flags,
+                val quizzes = defaultQuizzes.map {
+                    it.copy(
+                        bestScore = when (it.quizType) {
+                            QuizType.Regions -> scorePreference.regionsScore
+                            QuizType.Flags -> scorePreference.flagsScore
+                            QuizType.Capitals -> scorePreference.capitalsScore
+                        }
                     )
-                )
+                }
+                Log.d("mytag", "getQuizzes: $quizzes")
                 setState { it.copy(loading = false, quizzes = quizzes) }
             }
-            .catch {
-                val quizzes = listOf(
-                    Quiz(
-                        title = R.string.quiz_title_capital_text,
-                        subTitle = R.string.quiz_subtitle_capital_text,
-                        questionCount = 500,
-                        bestScore = 0,
-                        quizType = QuizType.Capitals,
-                    ),
-                    Quiz(
-                        title = R.string.quiz_title_regions_text,
-                        subTitle = R.string.quiz_subtitle_regions_text,
-                        questionCount = 500,
-                        bestScore = 0,
-                        quizType = QuizType.Regions,
-                    ),
-                    Quiz(
-                        title = R.string.quiz_title_flags_text,
-                        subTitle = R.string.quiz_subtitle_flags_text,
-                        questionCount = 500,
-                        bestScore = 0,
-                        quizType = QuizType.Flags,
-                    )
-                )
-                setState { it.copy(loading = false, quizzes = quizzes) }
-            }
+            .catch {}
             .launchIn(viewModelScope)
 
     }

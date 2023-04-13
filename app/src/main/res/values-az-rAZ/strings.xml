@@ -59,7 +59,7 @@
     <!--SCORE FRAGMENT-->
     <string name="congrats_text">Təbriklər!</string>
     <string name="score_text">Nəticə</string>
-    <string name="your_best_score_text">Sizin ən yaxşı nəticəniz :</string>
+    <string name="your_best_score_text">Sizin ən yaxşı nəticəniz: %d</string>
     <string name="quiz_result_text">Siz &lt;b>%1$d suala&lt;/b> cavab verdiniz&lt;br/>bunlardan &lt;b>%2$d-i düzgündür&lt;/b></string>
 
     <!-- FAVORITES FRAGMENT -->
