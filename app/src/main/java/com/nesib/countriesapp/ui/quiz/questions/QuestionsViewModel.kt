@@ -2,6 +2,7 @@ package com.nesib.countriesapp.ui.quiz.questions
 
 import android.content.Context
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseViewModel
@@ -53,28 +54,28 @@ class QuestionsViewModel @Inject constructor(
         if (quizType == null) return
         preferencesDataStore.getScorePreferences()
             .onStart { }
-            .catch { setState { state -> state.copy(readyForNavigatingToScoreFragment = true) } }
+            .catch {
+                setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
+            }
             .onEach {
                 when (quizType) {
                     QuizType.Capitals -> {
                         if (rightAnswerCount > it.capitalsScore) {
                             preferencesDataStore.setCapitalsScore(rightAnswerCount)
-                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                     QuizType.Regions -> {
                         if (rightAnswerCount > it.regionsScore) {
                             preferencesDataStore.setRegionsScore(rightAnswerCount)
-                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                     QuizType.Flags -> {
                         if (rightAnswerCount > it.flagsScore) {
                             preferencesDataStore.setFlagsScore(rightAnswerCount)
-                            setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
                         }
                     }
                 }
+                setState { state -> state.copy(readyForNavigatingToScoreFragment = true) }
             }
             .launchIn(viewModelScope)
     }

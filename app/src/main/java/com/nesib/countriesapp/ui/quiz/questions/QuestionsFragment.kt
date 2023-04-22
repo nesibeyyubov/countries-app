@@ -3,12 +3,8 @@ package com.nesib.countriesapp.ui.quiz.questions
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.FOCUS_BLOCK_DESCENDANTS
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
-import androidx.core.view.forEach
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -24,10 +20,8 @@ import com.nesib.countriesapp.ui.quiz.score.ScoreFragment
 import com.nesib.countriesapp.utils.slideInOutAnimationNavOptions
 import com.nesib.countriesapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class QuestionsFragment :
@@ -85,36 +79,22 @@ class QuestionsFragment :
             .launchIn(lifecycleScope)
     }
 
-    override fun onAction(action: Int) {
-        Log.d("mytag", "onAction: ")
-        requireActivity().runOnUiThread {
-            navigate(
-                R.id.scoreFragment,
-                ScoreFragment.Params(
-                    viewModel.currentState().currentQuestionNumber,
-                    viewModel.getRightAnswerCount(),
-                    params?.quizType
-                ),
-                slideInOutAnimationNavOptions
-            )
-        }
-    }
-
 
     override fun onResume() {
         super.onResume()
-        changeStatusBarIconColor(iconsIsLight = true)
+        changeStatusBarIconColor(iconsShouldBeLight = true)
     }
 
     override fun onStop() {
         super.onStop()
-        changeStatusBarIconColor(iconsIsLight = false)
+        changeStatusBarIconColor(iconsShouldBeLight = false)
     }
 
     override fun initViews() = with(binding) {
         makeFragmentFullScreen()
         showBottomNav(false)
         observeTimer()
+        options.forEach { it.isSelected = true }
         viewModel.getQuestions(params?.quizType, requireContext())
 
         nextButton.setOnClickListener {
@@ -172,7 +152,27 @@ class QuestionsFragment :
         binding.nextButton.setBackgroundResource(if (enabled) R.drawable.enabled_btn_bg else R.drawable.disabled_btn_bg)
     }
 
+    private fun navigateToScoreFragment() {
+        navigate(
+            R.id.scoreFragment,
+            ScoreFragment.Params(
+                viewModel.currentState().currentQuestionNumber,
+                viewModel.getRightAnswerCount(),
+                params?.quizType
+            ),
+            slideInOutAnimationNavOptions
+        )
+    }
+
     override fun render(state: QuestionsState): Unit = with(binding) {
+
+        Log.d("mytag", "render: ${state.readyForNavigatingToScoreFragment}")
+
+        if (state.readyForNavigatingToScoreFragment) {
+            navigateToScoreFragment()
+            return@with
+        }
+
         questionNumber.isInvisible = state.currentQuestionNumber == 0
         questionNumber.text =
             if (state.loading) getString(R.string.loading_questions_text) else "#${state.currentQuestionNumber}"
@@ -197,7 +197,14 @@ class QuestionsFragment :
 
                     questionImage.load(currentQuestion.title) {
                         listener(
+                            onSuccess = { _, _ ->
+                                shimmerFlagImage.hideShimmer()
+                            },
+                            onStart = {
+                                shimmerFlagImage.showShimmer(true)
+                            },
                             onError = { _, _ ->
+                                shimmerFlagImage.hideShimmer()
                                 toast("Error happened while image loading, move to the next question pls")
                                 toggleNextBtn(enabled = true)
                             }

@@ -1,6 +1,5 @@
 package com.nesib.countriesapp.base
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.nesib.countriesapp.MainActivity
@@ -24,7 +22,6 @@ import com.nesib.countriesapp.utils.sdkVersion
 import com.nesib.countriesapp.utils.supportsChangingStatusBarColors
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class BaseFragment<
         VB : ViewBinding,
@@ -58,6 +55,11 @@ abstract class BaseFragment<
         observeState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        changeStatusBarIconColor(iconsShouldBeLight = false)
+    }
+
     fun makeFragmentFullScreen() = with(binding) {
         root.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -76,10 +78,6 @@ abstract class BaseFragment<
                 .launchIn(lifecycleScope)
         }
 
-
-    }
-
-    open fun onAction(action: Int) {
 
     }
 
@@ -117,10 +115,10 @@ abstract class BaseFragment<
         }
     }
 
-    fun changeStatusBarIconColor(iconsIsLight: Boolean) {
+    fun changeStatusBarIconColor(iconsShouldBeLight: Boolean) {
         if (sdkVersion.supportsChangingStatusBarColors()) {
             val decorView = requireActivity().window.decorView
-            decorView.systemUiVisibility = if (iconsIsLight) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            decorView.systemUiVisibility = if (iconsShouldBeLight) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
     }

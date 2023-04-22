@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
@@ -65,6 +66,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeState, HomeViewModel,
                 slideInOutAnimationNavOptions
             )
         }
+
+//        appBarLayout?.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+//            Log.d("mytag", "offset: $verticalOffset")
+//        }
+
+
+        Unit
     }
 
     override fun render(state: HomeState) {

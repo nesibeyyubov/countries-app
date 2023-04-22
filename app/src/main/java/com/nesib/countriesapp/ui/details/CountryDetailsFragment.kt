@@ -3,17 +3,13 @@ package com.nesib.countriesapp.ui.details
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseFragment
-import com.nesib.countriesapp.base.BaseViewModel
 import com.nesib.countriesapp.base.ScreenParams
 import com.nesib.countriesapp.databinding.FragmentCountryDetailsBinding
 import com.nesib.countriesapp.models.CountryUi
@@ -114,11 +110,11 @@ class CountryDetailsFragment :
 
     override fun onResume() {
         super.onResume()
-        changeStatusBarIconColor(iconsIsLight = true)
+        changeStatusBarIconColor(iconsShouldBeLight = true)
     }
 
     override fun onStop() {
         super.onStop()
-        changeStatusBarIconColor(iconsIsLight = false)
+        changeStatusBarIconColor(iconsShouldBeLight = false)
     }
 }

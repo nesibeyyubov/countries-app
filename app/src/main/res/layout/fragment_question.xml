@@ -78,14 +78,21 @@
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/loading" />
 
-                <ImageView
-                    android:id="@+id/questionImage"
-                    android:layout_width="190dp"
-                    android:layout_height="110dp"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    tools:src="@drawable/flag" />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_flag_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/questionImage"
+                        android:layout_width="190dp"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        tools:src="@drawable/flag" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -143,7 +150,7 @@
                         <LinearLayout
                             android:id="@+id/option_a"
                             android:layout_width="match_parent"
-                            android:layout_height="47dp"
+                            android:layout_height="43dp"
                             android:layout_marginBottom="20dp"
                             android:background="@drawable/option_bg"
                             android:gravity="center_vertical"
@@ -169,6 +176,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
                                 android:text="Azerbaijan"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -204,6 +213,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
                                 android:text="Azerbaijan"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -239,6 +250,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
                                 android:text="Azerbaijan"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -274,6 +287,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
                                 android:text="Azerbaijan"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
