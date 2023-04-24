@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.base.BaseViewModel
 import com.nesib.countriesapp.data.network.CountriesRepository
+import com.nesib.countriesapp.utils.NetworkNotAvailableException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
@@ -17,6 +18,17 @@ class CountryDetailsViewModel @Inject constructor(
 ) : BaseViewModel<CountryDetailsState>(CountryDetailsState()) {
 
 
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is NetworkNotAvailableException -> {
+                setState { it.copy(error = "Network not available, pls check internet connection") }
+            }
+            else -> {
+                setState { it.copy(error = "Something went wrong, please try again later") }
+            }
+        }
+    }
+
     fun getBorders(codes: List<String>) {
         if (currentState().borders.isNotEmpty()) return
         if (codes.isEmpty()) return
@@ -26,7 +38,7 @@ class CountryDetailsViewModel @Inject constructor(
                 setState { it.copy(bordersLoading = false, borders = borderCountries) }
             }
             .catch {
-                Log.d("mytag", "catch block: ${it.message}")
+                handleError(it)
             }
             .launchIn(viewModelScope)
 

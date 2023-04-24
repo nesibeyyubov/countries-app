@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.details
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -86,6 +87,8 @@ class CountryDetailsFragment :
             tvFlagDescription.isSelected = true
             tvFlagDescription.text = country.flags.description
 
+            noBorders.isVisible = params?.country?.borders.isNullOrEmpty().not()
+
             showMapButton.setOnClickListener {
                 navigate(
                     R.id.detailsMapFragment,
@@ -100,6 +103,14 @@ class CountryDetailsFragment :
     }
 
     override fun render(state: CountryDetailsState) = with(binding) {
+        if (state.error != null) {
+            bordersProgressBar.isVisible = false
+            noBorders.isVisible = true
+            noBorders.setTextColor(Color.RED)
+            noBorders.text = state.error
+            bordersRecyclerView.isVisible = false
+            return@with
+        }
         bordersProgressBar.isVisible = state.bordersLoading
         noBorders.isVisible = state.borders.isEmpty() && !state.bordersLoading
 

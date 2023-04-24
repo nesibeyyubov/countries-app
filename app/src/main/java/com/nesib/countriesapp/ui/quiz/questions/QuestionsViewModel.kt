@@ -11,6 +11,7 @@ import com.nesib.countriesapp.data.network.CountriesRepository
 import com.nesib.countriesapp.models.CountryUi
 import com.nesib.countriesapp.models.Question
 import com.nesib.countriesapp.models.QuizType
+import com.nesib.countriesapp.utils.NetworkNotAvailableException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -39,13 +40,24 @@ class QuestionsViewModel @Inject constructor(
 
     fun getRightAnswerCount() = rightAnswerCount
 
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is NetworkNotAvailableException -> {
+                setState { it.copy(error = "Network not available, pls check internet connection") }
+            }
+            else -> {
+                setState { it.copy(error = "Something went wrong, please try again later") }
+            }
+        }
+    }
+
     fun getQuestions(quizTypeFlag: QuizType?, context: Context) {
         countriesRepository.getAllCountries()
             .onStart { setState { it.copy(loading = true) } }
             .onEach {
                 makeQuestions(it.toMutableList(), quizTypeFlag, context)
             }
-            .catch { }
+            .catch { handleError(it) }
             .launchIn(viewModelScope)
     }
 

@@ -5,11 +5,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.base.BaseAndroidViewModel
 import com.nesib.countriesapp.base.State
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -24,24 +28,36 @@ class NetworkConnectivityViewModel @Inject constructor(
     private val connectivityManager =
         myApplication.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+    private val _connectivityChannel = Channel<ConnectivityState>()
+    val connectivityStatus = _connectivityChannel.receiveAsFlow().distinctUntilChanged()
+
+    private var lostConnectionBefore = false
+
 
     init {
         connectivityCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                Log.d("mytag", "available: ")
-                setState { it.copy(status = ConnectivityState.Status.Available) }
+                if (lostConnectionBefore) {
+                    viewModelScope.launch {
+                        _connectivityChannel.send(ConnectivityState(ConnectivityState.Status.Available))
+                    }
+                }
             }
 
             override fun onUnavailable() {
                 super.onUnavailable()
-                Log.d("mytag", "onUnavailable: ")
-                setState { it.copy(status = ConnectivityState.Status.Unavailable) }
+                viewModelScope.launch {
+                    _connectivityChannel.send(ConnectivityState(ConnectivityState.Status.Unavailable))
+                }
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                setState { it.copy(status = ConnectivityState.Status.Unavailable) }
+                lostConnectionBefore = true
+                viewModelScope.launch {
+                    _connectivityChannel.send(ConnectivityState(ConnectivityState.Status.Unavailable))
+                }
             }
         }
         connectivityCallback?.let { connectivityManager.registerDefaultNetworkCallback(it) }

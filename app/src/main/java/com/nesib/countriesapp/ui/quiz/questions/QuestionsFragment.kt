@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.nesib.countriesapp.MainActivity
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseFragment
 import com.nesib.countriesapp.base.ScreenParams
@@ -166,7 +167,11 @@ class QuestionsFragment :
 
     override fun render(state: QuestionsState): Unit = with(binding) {
 
-        Log.d("mytag", "render: ${state.readyForNavigatingToScoreFragment}")
+        if (state.error != null) {
+            (requireActivity() as MainActivity)
+                .showCustomSnackbar(state.error, Color.WHITE, Color.parseColor("#ff9500"))
+            return@with
+        }
 
         if (state.readyForNavigatingToScoreFragment) {
             navigateToScoreFragment()

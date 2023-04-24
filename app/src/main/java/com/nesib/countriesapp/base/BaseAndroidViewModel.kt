@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 open class BaseAndroidViewModel<STATE : State>(initialState: STATE, myApplication: Application) :
-    AndroidViewModel(myApplication!!) {
+    AndroidViewModel(myApplication) {
 
     private val _state = MutableStateFlow(initialState)
     val state = _state.asStateFlow()

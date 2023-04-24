@@ -1,6 +1,10 @@
 package com.nesib.countriesapp.utils
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Build.VERSION
 import android.view.View
@@ -11,6 +15,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.navigation.navOptions
 import com.nesib.countriesapp.R
+import dagger.hilt.android.internal.Contexts.getApplication
 import java.text.DecimalFormat
 
 /**
@@ -58,12 +63,14 @@ fun Int.supportsChangingStatusBarColors(): Boolean {
     return this >= Build.VERSION_CODES.M
 }
 
-
 /**
  * Fragment
  */
 
 val Fragment.sdkVersion
+    get() = Build.VERSION.SDK_INT
+
+val Activity.sdkVersion
     get() = Build.VERSION.SDK_INT
 
 
@@ -96,4 +103,22 @@ fun Int?.toFormattedDecimal(): String {
     return DecimalFormat("#,###")
         .format(this)
         .replace(",", ".")
+}
+
+
+fun Context.isNetworkAvailable(): Boolean {
+    val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    // For 29 api or above
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) ?: return false
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            else -> false
+        }
+    }
+    return (connectivityManager.activeNetworkInfo != null
+            && connectivityManager.activeNetworkInfo?.isConnectedOrConnecting == true)
+
 }

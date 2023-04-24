@@ -15,4 +15,7 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
     <color name="transparent">#00000000</color>
+
+    <color name="warning_color">#ff9500</color>
+    <color name="success_color">#00754a</color>
 </resources>

@@ -1,20 +1,17 @@
 package com.nesib.countriesapp.ui.countries
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.base.BaseViewModel
-import com.nesib.countriesapp.data.local.CountriesDao
 import com.nesib.countriesapp.data.network.CountriesRepository
+import com.nesib.countriesapp.utils.NetworkNotAvailableException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val countriesRepository: CountriesRepository,
-    private val countriesDao: CountriesDao
 ) : BaseViewModel<CountriesState>(CountriesState()) {
 
     fun sortCountriesBy(sortBy: SingleChipSelector.SortBy) {
@@ -25,6 +22,17 @@ class CountriesViewModel @Inject constructor(
         setState { it.copy(searchQuery = query) }
     }
 
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is NetworkNotAvailableException -> {
+                setState { it.copy(error = "Network not available, pls check internet connection") }
+            }
+            else -> {
+                setState { it.copy(error = "Something went wrong, please try again later") }
+            }
+        }
+    }
+
     fun getAllCountries() {
         if (currentState().countries.isNotEmpty()) {
             return
@@ -33,7 +41,9 @@ class CountriesViewModel @Inject constructor(
             .onStart {
                 setState { it.copy(loading = true) }
             }
-            .catch {}
+            .catch {
+                handleError(it)
+            }
             .onEach { countries ->
                 setState { it.copy(loading = false, countries = countries) }
             }.flowOn(Dispatchers.IO).launchIn(viewModelScope)
@@ -47,7 +57,9 @@ class CountriesViewModel @Inject constructor(
             .onStart {
                 setState { it.copy(loading = true) }
             }
-            .catch {}
+            .catch {
+                handleError(it)
+            }
             .onEach { countries ->
                 setState { currentState -> currentState.copy(loading = false, countries = countries) }
             }.flowOn(Dispatchers.IO).launchIn(viewModelScope)

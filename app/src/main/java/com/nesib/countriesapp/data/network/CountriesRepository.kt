@@ -1,12 +1,19 @@
 package com.nesib.countriesapp.data.network
 
+import android.content.Context
+import android.net.Network
+import android.util.Log
 import com.nesib.countriesapp.data.local.CountriesDao
 import com.nesib.countriesapp.models.BorderUi
 import com.nesib.countriesapp.models.CountryUi
 import com.nesib.countriesapp.models.toBorderModel
 import com.nesib.countriesapp.models.toUiModel
 import com.nesib.countriesapp.utils.Constants
+import com.nesib.countriesapp.utils.NetworkNotAvailableException
+import com.nesib.countriesapp.utils.isNetworkAvailable
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject
@@ -16,6 +23,7 @@ import javax.inject.Singleton
 class CountriesRepository @Inject constructor(
     private val dao: CountriesDao,
     private val countriesApi: CountriesApi,
+    @ApplicationContext private val context: Context
 ) {
 
     fun getBordersByAlphaCode(codes: List<String>): Flow<List<BorderUi>> = flow {
@@ -23,6 +31,9 @@ class CountriesRepository @Inject constructor(
         if (countriesInDb.isNotEmpty()) {
             emit(countriesInDb)
         } else {
+            if (context.isNetworkAvailable().not()) {
+                throw NetworkNotAvailableException()
+            }
             val countries =
                 countriesApi.getCountriesByAlphaCode(codes.joinToString(","), Constants.BORDER_COUNTRIES_FIELDS)
             val borders = countries.map { it.toBorderModel() }
@@ -37,6 +48,9 @@ class CountriesRepository @Inject constructor(
         if (countriesInDb.isNotEmpty()) {
             emit(countriesInDb)
         } else {
+            if (context.isNetworkAvailable().not()) {
+                throw NetworkNotAvailableException()
+            }
             val countries = countriesApi.getAllCountries()
             emit(countries.map { countryModel ->
                 countryModel.toUiModel()
@@ -51,6 +65,9 @@ class CountriesRepository @Inject constructor(
         if (countriesInDb.isNotEmpty()) {
             emit(countriesInDb)
         } else {
+            if (context.isNetworkAvailable().not()) {
+                throw NetworkNotAvailableException()
+            }
             emit(countriesApi.getCountriesByRegion(region).map { countryModel -> countryModel.toUiModel() })
         }
     }

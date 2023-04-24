@@ -93,8 +93,8 @@ abstract class BaseFragment<
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    fun snackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    fun snackbar(message: String, duration: Int = Snackbar.LENGTH_SHORT) {
+        Snackbar.make(binding.root, message, duration).show()
     }
 
     fun showBottomNav(show: Boolean) {

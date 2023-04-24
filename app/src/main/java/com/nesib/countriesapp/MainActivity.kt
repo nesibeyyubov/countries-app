@@ -1,25 +1,27 @@
 package com.nesib.countriesapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.material.snackbar.Snackbar
 import com.nesib.countriesapp.databinding.ActivityMainBinding
+import com.nesib.countriesapp.ui.ConnectivityState
 import com.nesib.countriesapp.ui.NetworkConnectivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -42,17 +44,47 @@ class MainActivity : AppCompatActivity() {
             saveState = false
         )
 
-        viewModel.state
-            .onEach {
-                Log.d("mytag", "network status: $it")
-            }
-            .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
-            .launchIn(lifecycleScope)
 
+        observeConnectivity()
 
         if (!isGooglePlayServicesAvailable()) {
             finish()
         }
+    }
+
+    fun showCustomSnackbar(message: String, textColor: Int, backgroundColor: Int) {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
+        snackbar.setAnchorView(binding.navView.id)
+        snackbar.view.setBackgroundColor(backgroundColor)
+        val snackbarTv = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        snackbarTv.setTextColor(textColor)
+        snackbar.show()
+    }
+
+    private fun observeConnectivity() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            viewModel.connectivityStatus
+                .onEach {
+                    when (it.status) {
+                        ConnectivityState.Status.Unavailable -> showCustomSnackbar(
+                            "Unavailable",
+                            Color.WHITE,
+                            getColor(R.color.warning_color)
+                        )
+                        ConnectivityState.Status.Available -> showCustomSnackbar(
+                            "Available",
+                            Color.WHITE,
+                            getColor(R.color.success_color)
+                        )
+                        ConnectivityState.Status.Unknown -> {
+
+                        }
+                    }
+                }
+                .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
+                .launchIn(lifecycleScope)
+        }
+
     }
 
     fun showBottomNav(show: Boolean) {

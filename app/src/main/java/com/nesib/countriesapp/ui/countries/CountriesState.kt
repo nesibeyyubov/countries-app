@@ -7,5 +7,6 @@ data class CountriesState(
     val countries: List<CountryUi> = emptyList(),
     val loading: Boolean = false,
     val sortedBy: SingleChipSelector.SortBy = SingleChipSelector.SortBy.None,
-    val searchQuery: String = ""
+    val searchQuery: String = "",
+    val error: String? = null
 ) : State

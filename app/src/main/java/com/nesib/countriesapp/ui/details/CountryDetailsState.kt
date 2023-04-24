@@ -5,5 +5,6 @@ import com.nesib.countriesapp.models.BorderUi
 
 data class CountryDetailsState(
     val borders: List<BorderUi> = emptyList(),
-    val bordersLoading: Boolean = false
+    val bordersLoading: Boolean = false,
+    val error: String? = null
 ) : State

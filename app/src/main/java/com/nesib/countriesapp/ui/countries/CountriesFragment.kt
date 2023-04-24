@@ -73,6 +73,14 @@ class CountriesFragment :
         shimmerLayout.isVisible = state.loading
         recyclerView.isVisible = !state.loading
 
+        if (state.error != null) {
+            recyclerView.isVisible = false
+            shimmerLayout.isVisible = false
+            hasFailureText.text = state.error
+            hasFailureText.isVisible = true
+            return@with
+        }
+
         if (!state.loading) {
             when (state.sortedBy) {
                 SingleChipSelector.SortBy.Population -> {
