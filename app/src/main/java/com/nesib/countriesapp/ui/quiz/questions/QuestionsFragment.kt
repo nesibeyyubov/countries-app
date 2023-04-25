@@ -169,7 +169,7 @@ class QuestionsFragment :
 
         if (state.error != null) {
             (requireActivity() as MainActivity)
-                .showCustomSnackbar(state.error, Color.WHITE, Color.parseColor("#ff9500"))
+                .showCustomSnackbar(getString(state.error), Color.WHITE, getColor(R.color.warning_color))
             return@with
         }
 
@@ -210,7 +210,7 @@ class QuestionsFragment :
                             },
                             onError = { _, _ ->
                                 shimmerFlagImage.hideShimmer()
-                                toast("Error happened while image loading, move to the next question pls")
+                                toast(getString(R.string.error_image_load))
                                 toggleNextBtn(enabled = true)
                             }
                         )

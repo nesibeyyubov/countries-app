@@ -43,10 +43,10 @@ class QuestionsViewModel @Inject constructor(
     private fun handleError(error: Throwable) {
         when (error) {
             is NetworkNotAvailableException -> {
-                setState { it.copy(error = "Network not available, pls check internet connection") }
+                setState { it.copy(error = R.string.error_network_not_available) }
             }
             else -> {
-                setState { it.copy(error = "Something went wrong, please try again later") }
+                setState { it.copy(error = R.string.error_something_wron) }
             }
         }
     }
@@ -166,7 +166,7 @@ class QuestionsViewModel @Inject constructor(
                     val capital = if (rightOption.capital.isNotEmpty()) rightOption.capital.first() else null
 
                     if (capital == null) {
-                        "... is the capital of itself"
+                        context.getString(R.string.capital_of_itself)
                     } else {
                         context.getString(
                             R.string.question_capital_text,

@@ -2,6 +2,7 @@ package com.nesib.countriesapp.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.nesib.countriesapp.R
 import com.nesib.countriesapp.utils.toSafeString
 
 @Entity(tableName = "countries")
@@ -41,24 +42,23 @@ data class CountryUi(
 
 fun CountryUi.toDetailsKeyValue(): List<CountryDetail> {
     val details = mutableListOf<CountryDetail>()
-    details.add(CountryDetail("Currency", currencies.keys.firstOrNull().toSafeString()))
-    details.add(CountryDetail("Region", region))
-    details.add(CountryDetail("Subregion", subregion))
-    details.add(CountryDetail("Timezones", timezones.joinToString("\n")))
-    details.add(CountryDetail("Start Of Week", startOfWeek))
+    details.add(CountryDetail(R.string.key_currency, currencies.keys.firstOrNull().toSafeString()))
+    details.add(CountryDetail(R.string.key_region, region))
+    details.add(CountryDetail(R.string.key_subregion, subregion))
+    details.add(CountryDetail(R.string.key_timezones, timezones.joinToString("\n")))
+    details.add(CountryDetail(R.string.key_start_of_week, startOfWeek))
     details.add(
         CountryDetail(
-            "Language",
+            R.string.key_language,
             languages[languages.keys.firstOrNull()] ?: languages.keys.firstOrNull().toSafeString()
         )
     )
-    details.add(CountryDetail("Postal Code", postalCode.format))
-    details.add(CountryDetail("Calling Code", "${phoneNumberDetails.root}${phoneNumberDetails.suffixes.firstOrNull()}"))
-    details.add(CountryDetail("Car side", car.side))
-    details.add(CountryDetail("Fifa code", fifaCode))
-    details.add(CountryDetail("Fifa code", fifaCode))
-    details.add(CountryDetail("Continents", continents.joinToString("|")))
-    details.add(CountryDetail("Website domain", websiteEndingDomains.joinToString("\n")))
+    details.add(CountryDetail(R.string.key_postal_code, postalCode.format))
+    details.add(CountryDetail(R.string.key_calling_code, "${phoneNumberDetails.root}${phoneNumberDetails.suffixes.firstOrNull()}"))
+    details.add(CountryDetail(R.string.key_car_side, car.side))
+    details.add(CountryDetail(R.string.key_fifa_code, fifaCode))
+    details.add(CountryDetail(R.string.key_continents, continents.joinToString("|")))
+    details.add(CountryDetail(R.string.key_website_domain, websiteEndingDomains.joinToString("\n")))
 
     return details.filter { it.value.isNotEmpty() }
 }

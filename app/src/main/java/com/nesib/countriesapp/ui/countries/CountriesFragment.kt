@@ -76,7 +76,7 @@ class CountriesFragment :
         if (state.error != null) {
             recyclerView.isVisible = false
             shimmerLayout.isVisible = false
-            hasFailureText.text = state.error
+            hasFailureText.text = getString(state.error)
             hasFailureText.isVisible = true
             return@with
         }

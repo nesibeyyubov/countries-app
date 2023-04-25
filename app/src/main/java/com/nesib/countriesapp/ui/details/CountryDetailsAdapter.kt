@@ -15,7 +15,7 @@ class CountryDetailsAdapter : GenericListAdapter<CountryDetailItemViewBinding, C
     },
     onBind = { countryDetail, _, binding ->
         with(binding) {
-            tvKey.text = countryDetail.key
+            tvKey.text = binding.root.context.getString(countryDetail.key)
             tvValue.text = countryDetail.value
         }
     }

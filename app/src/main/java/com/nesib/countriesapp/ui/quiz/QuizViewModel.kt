@@ -56,7 +56,6 @@ class QuizViewModel @Inject constructor(
                         }
                     )
                 }
-                Log.d("mytag", "getQuizzes: $quizzes")
                 setState { it.copy(loading = false, quizzes = quizzes) }
             }
             .catch {}

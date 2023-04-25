@@ -10,7 +10,6 @@
     <string name="no_information_text">Məlumat yoxdur</string>
 
 
-
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Xoş gəldiniz</string>
     <string name="select_region_text">Region seçin</string>
@@ -25,7 +24,6 @@
     <string name="search_text">Axtar</string>
     <string name="country_not_found_text">Ölkə tapılmadı</string>
     <string name="search_for_country_text">Burada istədiyiniz ölkəni axtara bilərsiniz</string>
-
 
 
     <!-- RESULTS FRAGMENT -->
@@ -50,6 +48,7 @@
     <string name="next_button_text">Növbəti</string>
     <string name="click_start_btn_text">Testə başlamaq üçün başla düyməsinə klikləyin</string>
     <string name="which_country_not_have_capital">Hansı ölkənin paytaxtı yoxdur?</string>
+    <string name="capital_of_itself">... özünün paytaxtıdır</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -94,5 +93,27 @@
     <string name="seconds_text">60 saniyə</string>
     <string name="play_button_text">oyna</string>
     <string name="search_results">Axtarış nəticələri</string>
+
+    <!--  ERRORS  -->
+    <string name="error_network_not_available">Şəbəkə mövcud deyil,\nİnternet bağlantısını yoxlayın</string>
+    <string name="error_something_wron">Xəta baş verdi,\ndaha sonra yenidən cəhd edin</string>
+    <string name="error_image_load">Şəkil yüklənərkən xəta baş verdi, növbəti suala keçin</string>
+    <string name="network_alert_available">Şəbəkə artıq mövcuddur!</string>
+    <string name="network_alert_unavailable">İnternet bağlantısı yoxdur!</string>
+
+
+    <!--  Country KEY VALUE details  -->
+    <string name="key_currency">Məzənnə</string>
+    <string name="key_region">Region</string>
+    <string name="key_subregion">Subregion</string>
+    <string name="key_timezones">Saat qurşağı</string>
+    <string name="key_start_of_week">Həftənin başlanğıcı</string>
+    <string name="key_language">Dil</string>
+    <string name="key_postal_code">Poçt kodu</string>
+    <string name="key_calling_code">Zəng kodu</string>
+    <string name="key_car_side">Maşın gediş tərəfi</string>
+    <string name="key_fifa_code">Fifa kodu</string>
+    <string name="key_continents">Qitə</string>
+    <string name="key_website_domain">Sayt domaini</string>
 
 </resources>

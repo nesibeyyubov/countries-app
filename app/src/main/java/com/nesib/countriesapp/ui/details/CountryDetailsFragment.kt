@@ -107,7 +107,7 @@ class CountryDetailsFragment :
             bordersProgressBar.isVisible = false
             noBorders.isVisible = true
             noBorders.setTextColor(Color.RED)
-            noBorders.text = state.error
+            noBorders.text = getString(state.error)
             bordersRecyclerView.isVisible = false
             return@with
         }

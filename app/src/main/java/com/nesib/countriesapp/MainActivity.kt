@@ -67,18 +67,20 @@ class MainActivity : AppCompatActivity() {
                 .onEach {
                     when (it.status) {
                         ConnectivityState.Status.Unavailable -> showCustomSnackbar(
-                            "Unavailable",
+                            getString(R.string.network_alert_unavailable),
                             Color.WHITE,
                             getColor(R.color.warning_color)
                         )
                         ConnectivityState.Status.Available -> showCustomSnackbar(
-                            "Available",
+                            getString(R.string.network_alert_available),
                             Color.WHITE,
                             getColor(R.color.success_color)
                         )
-                        ConnectivityState.Status.Unknown -> {
-
-                        }
+                        ConnectivityState.Status.Unknown -> showCustomSnackbar(
+                            getString(R.string.network_alert_unavailable),
+                            Color.WHITE,
+                            getColor(R.color.warning_color)
+                        )
                     }
                 }
                 .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)

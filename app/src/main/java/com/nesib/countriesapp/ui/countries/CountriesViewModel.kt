@@ -1,6 +1,7 @@
 package com.nesib.countriesapp.ui.countries
 
 import androidx.lifecycle.viewModelScope
+import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseViewModel
 import com.nesib.countriesapp.data.network.CountriesRepository
 import com.nesib.countriesapp.utils.NetworkNotAvailableException
@@ -25,10 +26,10 @@ class CountriesViewModel @Inject constructor(
     private fun handleError(error: Throwable) {
         when (error) {
             is NetworkNotAvailableException -> {
-                setState { it.copy(error = "Network not available, pls check internet connection") }
+                setState { it.copy(error = R.string.error_network_not_available) }
             }
             else -> {
-                setState { it.copy(error = "Something went wrong, please try again later") }
+                setState { it.copy(error = R.string.error_something_wron) }
             }
         }
     }

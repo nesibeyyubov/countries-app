@@ -1,5 +1,6 @@
 package com.nesib.countriesapp.ui.countries
 
+import androidx.annotation.StringRes
 import com.nesib.countriesapp.base.State
 import com.nesib.countriesapp.models.CountryUi
 
@@ -8,5 +9,5 @@ data class CountriesState(
     val loading: Boolean = false,
     val sortedBy: SingleChipSelector.SortBy = SingleChipSelector.SortBy.None,
     val searchQuery: String = "",
-    val error: String? = null
+    @StringRes val error: Int? = null
 ) : State

@@ -49,6 +49,7 @@
     <string name="next_button_text">Sonraki</string>
     <string name="click_start_btn_text">Testi oynatmak için başlat düğmesine tıklayın</string>
     <string name="which_country_not_have_capital">Hangi ülkenin başkenti yoktur?</string>
+    <string name="capital_of_itself">... kendisinin başkentidir</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -93,4 +94,26 @@
     <string name="seconds_text">60 saniye</string>
     <string name="play_button_text">oyna</string>
     <string name="search_results">Arama sonuçları</string>
+
+    <!--  ERRORS  -->
+    <string name="error_network_not_available">Ağ kullanılamıyor,\nlütfen internet bağlantısını kontrol edin</string>
+    <string name="error_something_wron">Bir şeyler ters gitti,\nlütfen daha sonra tekrar deneyin</string>
+    <string name="error_image_load">Resim yüklenirken hata oluştu, lütfen bir sonraki soruya geçin</string>
+    <string name="network_alert_available">Tekrar çevrimiçisiniz!</string>
+    <string name="network_alert_unavailable">İnternet bağlantısı yok!</string>
+
+
+    <!--  Country KEY VALUE details  -->
+    <string name="key_currency">para birimi</string>
+    <string name="key_region">Bölge</string>
+    <string name="key_subregion">Alt bölge</string>
+    <string name="key_timezones">Zaman dilimleri</string>
+    <string name="key_start_of_week">hafta başı</string>
+    <string name="key_language">Dil</string>
+    <string name="key_postal_code">Posta Kodu</string>
+    <string name="key_calling_code">Arama Kodu</string>
+    <string name="key_car_side">Araba tarafı</string>
+    <string name="key_fifa_code">FIFA kodu</string>
+    <string name="key_continents">Kıtalar</string>
+    <string name="key_website_domain">Web sitesi alanı</string>
 </resources>
