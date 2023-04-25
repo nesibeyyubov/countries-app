@@ -1,12 +1,10 @@
 package com.nesib.countriesapp.utils
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.os.Build.VERSION
 import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
@@ -15,7 +13,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.navigation.navOptions
 import com.nesib.countriesapp.R
-import dagger.hilt.android.internal.Contexts.getApplication
 import java.text.DecimalFormat
 
 /**

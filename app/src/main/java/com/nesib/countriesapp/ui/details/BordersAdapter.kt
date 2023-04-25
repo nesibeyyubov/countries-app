@@ -7,7 +7,6 @@ import coil.load
 import com.nesib.countriesapp.base.GenericListAdapter
 import com.nesib.countriesapp.databinding.BorderCountryItemBinding
 import com.nesib.countriesapp.models.BorderUi
-import com.nesib.countriesapp.models.CountryUi
 
 class BordersAdapter : GenericListAdapter<BorderCountryItemBinding, BorderUi>(
     inflate = { context: Context, viewGroup: ViewGroup, b: Boolean ->

@@ -1,7 +1,6 @@
 package com.nesib.countriesapp.ui.quiz.questions
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils

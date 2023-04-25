@@ -2,7 +2,6 @@ package com.nesib.countriesapp.data.network
 
 import com.nesib.countriesapp.models.CountryModel
 import com.nesib.countriesapp.utils.Constants
-import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

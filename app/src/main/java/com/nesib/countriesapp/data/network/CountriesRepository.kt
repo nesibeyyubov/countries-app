@@ -1,8 +1,6 @@
 package com.nesib.countriesapp.data.network
 
 import android.content.Context
-import android.net.Network
-import android.util.Log
 import com.nesib.countriesapp.data.local.CountriesDao
 import com.nesib.countriesapp.models.BorderUi
 import com.nesib.countriesapp.models.CountryUi
@@ -13,7 +11,6 @@ import com.nesib.countriesapp.utils.NetworkNotAvailableException
 import com.nesib.countriesapp.utils.isNetworkAvailable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.cancel
 import kotlinx.coroutines.flow.flow
 import java.util.*
 import javax.inject.Inject

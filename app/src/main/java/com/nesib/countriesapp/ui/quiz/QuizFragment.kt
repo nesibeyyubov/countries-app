@@ -1,6 +1,5 @@
 package com.nesib.countriesapp.ui.quiz
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider

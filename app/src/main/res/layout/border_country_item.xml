@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="90dp"
-    android:padding="10dp"
-    android:elevation="3dp"
-    android:background="@color/colorItemOdd"
-    android:layout_marginEnd="18dp"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginEnd="18dp"
+    android:background="@color/colorItemOdd"
+    android:elevation="3dp"
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -22,20 +23,20 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/flag" />
+            tools:src="@drawable/flag" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:textAlignment="center"
         android:id="@+id/borderCountryName"
         android:layout_width="wrap_content"
-        android:maxWidth="80dp"
-        android:ellipsize="end"
-        android:maxLines="1"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxWidth="80dp"
+        android:maxLines="1"
         android:text="Azerbaijan"
+        android:textAlignment="center"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView" />

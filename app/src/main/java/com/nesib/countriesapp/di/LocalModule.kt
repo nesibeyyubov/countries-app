@@ -2,7 +2,6 @@ package com.nesib.countriesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.nesib.countriesapp.data.local.CountriesDao
 import com.nesib.countriesapp.data.local.CountriesDatabase
 import dagger.Module

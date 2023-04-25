@@ -1,6 +1,5 @@
 package com.nesib.countriesapp.ui.details
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseViewModel
