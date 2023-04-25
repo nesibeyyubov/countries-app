@@ -2,7 +2,6 @@ package com.nesib.countriesapp.ui.quiz.questions
 
 import android.content.Context
 import android.os.CountDownTimer
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.nesib.countriesapp.R
 import com.nesib.countriesapp.base.BaseViewModel
@@ -11,13 +10,11 @@ import com.nesib.countriesapp.data.network.CountriesRepository
 import com.nesib.countriesapp.models.CountryUi
 import com.nesib.countriesapp.models.Question
 import com.nesib.countriesapp.models.QuizType
+import com.nesib.countriesapp.utils.Constants.QUIZ_DURATION
 import com.nesib.countriesapp.utils.NetworkNotAvailableException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import java.util.Timer
 import javax.inject.Inject
-import kotlin.time.seconds
 
 @HiltViewModel
 class QuestionsViewModel @Inject constructor(
@@ -25,11 +22,7 @@ class QuestionsViewModel @Inject constructor(
     private val preferencesDataStore: PreferencesDataStore
 ) : BaseViewModel<QuestionsState>(QuestionsState()) {
 
-    companion object {
-        const val QUIZ_TIME = 20
-    }
-
-    private val _timer = MutableStateFlow(QUIZ_TIME)
+    private val _timer = MutableStateFlow(QUIZ_DURATION / 1000)
     val timer = _timer.asStateFlow()
 
     private var countDownTimer: CountDownTimer? = null
@@ -94,7 +87,7 @@ class QuestionsViewModel @Inject constructor(
 
     private fun startTimer() {
         if (countDownTimerStarted) return
-        countDownTimer = object : CountDownTimer(QUIZ_TIME * 1000L, 1 * 1000) {
+        countDownTimer = object : CountDownTimer(QUIZ_DURATION.toLong(), 1 * 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = (millisUntilFinished / 1000).toInt()
                 _timer.update { secondsLeft }

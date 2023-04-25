@@ -28,7 +28,8 @@ object Constants {
     const val QUIZ_TYPE_REGION = "regions"
     const val QUIZ_TYPE_FLAGS = "flags"
     const val QUIZ_TYPE_CAPITALS = "capitals"
-    const val QUIZ_DURATION: Long = 60000
+
+    const val QUIZ_DURATION = 60 * 1000
 
     // Score
     const val SCORE_KEY_FLAGS = "bestScoreFlags"
