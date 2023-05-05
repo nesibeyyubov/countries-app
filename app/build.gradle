@@ -14,8 +14,8 @@ android {
         applicationId "com.nesib.countriesapp"
         minSdkVersion 22
         targetSdkVersion 33
-        versionCode 4
-        versionName "1.3"
+        versionCode 12
+        versionName "1.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

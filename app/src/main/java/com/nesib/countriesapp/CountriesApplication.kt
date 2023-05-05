@@ -1,7 +1,6 @@
 package com.nesib.countriesapp
 
 import android.app.Application
-import android.util.Log
 import com.google.android.gms.maps.MapsInitializer
 import dagger.hilt.android.HiltAndroidApp
 
