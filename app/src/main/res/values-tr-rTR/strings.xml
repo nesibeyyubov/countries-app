@@ -11,21 +11,20 @@
     <string name="no_information_text">Bilgi yok</string>
 
 
-
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Hoş geldiniz</string>
-    <string name="select_region_text">Kıta\nseçin</string>
+    <string name="select_region_text">Kıta seçin</string>
     <string name="region_europe">Avrupa</string>
     <string name="region_africa">Afrika</string>
     <string name="region_americas">Amerika</string>
     <string name="region_asia">Asiya</string>
     <string name="region_oceania">Okyanusya</string>
+    <string name="region_all">Tüm Ülkeler</string>
 
     <!--SEARCH FRAGMENT-->
     <string name="search_text">Arama</string>
     <string name="country_not_found_text">Aradığınız ülke bulunamadı</string>
     <string name="search_for_country_text">İstediğiniz ülkeyi burada araya bilirsiniz</string>
-
 
 
     <!-- RESULTS FRAGMENT -->
@@ -44,12 +43,13 @@
     <!--QUESTION FRAGMENT-->
     <string name="loading_questions_text">Sorular yükleniyor…</string>
     <string name="question_number_text">Soru</string>
-    <string name="question_region_text">Hangi ülke verilen kıtada bulunuyor </string>
-    <string name="question_capital_text"> bu ülkenin başkentidir</string>
+    <string name="question_region_text">Hangi ülke %s kıtasında bulunuyor?</string>
+    <string name="question_capital_text">%s bu ülkenin başkentidir…</string>
     <string name="start_button_text">Başla</string>
     <string name="next_button_text">Sonraki</string>
     <string name="click_start_btn_text">Testi oynatmak için başlat düğmesine tıklayın</string>
     <string name="which_country_not_have_capital">Hangi ülkenin başkenti yoktur?</string>
+    <string name="capital_of_itself">... kendisinin başkentidir</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -59,7 +59,7 @@
     <!--SCORE FRAGMENT-->
     <string name="congrats_text">Tebrikler!</string>
     <string name="score_text">Skor</string>
-    <string name="your_best_score_text">En iyi skorun: </string>
+    <string name="your_best_score_text">En iyi skorun: %d</string>
     <string name="quiz_result_text"> &lt;b>%1$d soru&lt;/b> denediniz&lt;br/>bunlardan &lt;b>%2$d-i doğru&lt;/b> </string>
 
     <!-- FAVORITES FRAGMENT -->
@@ -94,4 +94,26 @@
     <string name="seconds_text">60 saniye</string>
     <string name="play_button_text">oyna</string>
     <string name="search_results">Arama sonuçları</string>
+
+    <!--  ERRORS  -->
+    <string name="error_network_not_available">Ağ kullanılamıyor,\nlütfen internet bağlantısını kontrol edin</string>
+    <string name="error_something_wron">Bir şeyler ters gitti,\nlütfen daha sonra tekrar deneyin</string>
+    <string name="error_image_load">Resim yüklenirken hata oluştu, lütfen bir sonraki soruya geçin</string>
+    <string name="network_alert_available">Tekrar çevrimiçisiniz!</string>
+    <string name="network_alert_unavailable">İnternet bağlantısı yok!</string>
+
+
+    <!--  Country KEY VALUE details  -->
+    <string name="key_currency">para birimi</string>
+    <string name="key_region">Bölge</string>
+    <string name="key_subregion">Alt bölge</string>
+    <string name="key_timezones">Zaman dilimleri</string>
+    <string name="key_start_of_week">hafta başı</string>
+    <string name="key_language">Dil</string>
+    <string name="key_postal_code">Posta Kodu</string>
+    <string name="key_calling_code">Arama Kodu</string>
+    <string name="key_car_side">Araba tarafı</string>
+    <string name="key_fifa_code">FIFA kodu</string>
+    <string name="key_continents">Kıtalar</string>
+    <string name="key_website_domain">Web sitesi alanı</string>
 </resources>

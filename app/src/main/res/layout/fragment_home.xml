@@ -1,126 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="50dp"
-    android:clipToPadding="false"
-    tools:context=".ui.HomeFragment">
+    android:padding="16dp">
 
-    <RelativeLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/transparent"
+        app:elevation="0dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-
-        <TextView
-            android:layout_marginHorizontal="18dp"
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="@string/welcome_text"
-            android:textColor="@android:color/black"
-            android:textSize="35sp"
-            android:textStyle="bold" />
-
-        <GridLayout
-            android:clipToPadding="false"
-            android:paddingHorizontal="18dp"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/nameTextView"
-            android:layout_marginTop="35dp"
-            android:columnCount="2">
+            android:layout_height="100dp"
+            app:collapsedTitleGravity="center"
+            app:collapsedTitleTextAppearance="@style/ToolbarTitleCollapsedStyle"
+            app:expandedTitleGravity="left|bottom"
+            app:expandedTitleMarginStart="0dp"
+            app:expandedTitleTextAppearance="@style/ToolbarTitleExpandedStyle"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:title="@string/select_region_text"
+            app:titleCollapseMode="scale">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:contentInsetStart="-10dp"
+                app:contentInsetStartWithNavigation="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="@string/select_region_text"
+                app:titleMargin="0dp"
+                app:titleMarginStart="0dp"
+                app:titleMargins="0dp" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
             <RelativeLayout
+                android:id="@+id/all_countries"
                 style="@style/continent_bg"
-                android:layout_marginEnd="30dp">
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/world_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_world" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_region_text"
-                    android:textColor="@android:color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/europa"
-                style="@style/continent_bg"
-                android:background="@drawable/bg_europa">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/region_europe"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="All countries"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
-            </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/asia"
-                style="@style/continent_bg"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/bg_asia">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/region_asia"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/africa"
                 style="@style/continent_bg"
-                android:background="@drawable/bg_africa">
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/africa_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_africa" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/region_africa"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Africa"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/america"
+                android:id="@+id/asia"
                 style="@style/continent_bg"
-                android:layout_marginEnd="30dp"
-                android:background="@drawable/bg_america">
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/asia_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_asia" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/region_americas"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Asia"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/americas"
+                style="@style/continent_bg"
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/americas_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_america" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Americas"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/europe"
+                style="@style/continent_bg"
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/europe_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_europa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Europe"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/oceania"
                 style="@style/continent_bg"
-                android:background="@drawable/bg_oceania">
+                android:layout_width="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/oceania_image"
+                    app:shapeAppearanceOverlay="@style/RoundedImage" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@drawable/bg_oceania" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/region_oceania"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Oceania"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
             </RelativeLayout>
 
-        </GridLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

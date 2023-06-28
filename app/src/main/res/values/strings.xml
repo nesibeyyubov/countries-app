@@ -10,21 +10,20 @@
     <string name="no_information_text">No information</string>
 
 
-
     <!--HOME FRAGMENT-->
     <string name="welcome_text">Welcome</string>
-    <string name="select_region_text">Select\nregion</string>
+    <string name="select_region_text">Select region</string>
     <string name="region_europe">Europe</string>
     <string name="region_africa">Africa</string>
     <string name="region_americas">America</string>
     <string name="region_asia">Asia</string>
     <string name="region_oceania">Oceania</string>
+    <string name="region_all">All</string>
 
     <!--SEARCH FRAGMENT-->
     <string name="search_text">Search</string>
     <string name="country_not_found_text">Country not found</string>
     <string name="search_for_country_text">You can search any country here</string>
-
 
 
     <!-- RESULTS FRAGMENT -->
@@ -43,12 +42,13 @@
     <!--QUESTION FRAGMENT-->
     <string name="loading_questions_text">Loading questions…</string>
     <string name="question_number_text">Question</string>
-    <string name="question_region_text">Which country is located in </string>
-    <string name="question_capital_text"> is the capital of …</string>
+    <string name="question_region_text">Which country is located in: %s</string>
+    <string name="question_capital_text">%s is the capital of …</string>
     <string name="start_button_text">Start</string>
     <string name="next_button_text">Next</string>
     <string name="click_start_btn_text">Click start button to play the quiz</string>
     <string name="which_country_not_have_capital">Which country doesn\'t have capital?</string>
+    <string name="capital_of_itself">... is the capital of itself</string>
 
 
     <!--QUIZ FRAGMENT-->
@@ -58,7 +58,7 @@
     <!--SCORE FRAGMENT-->
     <string name="congrats_text">Congrats!</string>
     <string name="score_text">Score</string>
-    <string name="your_best_score_text">Your best score is: </string>
+    <string name="your_best_score_text">Your best score is: %d</string>
     <string name="quiz_result_text">You attempted &lt;b>%1$d questions&lt;/b> &lt;br/> from that &lt;b>%2$d answer&lt;/b> is right</string>
 
     <!-- FAVORITES FRAGMENT -->
@@ -93,5 +93,27 @@
     <string name="seconds_text">60 seconds</string>
     <string name="play_button_text">play</string>
     <string name="search_results">Search results</string>
+
+    <!--  ERRORS  -->
+    <string name="error_network_not_available">Network not available\nplease check your network.</string>
+    <string name="error_something_wron">Something went wrong\nplease check again later.</string>
+    <string name="error_image_load">Error happened while image loading, move to the next question please</string>
+    <string name="network_alert_available">You\'re back online!</string>
+    <string name="network_alert_unavailable">No internet connection!</string>
+
+
+    <!--  Country KEY VALUE details  -->
+    <string name="key_currency">Currency</string>
+    <string name="key_region">Region</string>
+    <string name="key_subregion">Subregion</string>
+    <string name="key_timezones">Timezones</string>
+    <string name="key_start_of_week">Start Of Week</string>
+    <string name="key_language">Language</string>
+    <string name="key_postal_code">Postal Code</string>
+    <string name="key_calling_code">Calling Code</string>
+    <string name="key_car_side">Car side</string>
+    <string name="key_fifa_code">Fifa code</string>
+    <string name="key_continents">Continents</string>
+    <string name="key_website_domain">Website domain</string>
 
 </resources>
